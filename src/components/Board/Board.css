@@ -1,0 +1,28 @@
+.board_wrapper {
+    width: 97%;
+    height: 97%;
+    border: 1px solid black;
+    border-radius: 3px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board_header {
+    height: 50px;
+    background-color: grey;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header_items {
+    margin-left: 5px;
+}
+
+.board_title {
+
+}

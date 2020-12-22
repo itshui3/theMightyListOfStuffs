@@ -1,21 +1,35 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 
 import './Task.css'
+
+import TodoInput from './TodoInput.js'
 
 
 function Task({ task, taskID }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
+    const [todo, setTodo] = useState('')
+    const todoInputRef = useRef()
 
-    const startAddingTodo = () => {
-        setAddingTodo(true)
+    useEffect(() => {
+        if (addingTodo && todoInputRef.current) {
+            todoInputRef.current.focus()
+        }
+
+    }, [addingTodo])
+
+    const toggleAddingTodo = () => {
+        // if I'm toggling into input, I want to force user focus
+        // it feels like I might be focusing before input exists
+        // let's try
+
+        setAddingTodo(!addingTodo)
+        setTodo('')
     }
 
-    const stopAddingTodo = () => {
-        setAddingTodo(false)
+    const writeTodo = (ev) => {
+        setTodo(ev.target.value)
     }
-
-
 
 return (
 <>
@@ -41,16 +55,17 @@ return (
 
         addingTodo
         ?
-        <input 
-        className='todo_card' 
-        placeholder='Add Todo'
-        onBlur={stopAddingTodo}
+        <TodoInput 
+        todo={todo}
+        writeTodo={writeTodo}
+        toggleAddingTodo={toggleAddingTodo}
+        todoInputRef={todoInputRef}
         />
         :
         <button 
         className='todo_card' 
         placeholder='Add Todo'
-        onClick={startAddingTodo}
+        onClick={toggleAddingTodo}
         />
 
     }

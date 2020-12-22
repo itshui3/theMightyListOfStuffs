@@ -31,4 +31,6 @@
     height: calc(100% - 55px);
     width: 100%;
     background: pink;
+
+    display: flex;
 }

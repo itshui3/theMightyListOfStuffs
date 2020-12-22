@@ -1,6 +1,12 @@
-const dummylist = [
-    { name: 'Clean', description: 'Take out trash etc' },
-    { name: 'Code', description: 'Write da codes'}
+const dummyList = [
+    { 
+        name: 'Clean', 
+        todos: ['take out trash', 'wipe  floor'] 
+    },
+    { 
+        name: 'Code', 
+        todos: ['build tasklist', 'figure out how to drag drop'] 
+    }
 ]
 
-export { dummylist }
+export { dummyList }

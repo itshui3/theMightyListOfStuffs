@@ -11,7 +11,7 @@
 }
 
 .board_header {
-    height: 50px;
+    height: 55px;
     background-color: grey;
 
     display: flex;
@@ -25,4 +25,10 @@
 
 .board_title {
 
+}
+
+.board_body {
+    height: calc(100% - 55px);
+    width: 100%;
+    background: pink;
 }

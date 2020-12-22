@@ -13,40 +13,42 @@ function Board() {
     // I'll want taskList as useTaskList
     // so as to handle the nested data logic separately
 
-    return (
-        <>
-        <div className='board_wrapper'>
+return (
+<>
 
-            <div className='board_header'>
-                <h1 className='board_title header_items'>
-                {
-                boardTitle 
-                    ? boardTitle 
-                    : 'Placeholder'
-                }
-                </h1>
-            </div>
+<div className='board_wrapper'>
 
-            <div className='board_body'>
-            {
-            taskList.length > 0
-                ?
-                taskList.map((task, taskID) => (
+    <div className='board_header'>
+        <h1 className='board_title header_items'>
+        {
+        boardTitle 
+            ? boardTitle 
+            : 'Placeholder'
+        }
+        </h1>
+    </div>
 
-                    <Task 
-                    task = {task}
-                    taskID = {taskID}
-                    />
+    <div className='board_body'>
+    {
+    taskList.length > 0
+        ?
+        taskList.map((task, taskID) => (
 
-                ))
-                :
-                null
-            }
-            </div>
-                
-        </div>
-        </>
-    )
+            <Task 
+            task = {task}
+            taskID = {taskID}
+            />
+
+        ))
+        :
+        null
+    }
+    </div>
+        
+</div>
+
+</>
+)
 }
 
 export default Board;

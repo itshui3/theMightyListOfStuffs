@@ -5,7 +5,7 @@ import './Task.css'
 import TodoInput from './TodoInput.js'
 
 
-function Task({ task, taskID }) {
+function Task({ task, taskID, addTodo }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
@@ -21,18 +21,12 @@ function Task({ task, taskID }) {
     }, [addingTodo])
 
     const toggleAddingTodo = () => {
-
         setAddingTodo(!addingTodo)
         setTodo('')
-        
     }
 
     const writeTodo = (ev) => {
         setTodo(ev.target.value)
-    }
-
-    const addTodo = () => {
-
     }
 
 return (
@@ -63,7 +57,7 @@ return (
     writeTodo={writeTodo}
     toggleAddingTodo={toggleAddingTodo}
     todoInputRef={todoInputRef}
-    addTodo={addTodo}
+    addTodo={() => addTodo(todo)}
     />
     :
     <button 

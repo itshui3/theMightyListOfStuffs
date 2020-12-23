@@ -10,8 +10,31 @@ function Board() {
 
     const [boardTitle, setBoardTitle] = useState(null)
     const [taskList, setTaskList] = useState(dummyList)
-    // I'll want taskList as useTaskList
-    // so as to handle the nested data logic separately
+
+    const addTodo = (taskID) => (todo) => {
+        console.log('adding todo')
+        // find task, then append a todo to it
+        setTaskList(taskList.map((task, idx) => {
+
+            if (idx === taskID) {
+                // mutate and return
+                return {
+                    ...task,
+                    todos: [
+                        ...task.todos,
+                        todo
+                    ]
+                }
+            } else {
+                return task
+            }
+
+        }))
+    }
+
+    const removeTodo = (taskID) => (todoID) => {
+        // find task
+    }
 
 return (
 <>
@@ -38,6 +61,8 @@ return (
             <Task 
             task = {task}
             taskID = {taskID}
+            addTodo = {addTodo(taskID)}
+            logId = {console.log('taskID', taskID)}
             />
 
         ))

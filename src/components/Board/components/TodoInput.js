@@ -1,17 +1,64 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
-function TodoInput({todo, writeTodo, toggleAddingTodo, todoInputRef}) {
+import './TodoInput.css'
+
+function TodoInput({
+    todo, 
+    writeTodo, 
+    toggleAddingTodo, 
+    todoInputRef,
+    addTodo,
+}) {
+
+    const [allowBlur, setAllowBlur] = useState(true)
+
+    const preventBlur = () => {
+        setAllowBlur(false)
+    }
+
+    const releasePreventBlur = () => {
+        setAllowBlur(true)
+    }
+    const handleBlurSet = () => {
+
+        if (allowBlur) {
+            toggleAddingTodo()
+        }
+
+    }
+
 return (
 <>
 
-    <input 
-    ref={todoInputRef}
+<div 
+className='input_cont' 
+
+onBlur={handleBlurSet}
+onMouseDown={preventBlur}
+onMouseUp={releasePreventBlur}
+>
+
+    <input
+    className='todo_card'
     value={todo}
     onChange={writeTodo}
-    className='todo_card' 
-    placeholder='Add Todo'
-    onBlur={toggleAddingTodo}
+    ref={todoInputRef}
+
+    onBlur={handleBlurSet}
+    onMouseDown={preventBlur}
+    onMouseUp={releasePreventBlur}
     />
+
+    <button 
+    className='addTodo_btn'
+    onClick={addTodo}
+
+    onBlur={handleBlurSet}
+    onMouseDown={preventBlur}
+    onMouseUp={releasePreventBlur}
+    >Add Todo</button>
+
+</div>
     
 </>
 )

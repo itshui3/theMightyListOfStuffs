@@ -26,6 +26,7 @@ return (
             : 'Placeholder'
         }
         </h1>
+        <p>{console.log(document.activeElement)}</p>
     </div>
 
     <div className='board_body'>

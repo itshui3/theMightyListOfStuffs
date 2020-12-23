@@ -9,9 +9,11 @@ function Task({ task, taskID }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
+
     const todoInputRef = useRef()
 
     useEffect(() => {
+
         if (addingTodo && todoInputRef.current) {
             todoInputRef.current.focus()
         }
@@ -19,16 +21,18 @@ function Task({ task, taskID }) {
     }, [addingTodo])
 
     const toggleAddingTodo = () => {
-        // if I'm toggling into input, I want to force user focus
-        // it feels like I might be focusing before input exists
-        // let's try
 
         setAddingTodo(!addingTodo)
         setTodo('')
+        
     }
 
     const writeTodo = (ev) => {
         setTodo(ev.target.value)
+    }
+
+    const addTodo = () => {
+
     }
 
 return (
@@ -52,23 +56,23 @@ return (
     }
 
     {
-
-        addingTodo
-        ?
-        <TodoInput 
-        todo={todo}
-        writeTodo={writeTodo}
-        toggleAddingTodo={toggleAddingTodo}
-        todoInputRef={todoInputRef}
-        />
-        :
-        <button 
-        className='todo_card' 
-        placeholder='Add Todo'
-        onClick={toggleAddingTodo}
-        />
-
+    addingTodo
+    ?
+    <TodoInput 
+    todo={todo}
+    writeTodo={writeTodo}
+    toggleAddingTodo={toggleAddingTodo}
+    todoInputRef={todoInputRef}
+    addTodo={addTodo}
+    />
+    :
+    <button 
+    className='todo_card'
+    placeholder='Add Todo'
+    onClick={toggleAddingTodo}
+    />
     }
+    
 </div>
 
 </>

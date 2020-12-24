@@ -5,7 +5,7 @@ import './Task.css'
 import TodoInput from './TodoInput.js'
 
 
-function Task({ task, taskID, addTodo, removeTodo }) {
+function Task({ task, taskID, removeTask, addTodo, removeTodo }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
@@ -33,7 +33,14 @@ return (
 <>
 
 <div className='task_card' key={taskID} id={taskID}>
-    <h3 className='task_title'>{ task.name }</h3>
+    <div className='task_header'>
+        <h3 className='task_title'>{ task.name }</h3>
+        <div 
+        className='remove_task'
+        onClick={() => removeTask(taskID)}
+        >x</div>
+    </div>
+    
     {
         task.todos.length > 0
             ?
@@ -65,10 +72,9 @@ return (
     />
     :
     <button 
-    className='todo_card'
-    placeholder='Add Todo'
+    className='todo_card startAddingTodoBtn'
     onClick={toggleAddingTodo}
-    />
+    >Add Todo</button>
     }
     
 </div>

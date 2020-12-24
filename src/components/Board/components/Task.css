@@ -9,6 +9,10 @@
     max-height: 400px;
 }
 
+.task_header {
+    display: flex;
+}
+
 .task_title {
     margin: 15px;
 }

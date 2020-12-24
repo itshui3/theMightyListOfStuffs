@@ -1,22 +1,62 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Board.css'
 
-import { useState } from 'react'
 import { dummyList } from './assets/dummyList.js'
 
 import Task from './components/Task.js'
+import TaskInput from './components/TaskInput.js'
 
 function Board() {
 
     const [boardTitle, setBoardTitle] = useState(null)
     const [taskList, setTaskList] = useState(dummyList)
 
+    // new task input handling
+    const [task, setTask] = useState('')
+    const [addingTask, setAddingTask] = useState(false)
+
+    useEffect(() => {
+        console.log('taskList', taskList)
+    }, [taskList])
+
+    const taskInputRef = useRef()
+
+    const toggleAddingTask = () => {
+        setAddingTask(addingTask => !addingTask)
+    }
+
+    const writeTask = (ev) => {
+        setTask(ev.target.value)
+    }
+
+    const addTask = (task) => {
+        console.log('task, in addTask fn', task)
+        const newTask = {
+            name: task,
+            todos: []
+        }
+        setTaskList((taskList) => {
+            return [
+                ...taskList,
+                newTask
+            ]
+        })
+    }
+
+    const removeTask = (taskID) => {
+        setTaskList(taskList => {
+            return taskList.filter((t, idx) => {
+                return idx !== taskID
+            })
+        })
+    }
+// todo handling
     const addTodo = (taskID) => (todo) => {
+        if (!todo.length) { return }
         // find task, then append a todo to it
         setTaskList(taskList.map((task, idx) => {
 
             if (idx === taskID) {
-                // mutate and return
                 return {
                     ...task,
                     todos: [
@@ -51,8 +91,6 @@ function Board() {
         }))
     }
 
-// for updating a todo, I should leave that for after the UI fix
-
 return (
 <>
 
@@ -66,7 +104,7 @@ return (
             : 'Placeholder'
         }
         </h1>
-        <p>{console.log(document.activeElement)}</p>
+
     </div>
 
     <div className='board_body'>
@@ -78,15 +116,34 @@ return (
             <Task 
             task = {task}
             taskID = {taskID}
+            addTask = {addTask}
             addTodo = {addTodo(taskID)}
+            removeTask = {removeTask}
             removeTodo = {removeTodo(taskID)}
-            logId = {console.log('taskID', taskID)}
             />
 
         ))
         :
         null
     }
+
+    {
+        addingTask
+        ?
+        <TaskInput 
+        task={task}
+        writeTask={writeTask}
+        toggleAddingTask={toggleAddingTask}
+        taskInputRef={taskInputRef}
+        addTask={addTask}
+        />
+        :
+        <button 
+        className='task_card startAddingTaskBtn'
+        onClick={toggleAddingTask}
+        >Add Task</button>
+    }
+
     </div>
         
 </div>

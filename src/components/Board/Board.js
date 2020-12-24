@@ -1,23 +1,48 @@
 import React from 'react'
 import './Board.css'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { dummyList } from './assets/dummyList.js'
 
 import Task from './components/Task.js'
-import TaskInput from './components/Taskinput.js'
+import TaskInput from './components/TaskInput.js'
 
 function Board() {
 
     const [boardTitle, setBoardTitle] = useState(null)
     const [taskList, setTaskList] = useState(dummyList)
 
+    // new task input handling
+    const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)
+
+    const taskInputRef = useRef()
 
     const toggleAddingTask = () => {
         setAddingTask(addingTask => !addingTask)
     }
 
+    const writeTask = (ev) => {
+        setTask(ev.target.value)
+    }
+
+    const addTask = (task) => {
+        setTaskList((taskList) => {
+            return [
+                ...taskList,
+                task
+            ]
+        })
+    }
+
+    const removeTask = (taskID) => {
+        setTaskList(taskList => {
+            return taskList.filter((t, idx) => {
+                return idx !== taskID
+            })
+        })
+    }
+// todo handling
     const addTodo = (taskID) => (todo) => {
         // find task, then append a todo to it
         setTaskList(taskList.map((task, idx) => {
@@ -58,8 +83,6 @@ function Board() {
         }))
     }
 
-// for updating a todo, I should leave that for after the UI fix
-
 return (
 <>
 
@@ -98,7 +121,13 @@ return (
     {
         addingTask
         ?
-        <TaskInput />
+        <TaskInput 
+        task={task}
+        writeTask={writeTask}
+        toggleAddingTask={toggleAddingTask}
+        taskInputRef={taskInputRef}
+        addTask={addTask}
+        />
         :
         <button 
         className='task_card startAddingTaskBtn'

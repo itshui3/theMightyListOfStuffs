@@ -65,10 +65,9 @@ return (
     />
     :
     <button 
-    className='todo_card'
-    placeholder='Add Todo'
+    className='todo_card startAddingTodoBtn'
     onClick={toggleAddingTodo}
-    />
+    >Add Todo</button>
     }
     
 </div>

@@ -5,11 +5,18 @@ import { useState } from 'react'
 import { dummyList } from './assets/dummyList.js'
 
 import Task from './components/Task.js'
+import TaskInput from './components/Taskinput.js'
 
 function Board() {
 
     const [boardTitle, setBoardTitle] = useState(null)
     const [taskList, setTaskList] = useState(dummyList)
+
+    const [addingTask, setAddingTask] = useState(false)
+
+    const toggleAddingTask = () => {
+        setAddingTask(addingTask => !addingTask)
+    }
 
     const addTodo = (taskID) => (todo) => {
         // find task, then append a todo to it
@@ -87,6 +94,18 @@ return (
         :
         null
     }
+
+    {
+        addingTask
+        ?
+        <TaskInput />
+        :
+        <button 
+        className='task_card startAddingTaskBtn'
+        onClick={toggleAddingTask}
+        >Add Task</button>
+    }
+
     </div>
         
 </div>

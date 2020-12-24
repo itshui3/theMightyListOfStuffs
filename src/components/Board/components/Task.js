@@ -5,7 +5,7 @@ import './Task.css'
 import TodoInput from './TodoInput.js'
 
 
-function Task({ task, taskID, addTodo }) {
+function Task({ task, taskID, addTodo, removeTodo }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
@@ -40,7 +40,11 @@ return (
             task.todos.map((todo, todoID) => (
             <>
             <div className='todo_card' key={todoID}>
-            { todo }
+                <p>{ todo }</p>
+                <div 
+                className='remove_todo'
+                onClick={() => removeTodo(todoID)}
+                >x</div>
             </div>
 
             </>

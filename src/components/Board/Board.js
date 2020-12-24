@@ -45,9 +45,13 @@ function Board() {
                         ...newTodos
                     ]
                 }
+            } else {
+                return task
             }
         }))
     }
+
+// for updating a todo, I should leave that for after the UI fix
 
 return (
 <>
@@ -75,6 +79,7 @@ return (
             task = {task}
             taskID = {taskID}
             addTodo = {addTodo(taskID)}
+            removeTodo = {removeTodo(taskID)}
             logId = {console.log('taskID', taskID)}
             />
 

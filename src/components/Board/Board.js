@@ -12,7 +12,6 @@ function Board() {
     const [taskList, setTaskList] = useState(dummyList)
 
     const addTodo = (taskID) => (todo) => {
-        console.log('adding todo')
         // find task, then append a todo to it
         setTaskList(taskList.map((task, idx) => {
 
@@ -34,7 +33,25 @@ function Board() {
 
     const removeTodo = (taskID) => (todoID) => {
         // find task
+        setTaskList(taskList.map((task, idx) => {
+
+            if (idx === taskID) {
+                // construct a new array with everything that doesn't meet the condition of having the id of the one I want removed
+                const newTodos = task.todos.filter((todo, idx) => idx !== todoID)
+
+                return {
+                    ...task,
+                    todos: [
+                        ...newTodos
+                    ]
+                }
+            } else {
+                return task
+            }
+        }))
     }
+
+// for updating a todo, I should leave that for after the UI fix
 
 return (
 <>
@@ -62,6 +79,7 @@ return (
             task = {task}
             taskID = {taskID}
             addTodo = {addTodo(taskID)}
+            removeTodo = {removeTodo(taskID)}
             logId = {console.log('taskID', taskID)}
             />
 

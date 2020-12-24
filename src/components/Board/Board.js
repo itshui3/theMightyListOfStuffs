@@ -14,11 +14,7 @@ function Board() {
     // new task input handling
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)
-
-    useEffect(() => {
-        console.log('taskList', taskList)
-    }, [taskList])
-
+    
     const taskInputRef = useRef()
 
     const toggleAddingTask = () => {
@@ -30,7 +26,7 @@ function Board() {
     }
 
     const addTask = (task) => {
-        console.log('task, in addTask fn', task)
+
         const newTask = {
             name: task,
             todos: []

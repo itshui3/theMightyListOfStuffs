@@ -34,9 +34,9 @@ return (
 
 <div className='task_card' key={taskID} id={taskID}>
     <div className='task_header'>
-        <h3 className='task_title'>{ task.name }</h3>
+        <h3 className='task_headerObj'>{ task.name }</h3>
         <div 
-        className='remove_task'
+        className='task_headerObj'
         onClick={() => removeTask(taskID)}
         >x</div>
     </div>
@@ -47,11 +47,16 @@ return (
             task.todos.map((todo, todoID) => (
             <>
             <div className='todo_card' key={todoID}>
-                <p>{ todo }</p>
-                <div 
-                className='remove_todo'
-                onClick={() => removeTodo(todoID)}
-                >x</div>
+                <p className='todo_txt'>{ todo }</p>
+                <div className='panel_mutateTodo'>
+                    <div 
+                    className='remove_todo todoMutator'
+                    onClick={() => removeTodo(todoID)}
+                    >x</div>
+                    <div
+                    className='edit_todo todoMutator'
+                    >edit</div>
+                </div>
             </div>
 
             </>

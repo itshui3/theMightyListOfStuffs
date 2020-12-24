@@ -33,4 +33,5 @@
     background: pink;
 
     display: flex;
+    overflow-x: scroll;
 }

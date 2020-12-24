@@ -33,7 +33,14 @@ return (
 <>
 
 <div className='task_card' key={taskID} id={taskID}>
-    <h3 className='task_title'>{ task.name }</h3>
+    <div className='task_header'>
+        <h3 className='task_title'>{ task.name }</h3>
+        <div 
+        className='remove_task'
+        onClick={() => removeTask(taskID)}
+        >x</div>
+    </div>
+    
     {
         task.todos.length > 0
             ?

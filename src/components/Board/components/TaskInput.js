@@ -27,9 +27,11 @@ function TaskInput({
     }
 
     const handleAddTask = () => {
-        preventBlur()
-        toggleAddingTask()
-        addTask()
+        if (task.length) {
+            toggleAddingTask()
+            addTask(task)
+        }
+
     }
 
 return (

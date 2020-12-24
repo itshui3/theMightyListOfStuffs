@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Board.css'
 
-import { useState, useRef } from 'react'
 import { dummyList } from './assets/dummyList.js'
 
 import Task from './components/Task.js'
@@ -16,6 +15,10 @@ function Board() {
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)
 
+    useEffect(() => {
+        console.log('taskList', taskList)
+    }, [taskList])
+
     const taskInputRef = useRef()
 
     const toggleAddingTask = () => {
@@ -27,10 +30,15 @@ function Board() {
     }
 
     const addTask = (task) => {
+        console.log('task, in addTask fn', task)
+        const newTask = {
+            name: task,
+            todos: []
+        }
         setTaskList((taskList) => {
             return [
                 ...taskList,
-                task
+                newTask
             ]
         })
     }
@@ -49,7 +57,6 @@ function Board() {
         setTaskList(taskList.map((task, idx) => {
 
             if (idx === taskID) {
-                // mutate and return
                 return {
                     ...task,
                     todos: [
@@ -97,7 +104,7 @@ return (
             : 'Placeholder'
         }
         </h1>
-        <p>{console.log(document.activeElement)}</p>
+
     </div>
 
     <div className='board_body'>
@@ -109,10 +116,10 @@ return (
             <Task 
             task = {task}
             taskID = {taskID}
+            addTask = {addTask}
             addTodo = {addTodo(taskID)}
             removeTask = {removeTask}
             removeTodo = {removeTodo(taskID)}
-            logId = {console.log('taskID', taskID)}
             />
 
         ))

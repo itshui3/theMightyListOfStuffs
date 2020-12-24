@@ -29,9 +29,10 @@ function TodoInput({
     }
 
     const handleAddTodo = () => {
-        preventBlur()
-        toggleAddingTodo()
-        addTodo()
+        if (todo.length) {
+            toggleAddingTodo()
+            addTodo()
+        }
     }
 
 return (
@@ -63,8 +64,6 @@ onMouseUp={releasePreventBlur}
     onBlur={handleBlurSet}
     onMouseDown={handleAddTodo}
     onMouseUp={releasePreventBlur}
-
-    onClick={addTodo}
     >Add Todo</button>
 
 </div>

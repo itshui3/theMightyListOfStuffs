@@ -44,6 +44,7 @@ function Board() {
     }
 // todo handling
     const addTodo = (taskID) => (todo) => {
+        if (!todo.length) { return }
         // find task, then append a todo to it
         setTaskList(taskList.map((task, idx) => {
 
@@ -109,6 +110,7 @@ return (
             task = {task}
             taskID = {taskID}
             addTodo = {addTodo(taskID)}
+            removeTask = {removeTask}
             removeTodo = {removeTodo(taskID)}
             logId = {console.log('taskID', taskID)}
             />

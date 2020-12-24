@@ -5,7 +5,7 @@ import './Task.css'
 import TodoInput from './TodoInput.js'
 
 
-function Task({ task, taskID, addTodo, removeTodo }) {
+function Task({ task, taskID, removeTask, addTodo, removeTodo }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')

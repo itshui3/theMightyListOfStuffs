@@ -26,6 +26,7 @@ function TodoInput({
             toggleAddingTodo()
         } else {
             setAllowBlur(true)
+            todoInputRef.current.focus()
         }
 
     }

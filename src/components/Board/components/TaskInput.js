@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 
 function TaskInput({
     task, 
@@ -22,6 +22,8 @@ function TaskInput({
 
         if (allowBlur) {
             toggleAddingTask()
+        } else {
+            setAllowBlur(true)
         }
 
     }
@@ -38,9 +40,10 @@ return (
 <>
 
 <div
+className='task_card'
+
 onBlur={handleBlurSet}
 onMouseDown={preventBlur}
-onMouseUp={releasePreventBlur}
 >
     <input 
     className='taskInput_cont'
@@ -52,14 +55,14 @@ onMouseUp={releasePreventBlur}
 
     onBlur={handleBlurSet}
     onMouseDown={preventBlur}
-    onMouseUp={releasePreventBlur}
+
     />
     <button
+    onClick={handleAddTask}
+
     onBlur={handleBlurSet}
     onMouseDown={preventBlur}
-    onMouseUp={releasePreventBlur}
 
-    onClick={handleAddTask}
     >Add Task</button>
 </div>
 

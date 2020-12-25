@@ -24,6 +24,8 @@ function TodoInput({
 
         if (allowBlur) {
             toggleAddingTodo()
+        } else {
+            setAllowBlur(true)
         }
 
     }
@@ -43,7 +45,6 @@ className='input_cont'
 
 onBlur={handleBlurSet}
 onMouseDown={preventBlur}
-onMouseUp={releasePreventBlur}
 >
 
     <input
@@ -54,7 +55,6 @@ onMouseUp={releasePreventBlur}
 
     onBlur={handleBlurSet}
     onMouseDown={preventBlur}
-    onMouseUp={releasePreventBlur}
     />
 
     <button 
@@ -63,7 +63,6 @@ onMouseUp={releasePreventBlur}
 
     onBlur={handleBlurSet}
     onMouseDown={handleAddTodo}
-    onMouseUp={releasePreventBlur}
     >Add Todo</button>
 
 </div>

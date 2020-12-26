@@ -3,6 +3,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import './Task.css'
 
 import TodoInput from './TodoInputTimeout.js'
+import Todo from './Todo.js'
 
 
 function Task({ task, taskID, removeTask, addTodo, removeTodo }) {
@@ -45,21 +46,10 @@ return (
         task.todos.length > 0
             ?
             task.todos.map((todo, todoID) => (
-            <>
-            <div className='todo_card' key={todoID}>
-                <p className='todo_txt'>{ todo }</p>
-                <div className='panel_mutateTodo'>
-                    <div 
-                    className='remove_todo todoMutator'
-                    onClick={() => removeTodo(todoID)}
-                    >x</div>
-                    <div
-                    className='edit_todo todoMutator'
-                    >edit</div>
-                </div>
-            </div>
-
-            </>
+            <Todo
+            todoID={todoID}
+            todo={todo}
+            />
             ))
             :
             null
@@ -69,6 +59,8 @@ return (
     addingTodo
     ?
     <TodoInput 
+    taskID={taskID}
+
     todo={todo}
     writeTodo={writeTodo}
     toggleAddingTodo={toggleAddingTodo}

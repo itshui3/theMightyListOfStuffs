@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import './TodoInput.css'
 
 function TodoInput({
+    taskID,
+
     todo,
     writeTodo,
     toggleAddingTodo,
@@ -11,15 +13,17 @@ function TodoInput({
 }) {
 
     const handleBlurSet = (ev) => {
-
+// if focus is targetting an irrelevant node
         if (ev.relatedTarget === null) { return toggleAddingTodo() }
-        const matcher = ev.relatedTarget.className
+        const matcher = ev.relatedTarget.id
 
         if (
-            matcher !== 'input_cont' &&
-            matcher !== 'todo_card' &&
-            matcher !== 'addTodo_btn'
+// or if focus leaves these three dom nodes that make up my comp
+            matcher !== `${taskID} t_cont` &&
+            matcher !== `${taskID} t_input` &&
+            matcher !== `${taskID} t_btn`
         ) {
+// unmount
             toggleAddingTodo()
         }
 
@@ -46,6 +50,7 @@ className='input_cont'
 
 tabIndex='0'
 onBlur={handleBlurSet}
+id={`${taskID} t_cont`}
 >
 
     <input
@@ -56,6 +61,7 @@ onBlur={handleBlurSet}
 
     tabIndex='0'
     onBlur={handleBlurSet}
+    id={`${taskID} t_input`}
     />
 
     <button 
@@ -63,6 +69,7 @@ onBlur={handleBlurSet}
 
     tabIndex='0'
     onBlur={handleBlurSet}
+    id={`${taskID} t_btn`}
 
     onClick={handleAddTodo}
     >Add Todo</button>

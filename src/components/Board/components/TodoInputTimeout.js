@@ -10,6 +10,8 @@ function TodoInput({
     addTodo,
 }) {
 
+    const [lock, setLock] = useState(false)
+
     const handleBlurSet = (ev) => {
 
         if (ev.relatedTarget === null) { return toggleAddingTodo() }
@@ -26,8 +28,7 @@ function TodoInput({
     }
 
     const handleAddTodo = (ev) => {
-        preventBlur()
-        ev.preventDefault()
+        setLock(true)
 
         if (todo.length) {
             toggleAddingTodo()
@@ -37,7 +38,6 @@ function TodoInput({
         }
     }
 
-// the focusable nature of tabIndex='0' elements adds some default border styling on focus
 return (
 <>
 
@@ -46,6 +46,13 @@ className='input_cont'
 
 tabIndex='0'
 onBlur={handleBlurSet}
+onMouseDown={(ev) => ev.preventDefault()}
+onClick={() => {
+    setLock(true)
+    setTimeout(() => {
+        setLock(false)
+    }, .0001)
+}}
 >
 
     <input
@@ -56,6 +63,13 @@ onBlur={handleBlurSet}
 
     tabIndex='0'
     onBlur={handleBlurSet}
+    onMouseDown={(ev) => ev.preventDefault()}
+    onClick={() => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }}
     />
 
     <button 
@@ -63,6 +77,7 @@ onBlur={handleBlurSet}
 
     tabIndex='0'
     onBlur={handleBlurSet}
+    onMouseDown={(ev) => ev.preventDefault()}
 
     onClick={handleAddTodo}
     >Add Todo</button>

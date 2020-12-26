@@ -49,6 +49,7 @@ return (
             <Todo
             todoID={todoID}
             todo={todo}
+            removeTodo={removeTodo}
             />
             ))
             :

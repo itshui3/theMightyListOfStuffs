@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Todo({ todoID, todo }) {
+function Todo({ todoID, todo, removeTodo }) {
 return (
 <>
 

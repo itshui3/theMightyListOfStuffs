@@ -21,7 +21,6 @@ function TodoInput({
     }
 
     const handleAddTodo = (ev) => {
-        // lock_relock()
 
         if (todo.length) {
             toggleAddingTodo()
@@ -46,10 +45,9 @@ return (
 <div 
 className='input_cont' 
 
-onBlur={handleBlurSet}
-// why woudln't onMousDown be req in nested children?
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lock_relock}
+onBlur={handleBlurSet}
 >
 
     <input

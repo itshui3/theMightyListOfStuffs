@@ -45,12 +45,7 @@ return (
     {
         task.todos.length > 0
             ?
-            task.todos.map((todo, todoID) => (
-            <Todo
-            todoID={todoID}
-            todo={todo}
-            />
-            ))
+            task.todos.map((todo, todoID) => <Todo todoID={todoID} todo={todo} removeTodo={removeTodo} />)
             :
             null
     }

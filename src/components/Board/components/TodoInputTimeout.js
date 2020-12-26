@@ -10,24 +10,18 @@ function TodoInput({
     addTodo,
 }) {
 
+    const [lock, setLock] = useState(false)
+
     const handleBlurSet = (ev) => {
 
-        if (ev.relatedTarget === null) { return toggleAddingTodo() }
-        const matcher = ev.relatedTarget.className
-
-        if (
-            matcher !== 'input_cont' &&
-            matcher !== 'todo_card' &&
-            matcher !== 'addTodo_btn'
-        ) {
+        if(!lock) {
             toggleAddingTodo()
         }
 
     }
 
     const handleAddTodo = (ev) => {
-        preventBlur()
-        ev.preventDefault()
+        // lock_relock()
 
         if (todo.length) {
             toggleAddingTodo()
@@ -35,17 +29,27 @@ function TodoInput({
         } else {
             todoInputRef.current.focus()
         }
+
+
     }
 
-// the focusable nature of tabIndex='0' elements adds some default border styling on focus
+    const lock_relock = () => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }
+
 return (
 <>
 
 <div 
 className='input_cont' 
 
-tabIndex='0'
 onBlur={handleBlurSet}
+// why woudln't onMousDown be req in nested children?
+onMouseDown={(ev) => ev.preventDefault()}
+onClick={lock_relock}
 >
 
     <input
@@ -53,16 +57,10 @@ onBlur={handleBlurSet}
     value={todo}
     onChange={writeTodo}
     ref={todoInputRef}
-
-    tabIndex='0'
-    onBlur={handleBlurSet}
     />
 
     <button 
     className='addTodo_btn'
-
-    tabIndex='0'
-    onBlur={handleBlurSet}
 
     onClick={handleAddTodo}
     >Add Todo</button>

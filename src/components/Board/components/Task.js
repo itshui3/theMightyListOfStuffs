@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 
 import './Task.css'
 
-import TodoInput from './TodoInput.js'
+import TodoInput from './TodoInputTimeout.js'
 
 
 function Task({ task, taskID, removeTask, addTodo, removeTodo }) {

@@ -87,6 +87,7 @@ function Board() {
         }))
     }
 
+
 return (
 <>
 
@@ -110,12 +111,16 @@ return (
         taskList.map((task, taskID) => (
 
             <Task 
+            key={taskID}
+
             task = {task}
             taskID = {taskID}
             addTask = {addTask}
             addTodo = {addTodo(taskID)}
             removeTask = {removeTask}
             removeTodo = {removeTodo(taskID)}
+
+            setTaskList={setTaskList}
             />
 
         ))

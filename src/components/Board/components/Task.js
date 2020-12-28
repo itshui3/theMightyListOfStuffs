@@ -6,15 +6,11 @@ import TodoInput from './TodoInputTimeout.js'
 import Todo from './Todo.js'
 
 
-function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList }) {
+function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setDragTaskID, dragTaskID, evaluateDragTask }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
     const [todoDragID, setTodoDragID] = useState(-1)
-
-    useEffect(() => {
-        console.log('todoDragID', todoDragID)
-    }, [todoDragID])
 
     const todoInputRef = useRef()
 
@@ -86,6 +82,11 @@ className='task_card'
 key={taskID} 
 id={taskID}
 draggable='true'
+onDragStart={() => setDragTaskID(taskID)}
+onDragOver={(ev) => ev.preventDefault()}
+onDrop={() => {
+    if (dragTaskID>-1) evaluateDragTask(taskID)
+}}
 >
     <div className='task_header'>
         <h3 className='task_headerObj'>{ task.name }</h3>

@@ -108,6 +108,7 @@ draggable='true'
             todoDragID={todoDragID}
             setTodoDragID={setTodoDragID}
             evaluateDragTodo={evaluateDragTodo(taskID)} />
+
             ))
             :
             null

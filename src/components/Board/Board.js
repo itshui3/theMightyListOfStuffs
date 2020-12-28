@@ -14,6 +14,8 @@ function Board() {
     // new task input handling
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)
+
+    const [dragTaskID, setDragTaskID] = useState(-1)
     
     const taskInputRef = useRef()
 
@@ -87,6 +89,43 @@ function Board() {
         }))
     }
 
+    const evaluateDragTask = (dropTaskID) => {
+        if (dropTaskID === dragTaskID) { return }
+
+        setTaskList(taskList => {
+            let cloneList = JSON.parse(JSON.stringify(taskList))
+
+            let carry = cloneList[dragTaskID]
+            cloneList[dragTaskID] = null
+
+            let start, end;
+
+            if (dragTaskID < dropTaskID) {
+                start = dragTaskID;
+                end = dropTaskID;
+
+                for (let i = start; i < end; i++) {
+                    let temp = cloneList[i]
+                    cloneList[i] = cloneList[i+1]
+                    cloneList[i+1] = temp
+                }
+
+            } else if (dropTaskID < dragTaskID) {
+
+                start = dropTaskID;
+                end = dragTaskID;
+
+                for (let i = end; i > start; i--) {
+                    let temp = cloneList[i]
+                    cloneList[i] = cloneList[i-1]
+                    cloneList[i-1] = temp
+                }
+            }
+            cloneList[dropTaskID] = carry
+
+            return cloneList
+        })
+    }
 
 return (
 <>
@@ -121,6 +160,10 @@ return (
             removeTodo = {removeTodo(taskID)}
 
             setTaskList={setTaskList}
+
+            dragTaskID={dragTaskID}
+            setDragTaskID={setDragTaskID}
+            evaluateDragTask={evaluateDragTask}
             />
 
         ))

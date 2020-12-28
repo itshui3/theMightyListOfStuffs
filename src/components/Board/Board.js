@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './Board.css'
 
-import { dummyList } from './assets/dummyList.js'
-
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
 
-function Board() {
+function Board({ board }) {
 
-    const [boardTitle, setBoardTitle] = useState(null)
-    const [taskList, setTaskList] = useState(dummyList)
+    const [boardTitle, setBoardTitle] = useState(() => {
+        return board && board.title ? board.title : 'placeholder'
+    })
+    const [taskList, setTaskList] = useState(() => {
+        return board && board.tasks && board.tasks.length > 0 ? board.tasks : []
+    })
 
     // new task input handling
     const [task, setTask] = useState('')

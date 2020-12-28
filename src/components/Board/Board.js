@@ -4,7 +4,7 @@ import './Board.css'
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
 
-function Board({ board }) {
+function Board({ board, deselectBoard }) {
 
     const [boardTitle, setBoardTitle] = useState(() => {
         return board && board.title ? board.title : 'placeholder'
@@ -135,6 +135,10 @@ return (
 <div className='board_wrapper'>
 
     <div className='board_header'>
+        <div
+        onClick={deselectBoard}
+        >Go Back</div>
+
         <h1 className='board_title header_items'>
         {
         boardTitle 

@@ -8,21 +8,41 @@ import { dummyList } from './components/Board/assets/dummyList.js'
 
 function App() {
 
-    const [selected, setSelected] = useState(false)
-    const [selectedBoard, setSelectedBoard] = useState({})
+    const [selectedBoard, setSelectedBoard] = useState(-1)
+
+    const [boardList, setBoardList] = useState([])
+
+    const deselectBoard = () => {
+        setSelectedBoard(-1)
+    }
+
+    const selectBoard = (boardIdx) => {
+        setSelectedBoard(boardIdx)
+    }
+
+    const pushBoard = (board) => {
+        setBoardList(boards => {
+            return [...boards, board]
+        })
+    }
 
 return (
 <>
 
 <div className="App">
     {
-    selected
+    selectedBoard > -1
     ?
     <Board 
-    board={selectedBoard}
+    board={boardList[selectedBoard]}
+    deselectBoard={deselectBoard}
     />
     :
-    <Dashboard />
+    <Dashboard 
+    selectBoard={selectBoard}
+    pushBoard={pushBoard}
+    boards={boardList}
+    />
     }
 </div>
 

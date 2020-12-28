@@ -6,10 +6,15 @@ import TodoInput from './TodoInputTimeout.js'
 import Todo from './Todo.js'
 
 
-function Task({ task, taskID, removeTask, addTodo, removeTodo }) {
+function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
+    const [todoDragID, setTodoDragID] = useState(-1)
+
+    useEffect(() => {
+        console.log('todoDragID', todoDragID)
+    }, [todoDragID])
 
     const todoInputRef = useRef()
 
@@ -30,10 +35,58 @@ function Task({ task, taskID, removeTask, addTodo, removeTodo }) {
         setTodo(ev.target.value)
     }
 
+    const evaluateDragTodo = (taskID) => (dropID) => {
+
+        if (todoDragID === dropID) { return }
+
+        setTaskList(taskList => {
+            let cloneList = JSON.parse(JSON.stringify(taskList))
+            // creates a ref to todoList I'm performing dragEvaluate on 
+            let todoList = cloneList[taskID].todos
+            let carry = todoList[todoDragID]
+            todoList[todoDragID] = null
+
+            let start, end;
+
+            if (todoDragID < dropID) {
+
+                start = todoDragID;
+                end = dropID;
+
+                for (let i = start; i < end; i++) {
+                    let temp = todoList[i]
+                    todoList[i] = todoList[i+1]
+                    todoList[i+1] = temp
+                }
+
+            } else if (dropID < todoDragID) {
+
+                start = dropID;
+                end = todoDragID;
+
+                for (let i = end; i > start; i--) {
+                    let temp = todoList[i]
+                    todoList[i] = todoList[i-1]
+                    todoList[i-1] = temp
+                }
+
+            }
+            todoList[dropID] = carry
+            return cloneList
+        })
+        setTodoDragID(-1)
+
+    }
+
 return (
 <>
 
-<div className='task_card' key={taskID} id={taskID}>
+<div 
+className='task_card' 
+key={taskID} 
+id={taskID}
+draggable='true'
+>
     <div className='task_header'>
         <h3 className='task_headerObj'>{ task.name }</h3>
         <div 
@@ -45,7 +98,17 @@ return (
     {
         task.todos.length > 0
             ?
-            task.todos.map((todo, todoID) => <Todo todoID={todoID} todo={todo} removeTodo={removeTodo} />)
+            task.todos.map((todo, todoID) => (
+            <Todo 
+            key={todoID}
+
+            todoID={todoID} 
+            todo={todo} 
+            removeTodo={removeTodo} 
+            todoDragID={todoDragID}
+            setTodoDragID={setTodoDragID}
+            evaluateDragTodo={evaluateDragTodo(taskID)} />
+            ))
             :
             null
     }

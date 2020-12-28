@@ -1,10 +1,26 @@
 import React from 'react'
 
-function Todo({ todoID, todo }) {
+function Todo({ 
+    todoID, 
+    todo, 
+    removeTodo, 
+    setTodoDragID,
+    todoDragID,
+    evaluateDragTodo }) {
+
 return (
 <>
 
-<div className='todo_card' key={todoID}>
+<div 
+className='todo_card' 
+key={todoID} 
+draggable='true'
+onDragStart={() => setTodoDragID(todoID)}
+onDragOver={(ev) => ev.preventDefault()}
+onDrop={() => {
+    if (todoDragID>-1) evaluateDragTodo(todoID)
+}}
+>
     <p className='todo_txt'>{ todo }</p>
     <div className='panel_mutateTodo'>
         <div 

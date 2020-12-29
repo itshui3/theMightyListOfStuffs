@@ -14,14 +14,6 @@ function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setD
 
     const todoInputRef = useRef()
 
-    useEffect(() => {
-
-        if (addingTodo && todoInputRef.current) {
-            todoInputRef.current.focus()
-        }
-
-    }, [addingTodo])
-
     const toggleAddingTodo = () => {
         setAddingTodo(!addingTodo)
         setTodo('')

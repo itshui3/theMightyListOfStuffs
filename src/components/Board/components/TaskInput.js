@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 function TaskInput({
     task, 
@@ -8,30 +8,34 @@ function TaskInput({
     addTask,
 }) {
 
-    const [allowBlur, setAllowBlur] = useState(true)
+    const [lock, setLock] = useState(false)
 
-    const preventBlur = () => {
-        setAllowBlur(false)
-    }
+    useEffect(() => {
+        taskInputRef.current.focus()
+    }, [])
 
-    const releasePreventBlur = () => {
-        setAllowBlur(true)
-    }
-
-    const handleBlurSet = () => {
-
-        if (allowBlur) {
+    const handleBlurSet = (ev) => {
+        console.log('in handleBlurSet')
+        if(!lock) {
             toggleAddingTask()
-        } else {
-            setAllowBlur(true)
         }
 
     }
 
+    const lock_relock = () => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }
+
     const handleAddTask = () => {
+
         if (task.length) {
             toggleAddingTask()
             addTask(task)
+        } else {
+            taskInputRef.current.focus()
         }
 
     }
@@ -40,29 +44,22 @@ return (
 <>
 
 <div
-className='task_card'
+className='task_card taskInput_cont'
 
+onMouseDown={(ev) => ev.preventDefault()}
+onClick={lock_relock}
 onBlur={handleBlurSet}
-onMouseDown={preventBlur}
 >
     <input 
-    className='taskInput_cont'
-
+    className='taskInput_input'
     value={task}
     onChange={writeTask}
-
     ref={taskInputRef}
-
-    onBlur={handleBlurSet}
-    onMouseDown={preventBlur}
-
     />
     <button
+    className='taskInput_btn'
+
     onClick={handleAddTask}
-
-    onBlur={handleBlurSet}
-    onMouseDown={preventBlur}
-
     >Add Task</button>
 </div>
 

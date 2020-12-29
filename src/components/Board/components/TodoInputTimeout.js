@@ -12,6 +12,10 @@ function TodoInput({
 
     const [lock, setLock] = useState(false)
 
+    useEffect(() => {
+        todoInputRef.current.focus()
+    }, [])
+
     const handleBlurSet = (ev) => {
 
         if(!lock) {
@@ -20,7 +24,14 @@ function TodoInput({
 
     }
 
-    const handleAddTodo = (ev) => {
+    const lock_relock = () => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }
+
+    const handleAddTodo = () => {
 
         if (todo.length) {
             toggleAddingTodo()
@@ -30,13 +41,6 @@ function TodoInput({
         }
 
 
-    }
-
-    const lock_relock = () => {
-        setLock(true)
-        setTimeout(() => {
-            setLock(false)
-        }, .0001)
     }
 
 return (

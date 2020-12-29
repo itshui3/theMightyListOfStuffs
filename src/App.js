@@ -30,6 +30,11 @@ return (
 <>
 
 <div className="App">
+    <Dashboard 
+    selectBoard={selectBoard}
+    pushBoard={pushBoard}
+    boards={boardList}
+    />
     {
     selectedBoard > -1
     ?
@@ -38,11 +43,7 @@ return (
     deselectBoard={deselectBoard}
     />
     :
-    <Dashboard 
-    selectBoard={selectBoard}
-    pushBoard={pushBoard}
-    boards={boardList}
-    />
+    null
     }
 </div>
 

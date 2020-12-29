@@ -136,10 +136,6 @@ return (
 <div className='board_wrapper'>
 
     <div className='board_header'>
-        <div
-        onClick={deselectBoard}
-        >Go Back</div>
-
         <h1 className='board_title header_items'>
         {
         boardTitle 
@@ -147,6 +143,10 @@ return (
             : 'Placeholder'
         }
         </h1>
+
+        <div
+        onClick={deselectBoard}
+        >Go Back</div>
 
     </div>
 

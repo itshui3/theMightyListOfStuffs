@@ -23,6 +23,7 @@ function Board({ board, deselectBoard }) {
 
     const toggleAddingTask = () => {
         setAddingTask(addingTask => !addingTask)
+        setTask('')
     }
 
     const writeTask = (ev) => {

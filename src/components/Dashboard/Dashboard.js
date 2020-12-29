@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import BoardCard from './BoardCard.js'
 import BoardInput from './BoardInput.js'
 
+import './Dashboard.css'
+
 function Dashboard({ boards, selectBoard, pushBoard }) {
 
 return (

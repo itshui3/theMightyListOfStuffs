@@ -120,10 +120,10 @@ onDrop={() => {
     addTodo={() => addTodo(todo)}
     />
     :
-    <button 
-    className='todo_card startAddingTodoBtn'
+    <div 
+    className='addTodoBtn'
     onClick={toggleAddingTodo}
-    >Add Todo</button>
+    >Add Todo</div>
     }
     
 </div>

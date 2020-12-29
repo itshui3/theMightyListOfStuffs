@@ -47,7 +47,7 @@ return (
 <>
 
 <div 
-className='input_cont' 
+className='todoInput_cont' 
 
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lock_relock}
@@ -55,17 +55,17 @@ onBlur={handleBlurSet}
 >
 
     <input
-    className='todo_card'
+    className='addTodoInput'
     value={todo}
     onChange={writeTodo}
     ref={todoInputRef}
     />
 
-    <button 
-    className='addTodo_btn'
+    <div 
+    className='addTodoBtn'
 
     onClick={handleAddTodo}
-    >Add Todo</button>
+    >+Add Item</div>
 
 </div>
     

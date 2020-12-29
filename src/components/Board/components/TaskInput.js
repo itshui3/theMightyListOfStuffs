@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+import './TaskInput.css'
+
 function TaskInput({
     task, 
     writeTask, 
@@ -51,16 +53,16 @@ onClick={lock_relock}
 onBlur={handleBlurSet}
 >
     <input 
-    className='taskInput_input'
+    className='addTaskInput'
     value={task}
     onChange={writeTask}
     ref={taskInputRef}
     />
-    <button
-    className='taskInput_btn'
+    <div
+    className='addTaskBtn'
 
     onClick={handleAddTask}
-    >Add Task</button>
+    >+Add Task</div>
 </div>
 
 

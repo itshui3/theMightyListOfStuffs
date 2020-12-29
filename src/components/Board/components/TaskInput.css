@@ -1,18 +1,18 @@
-.todoInput_cont {
-    width: 100%;
+.taskInput_cont {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.addTodoInput {
+.addTaskInput {
     width: 250px;
     height: 30px;
     line-height: 30px;
     margin-top: 10px;
+
 }
 
-.addTodoBtn {
+.addTaskBtn {
     margin-top: 10px;
 
     width: 100%;
@@ -25,7 +25,7 @@
     padding-left: 15px;
 }
 
-.addTodoBtn:hover {
+.addTaskBtn:hover {
     cursor: pointer;
     opacity: .5;
 }

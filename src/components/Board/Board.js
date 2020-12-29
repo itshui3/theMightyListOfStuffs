@@ -189,10 +189,10 @@ return (
         addTask={addTask}
         />
         :
-        <button 
-        className='task_card startAddingTaskBtn'
+        <div 
+        className='addingTaskBtn'
         onClick={toggleAddingTask}
-        >Add Task</button>
+        >Add Task</div>
     }
 
     </div>

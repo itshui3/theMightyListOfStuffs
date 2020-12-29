@@ -23,6 +23,7 @@ function Board({ board, deselectBoard }) {
 
     const toggleAddingTask = () => {
         setAddingTask(addingTask => !addingTask)
+        setTask('')
     }
 
     const writeTask = (ev) => {
@@ -135,10 +136,6 @@ return (
 <div className='board_wrapper'>
 
     <div className='board_header'>
-        <div
-        onClick={deselectBoard}
-        >Go Back</div>
-
         <h1 className='board_title header_items'>
         {
         boardTitle 
@@ -146,6 +143,10 @@ return (
             : 'Placeholder'
         }
         </h1>
+
+        <div
+        onClick={deselectBoard}
+        >Go Back</div>
 
     </div>
 
@@ -188,10 +189,10 @@ return (
         addTask={addTask}
         />
         :
-        <button 
-        className='task_card startAddingTaskBtn'
+        <div 
+        className='addingTaskBtn'
         onClick={toggleAddingTask}
-        >Add Task</button>
+        >Add Task</div>
     }
 
     </div>

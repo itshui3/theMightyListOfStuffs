@@ -12,6 +12,10 @@ function TodoInput({
 
     const [lock, setLock] = useState(false)
 
+    useEffect(() => {
+        todoInputRef.current.focus()
+    }, [])
+
     const handleBlurSet = (ev) => {
 
         if(!lock) {
@@ -20,7 +24,14 @@ function TodoInput({
 
     }
 
-    const handleAddTodo = (ev) => {
+    const lock_relock = () => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }
+
+    const handleAddTodo = () => {
 
         if (todo.length) {
             toggleAddingTodo()
@@ -32,18 +43,11 @@ function TodoInput({
 
     }
 
-    const lock_relock = () => {
-        setLock(true)
-        setTimeout(() => {
-            setLock(false)
-        }, .0001)
-    }
-
 return (
 <>
 
 <div 
-className='input_cont' 
+className='todoInput_cont' 
 
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lock_relock}
@@ -51,17 +55,17 @@ onBlur={handleBlurSet}
 >
 
     <input
-    className='todo_card'
+    className='addTodoInput'
     value={todo}
     onChange={writeTodo}
     ref={todoInputRef}
     />
 
-    <button 
-    className='addTodo_btn'
+    <div 
+    className='addTodoBtn'
 
     onClick={handleAddTodo}
-    >Add Todo</button>
+    >+Add Item</div>
 
 </div>
     

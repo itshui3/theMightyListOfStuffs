@@ -1,13 +1,12 @@
 .board_wrapper {
-    width: 97%;
-    height: 97%;
+    width: 80%;
+    height: 100%;
     border: 1px solid black;
-    border-radius: 3px;
 
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 }
 
 .board_header {
@@ -15,7 +14,7 @@
     background-color: grey;
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 }
 

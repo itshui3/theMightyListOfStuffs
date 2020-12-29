@@ -1,12 +1,31 @@
 .task_card {
-    display: flex;
-    flex-direction: column;
     min-width: 270px;
     margin: 10px;
 
     background-color: lightcyan;
     border-radius: 4px;
     height: min-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.addingTaskBtn {
+    width: 270px;
+    height: 50px;
+
+    margin: 10px;
+    padding: 7px;
+
+    background-color: black;
+    color: white;
+    opacity: .5;
+
+    cursor: pointer;
+}
+
+.addingTaskBtn:hover {
+    opacity: .8;
 }
 
 .task_header {
@@ -18,10 +37,6 @@
     margin: 15px;
 }
 
-.new_task {
-
-}
-
 .todo_card {
     background-color: white;
     margin: 5px 10px;
@@ -31,11 +46,6 @@
     display: flex;
     justify-content: space-between;
 
-}
-
-.todo_txt {
-    /* height: 100%;
-    line-height: 100%; */
 }
 
 .panel_mutateTodo {

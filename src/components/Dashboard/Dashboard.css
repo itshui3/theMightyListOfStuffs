@@ -18,3 +18,9 @@
     font-size: 1.5rem;
     cursor: alias;
 }
+
+.dashboard_cardsCont {
+    margin-left: 10px;
+    width: 80%;
+    
+}

@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 import BoardCard from './BoardCard.js'
 import BoardInput from './BoardInput.js'
 
+import PageCard from './PageCard.js'
+import PageInput from './PageInput.js'
+
 import './Dashboard.css'
 
-function Dashboard({ boards, selectBoard, pushBoard, user }) {
+function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
 
 return (
 <>
@@ -13,26 +16,46 @@ return (
         <div className='dashboard_userInfo'>
             <p className='userInfo_userName'>{user}</p>
         </div>
-        <BoardInput pushBoard={pushBoard} />
+        {/* 
+        
+        <BoardInput pushBoard={pushBoard} /> */}
 
         <div className='dashboard_cardsCont'>
 
             {        
-            boards && boards.length > 0
-            ?
-            boards.map((board, idx) => (
-            <BoardCard 
-            key={idx} 
-            boardIdx={idx}
-            boardTitle={board.title}
-            selectBoard={selectBoard}
-            />
-            ))
-            :
-            null
+                pages && pages.length > 0
+                ?
+                pages.pages.map((page, idx) => (
+                    <PageCard 
+                    key={idx}
+                    pageIdx={idx}
+                    page={page}
+                    nestingSeq={[]}
+                    />))
+                :
+                null
+            }
+
+            {
+                pages && pages.length > 0
+                ?
+                pages.boards.map((board, idx) => (
+                    <BoardCard 
+                    key={idx} 
+                    boardIdx={idx}
+                    boardTitle={board.title}
+                    selectBoard={selectBoard}
+                    />))
+                :
+                null
             }
 
         </div>
+
+        <PageInput 
+        pushPage={pushPage}
+        pushBoard={pushBoard}
+        />
     </div>
 </>
 )

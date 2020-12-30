@@ -27,6 +27,7 @@ function BoardInput({ pushBoard }) {
     const handleAddBoard = (ev) => {
 
         const newBoard = {
+            type: 'board',
             title: board,
             tasks: []
         }

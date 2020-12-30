@@ -11,7 +11,7 @@
 
 .board_header {
     height: 55px;
-    background-color: grey;
+    background-color: lightgrey;
 
     display: flex;
     justify-content: space-between;
@@ -22,14 +22,10 @@
     margin-left: 5px;
 }
 
-.board_title {
-
-}
-
 .board_body {
     height: calc(100% - 55px);
     width: 100%;
-    background: pink;
+    background: white;
 
     display: flex;
     overflow-x: scroll;

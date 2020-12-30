@@ -146,7 +146,7 @@ return (
 
         <div
         onClick={deselectBoard}
-        >Go Back</div>
+        >Deselect Board</div>
 
     </div>
 

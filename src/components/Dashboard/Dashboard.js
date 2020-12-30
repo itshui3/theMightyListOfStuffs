@@ -5,11 +5,14 @@ import BoardInput from './BoardInput.js'
 
 import './Dashboard.css'
 
-function Dashboard({ boards, selectBoard, pushBoard }) {
+function Dashboard({ boards, selectBoard, pushBoard, user }) {
 
 return (
 <>
     <div className='dashboard_cont'>
+        <div className='dashboard_userInfo'>
+            <p className='userInfo_userName'>{user}</p>
+        </div>
         <BoardInput pushBoard={pushBoard} />
 
         <div className='dashboard_cardsCont'>

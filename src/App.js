@@ -11,6 +11,7 @@ function App() {
     const [selectedBoard, setSelectedBoard] = useState(-1)
 
     const [boardList, setBoardList] = useState([])
+    const [user, setUser] = useState({name: 'itsYaBoiHui'})
 
     const deselectBoard = () => {
         setSelectedBoard(-1)
@@ -34,6 +35,7 @@ return (
     selectBoard={selectBoard}
     pushBoard={pushBoard}
     boards={boardList}
+    user={user.name}
     />
     {
     selectedBoard > -1

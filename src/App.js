@@ -12,6 +12,9 @@ function App() {
 
     const [boardList, setBoardList] = useState([])
 
+    const [pageList, setPageList] = useState([])
+    const [user, setUser] = useState({name: 'itsYaBoiHui'})
+
     const deselectBoard = () => {
         setSelectedBoard(-1)
     }
@@ -20,11 +23,34 @@ function App() {
         setSelectedBoard(boardIdx)
     }
 
-    const pushBoard = (board) => {
-        setBoardList(boards => {
-            return [...boards, board]
+    const pushBoard = (board, nestSeq) => {
+        // setBoardList(boards => {
+        //     return [...boards, board]
+        // })
+    }
+
+    // [0] how do I determine nesting level at which to add the page? 
+    const pushPage = (page, nestSeq) => {
+        console.log('in pushPage')
+
+        const newPage = {
+
+            type: 'page', 
+            title: page,
+            // render pages first
+            pages: [],
+            // then boards under
+            boards: []
+            // boards[n]: { type: 'board', name: String, idx: Number }
+
+        }
+        setPageList(pages => {
+            const copiedPages = JSON.parse(JSON.stringify(pages))
+            return copiedPages
         })
     }
+
+
 
 return (
 <>
@@ -32,13 +58,17 @@ return (
 <div className="App">
     <Dashboard 
     selectBoard={selectBoard}
+    pushPage={pushPage}
     pushBoard={pushBoard}
-    boards={boardList}
+    // I think I just need pages
+    pages={pageList}
+    user={user.name}
     />
     {
     selectedBoard > -1
     ?
     <Board 
+    // selection will proc http req, feeding a board
     board={boardList[selectedBoard]}
     deselectBoard={deselectBoard}
     />

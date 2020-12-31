@@ -24,7 +24,7 @@ const learningPages = {
 }
 dummyPages.pages.push(learningPages)
 
-const todayTodoBoard = { idx: 3, title: 'Today\'s Tasks' }
+const todayTodoBoard = { idx: 2, title: 'Today\'s Tasks' }
 dummyPages.boards.push(todayTodoBoard)
 
 export { dummyPages }

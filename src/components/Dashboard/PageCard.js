@@ -36,9 +36,8 @@ return (
             page.boards.map((board, idx) => (
                 <BoardCard 
                 key={idx} 
-                boardIdx={idx}
                 boardTitle={board.title}
-                selectBoard={selectBoard}
+                selectBoard={() => selectBoard(board.idx)}
                 />))
             :
             null

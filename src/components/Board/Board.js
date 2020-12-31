@@ -13,6 +13,10 @@ function Board({ board, deselectBoard }) {
         return board && board.tasks && board.tasks.length > 0 ? board.tasks : []
     })
 
+    useEffect(() => {
+        console.log('selected board in Board.js', board)
+    }, [])
+
     // new task input handling
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)

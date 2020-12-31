@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import BoardCard from './BoardCard.js'
 import BoardInput from './BoardInput.js'
@@ -10,7 +10,6 @@ import './Dashboard.css'
 
 function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
 
-    // pages: []
 
 return (
 <>
@@ -23,7 +22,7 @@ return (
         <div className='dashboard_cardsCont'>
 
             {        
-                pages && pages.length > 0
+                pages && pages.pages.length > 0
                 ?
                 pages.pages.map((page, idx) => (
                     <PageCard 
@@ -38,14 +37,13 @@ return (
             }
 
             {
-                pages && pages.length > 0
+                pages && pages.boards.length > 0
                 ?
                 pages.boards.map((board, idx) => (
                     <BoardCard 
                     key={idx} 
-                    boardIdx={idx}
                     boardTitle={board.title}
-                    selectBoard={selectBoard}
+                    selectBoard={() => selectBoard(board.idx)}
                     />))
                 :
                 null

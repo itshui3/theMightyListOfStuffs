@@ -4,24 +4,27 @@ import './App.css';
 import { Board } from './components'
 import { Dashboard } from './components'
 
-import { dummyList } from './components/Board/assets/dummyList.js'
-import { dummyPages } from './components/Dashboard/assets/dummyPages.js'
+import { dummyBoards } from './assets/dummyBoards.js'
+import { dummyPages } from './assets/dummyPages.js'
 
 function App() {
 
-    const [selectedBoard, setSelectedBoard] = useState(-1)
+    const [selectedBoard, setSelectedBoard] = useState({})
 
-    const [boardList, setBoardList] = useState([])
+    const [boardList, setBoardList] = useState(dummyBoards)
 
     const [pageList, setPageList] = useState(dummyPages)
     const [user, setUser] = useState({name: 'itsYaBoiHui'})
 
     const deselectBoard = () => {
-        setSelectedBoard(-1)
+        setSelectedBoard({})
     }
 
     const selectBoard = (boardIdx) => {
-        setSelectedBoard(boardIdx)
+
+        setSelectedBoard(
+            boardList.find((board) => board.idx === boardIdx)
+        )
     }
 
     const pushBoard = (board, nestSeq) => {
@@ -67,11 +70,11 @@ return (
     user={user.name}
     />
     {
-    selectedBoard > -1
+    Object.keys(selectedBoard).length > 0
     ?
     <Board 
     // selection will proc http req, feeding a board
-    board={boardList[selectedBoard]}
+    board={selectedBoard}
     deselectBoard={deselectBoard}
     />
     :

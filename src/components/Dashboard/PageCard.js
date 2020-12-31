@@ -5,9 +5,6 @@ import BoardCard from './BoardCard.js'
 
 function PageCard({pageIdx, page, nestingSeq, selectBoard}) {
 
-    useEffect(() => {
-        console.log('page', page)
-    }, [])
 
 return (
 <>

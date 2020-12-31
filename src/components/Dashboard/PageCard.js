@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import BoardInput from './BoardInput.js'
+import BoardCard from './BoardCard.js'
 
-function PageCard({pageIdx, page, nestingSeq}) {
+function PageCard({pageIdx, page, nestingSeq, selectBoard}) {
+
+    useEffect(() => {
+        console.log('page', page)
+    }, [])
 
 return (
 <>

@@ -10,15 +10,15 @@ import './Dashboard.css'
 
 function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
 
+    // pages: []
+
 return (
 <>
     <div className='dashboard_cont'>
         <div className='dashboard_userInfo'>
             <p className='userInfo_userName'>{user}</p>
         </div>
-        {/* 
-        
-        <BoardInput pushBoard={pushBoard} /> */}
+
 
         <div className='dashboard_cardsCont'>
 
@@ -31,6 +31,7 @@ return (
                     pageIdx={idx}
                     page={page}
                     nestingSeq={[]}
+                    selectBoard={selectBoard}
                     />))
                 :
                 null
@@ -51,6 +52,9 @@ return (
             }
 
         </div>
+                
+        
+        <BoardInput pushBoard={pushBoard} />
 
         <PageInput 
         pushPage={pushPage}

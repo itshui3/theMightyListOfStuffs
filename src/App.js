@@ -5,6 +5,7 @@ import { Board } from './components'
 import { Dashboard } from './components'
 
 import { dummyList } from './components/Board/assets/dummyList.js'
+import { dummyPages } from './components/Dashboard/assets/dummyPages.js'
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
 
     const [boardList, setBoardList] = useState([])
 
-    const [pageList, setPageList] = useState([])
+    const [pageList, setPageList] = useState(dummyPages)
     const [user, setUser] = useState({name: 'itsYaBoiHui'})
 
     const deselectBoard = () => {
@@ -58,9 +59,10 @@ return (
 <div className="App">
     <Dashboard 
     selectBoard={selectBoard}
+    // Create
     pushPage={pushPage}
     pushBoard={pushBoard}
-    // I think I just need pages
+
     pages={pageList}
     user={user.name}
     />

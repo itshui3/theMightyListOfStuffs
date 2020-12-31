@@ -1,23 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import './PageCard.css'
 
 import BoardInput from './BoardInput.js'
 import BoardCard from './BoardCard.js'
 
 function PageCard({pageIdx, page, nestingSeq, selectBoard}) {
 
+    const [collapse, setCollapse] = useState(true)
+
+    const handleCollapse = () => {
+        setCollapse(!collapse)
+    }
 
 return (
 <>
     <div 
     className='pageCard_cont'
     >
-        <h2>{page.title}</h2>
+        <div 
+        className='pageCard_header'
+        onClick={handleCollapse}>
+            <h2>{page.title}</h2>
+        </div>
+        
         <div
         className='pageCard_nest'
         >
 
         {
-            page && page.pages.length > 0
+            page && page.pages.length > 0 && !collapse
             ?
             page.pages.map((page, idx) => (
                 <PageCard 
@@ -31,7 +43,7 @@ return (
         }
 
         {
-            page && page.boards.length > 0
+            page && page.boards.length > 0 && !collapse
             ?
             page.boards.map((board, idx) => (
                 <BoardCard 

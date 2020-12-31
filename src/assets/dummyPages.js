@@ -4,6 +4,7 @@ const dummyPages = {
 }
 
 const healthPages = {
+    title: 'Health',
     pages: [],
     boards: [
         { idx: 0, title: 'Exercises'},
@@ -13,12 +14,14 @@ const healthPages = {
 dummyPages.pages.push(healthPages)
 
 const projectPages = {
+    title: 'Projects',
     pages: [],
     boards: []
 }
 dummyPages.pages.push(projectPages)
 
 const learningPages = {
+    title: 'Prog',
     pages: [],
     boards: []
 }

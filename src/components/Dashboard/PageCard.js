@@ -33,20 +33,11 @@ function PageCard({page, nestSeq, selectBoard}) {
         backfaceVisibility: 'hidden',
         transition: 'transform 200ms ease-out 0s',
         transform: collapse ? 'rotateZ(90deg)' : 'rotateZ(180deg)',
-        opacity: '1'
-    }
+        opacity: '1',
 
-    // const arrowDownStyle = {
-    //     width: '0.6875em',
-    //     height: '0.6875em',
-    //     display: 'block',
-    //     fill: 'rgba(55, 53, 47, 0.4)',
-    //     flexShrink: '0',
-    //     backfaceVisibility: 'hidden',
-    //     transition: 'transform 200ms ease-out 0s',
-    //     transform: 'rotateZ(180deg)',
-    //     opacity: '1'
-    // }
+        marginLeft: '5px',
+        marginRight: '5px'
+    }
 
 return (
 <>
@@ -57,24 +48,7 @@ return (
         <div 
         className='pageCard_header'
         onClick={handleCollapse}>
-{/* 
-            {   
-            collapse
-            ?         
-            <svg 
-            viewBox="0 0 100 100" 
-            class="triangle" 
-            style={arrowStyle}>
-                <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
-            </svg>
-            :
-            <svg 
-            viewBox="0 0 100 100" 
-            class="triangle" 
-            style={arrowDownStyle}>
-                <polygon points="5.9,88.2 50,11.8 94.1,88.2 "></polygon>
-            </svg>
-            } */}
+
             <svg 
             viewBox="0 0 100 100" 
             class="triangle" 

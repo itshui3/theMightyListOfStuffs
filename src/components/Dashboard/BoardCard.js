@@ -9,7 +9,7 @@ return (
     <div className='boardCard_cont'
     onClick={selectBoard}
     >
-        <h2 className='boardCard_title'>[Board] {boardTitle}</h2>
+        <h2 className='boardCard_title'>{boardTitle}</h2>
     </div>
 </>
 )

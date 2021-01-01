@@ -48,13 +48,16 @@ return (
         <div 
         className='pageCard_header'
         onClick={handleCollapse}>
+            <div className='arrowSvg_cont'>
+                <svg 
+                viewBox="0 0 100 100" 
+                class="triangle" 
+                className='page_arrowSvg'
+                style={arrowStyle}>
+                    <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
+                </svg>
+            </div>
 
-            <svg 
-            viewBox="0 0 100 100" 
-            class="triangle" 
-            style={arrowStyle}>
-                <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
-            </svg>
 
             <h2 className='pageCard_title'>
             {page.title}

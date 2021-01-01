@@ -24,7 +24,7 @@ function PageCard({page, nestSeq, selectBoard}) {
         marginLeft: `${nestSeq.length * 7}px`
     }
 
-    const arrowRightStyle = {
+    const arrowStyle = {
         width: '0.6875em',
         height: '0.6875em',
         display: 'block',
@@ -32,21 +32,21 @@ function PageCard({page, nestSeq, selectBoard}) {
         flexShrink: '0',
         backfaceVisibility: 'hidden',
         transition: 'transform 200ms ease-out 0s',
-        transform: 'rotateZ(90deg)',
+        transform: collapse ? 'rotateZ(90deg)' : 'rotateZ(180deg)',
         opacity: '1'
     }
 
-    const arrowDownStyle = {
-        width: '0.6875em',
-        height: '0.6875em',
-        display: 'block',
-        fill: 'rgba(55, 53, 47, 0.4)',
-        flexShrink: '0',
-        backfaceVisibility: 'hidden',
-        transition: 'transform 200ms ease-out 0s',
-        transform: 'rotateZ(180deg)',
-        opacity: '1'
-    }
+    // const arrowDownStyle = {
+    //     width: '0.6875em',
+    //     height: '0.6875em',
+    //     display: 'block',
+    //     fill: 'rgba(55, 53, 47, 0.4)',
+    //     flexShrink: '0',
+    //     backfaceVisibility: 'hidden',
+    //     transition: 'transform 200ms ease-out 0s',
+    //     transform: 'rotateZ(180deg)',
+    //     opacity: '1'
+    // }
 
 return (
 <>
@@ -57,14 +57,14 @@ return (
         <div 
         className='pageCard_header'
         onClick={handleCollapse}>
-
+{/* 
             {   
             collapse
             ?         
             <svg 
             viewBox="0 0 100 100" 
             class="triangle" 
-            style={arrowRightStyle}>
+            style={arrowStyle}>
                 <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
             </svg>
             :
@@ -74,7 +74,13 @@ return (
             style={arrowDownStyle}>
                 <polygon points="5.9,88.2 50,11.8 94.1,88.2 "></polygon>
             </svg>
-            }
+            } */}
+            <svg 
+            viewBox="0 0 100 100" 
+            class="triangle" 
+            style={arrowStyle}>
+                <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
+            </svg>
 
             <h2 className='pageCard_title'>
             {page.title}

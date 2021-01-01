@@ -1,21 +1,23 @@
 
 
-.dashboard_card {
+.boardCard_cont {
     width: 100%;
     height: 35px;
+    line-height: 35px;
     cursor: pointer;
+
+    margin-left: 5px;
 }
 
-.dashboard_card:hover {
+.boardCard_cont:hover {
     opacity: .7;
     background-color: lightgrey;
 }
 
-.dashboard_boardTitle {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    margin-left: 10px;
-
-    padding: 5px;
+.boardCard_title {
+    font-size: 1rem;
+    margin-bottom: 10px;
     opacity: .7;
+    
+
 }

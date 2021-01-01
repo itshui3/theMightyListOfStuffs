@@ -1,26 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css';
 
 import { Board } from './components'
 import { Dashboard } from './components'
 
-import { dummyList } from './components/Board/assets/dummyList.js'
+import { dummyBoards } from './assets/dummyBoards.js'
+import { dummyPages } from './assets/dummyPages.js'
 
 function App() {
 
-    const [selectedBoard, setSelectedBoard] = useState(-1)
+    const [selectedBoard, setSelectedBoard] = useState({})
 
-    const [boardList, setBoardList] = useState([])
+    const [boardList, setBoardList] = useState(dummyBoards)
 
-    const [pageList, setPageList] = useState([])
-    const [user, setUser] = useState({name: 'itsYaBoiHui'})
+    const [pageList, setPageList] = useState(dummyPages)
+    const [user, setUser] = useState({name: 'Hui Z.'})
+
+    useEffect(() => { console.log('selectedBoard in App.js', selectedBoard) }, [selectedBoard])
 
     const deselectBoard = () => {
-        setSelectedBoard(-1)
+        setSelectedBoard({})
     }
 
     const selectBoard = (boardIdx) => {
-        setSelectedBoard(boardIdx)
+
+        // this will be an http req
+        const selectThisBoard = boardList.find((board) =>  board.idx === boardIdx)
+
+        if (selectThisBoard === undefined) { selectThisBoard = {} }
+        setSelectedBoard((selected) => {})
+        setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
+        // but why do I need to do this? 
     }
 
     const pushBoard = (board, nestSeq) => {
@@ -58,18 +68,19 @@ return (
 <div className="App">
     <Dashboard 
     selectBoard={selectBoard}
+    // Create
     pushPage={pushPage}
     pushBoard={pushBoard}
-    // I think I just need pages
+
     pages={pageList}
     user={user.name}
     />
     {
-    selectedBoard > -1
+    selectedBoard && Object.keys(selectedBoard).length > 0
     ?
     <Board 
     // selection will proc http req, feeding a board
-    board={boardList[selectedBoard]}
+    board={selectedBoard}
     deselectBoard={deselectBoard}
     />
     :

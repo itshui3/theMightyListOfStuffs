@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 import BoardCard from './BoardCard.js'
-import BoardInput from './BoardInput.js'
-
 import PageCard from './PageCard.js'
-import PageInput from './PageInput.js'
+
+import BoardInput from './Input/BoardInput.js'
+import PageInput from './Input/PageInput.js'
 
 import './Dashboard.css'
 
@@ -52,12 +52,12 @@ return (
         </div>
                 
         
-        <BoardInput pushBoard={pushBoard} />
+        {/* <BoardInput pushBoard={pushBoard} />
 
         <PageInput 
         pushPage={pushPage}
         pushBoard={pushBoard}
-        />
+        /> */}
     </div>
 </>
 )

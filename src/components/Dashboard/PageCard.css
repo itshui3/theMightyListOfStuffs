@@ -8,6 +8,8 @@
     flex-direction: row;
     align-items: center;
 
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .pageCard_header:hover {

@@ -11,13 +11,12 @@
 }
 
 .pageCard_header:hover {
-
     opacity: .8;
     background-color: lightgrey;
 }
 
 .pageCard_title {
-    font-size: 1rem;
+    font-size: .85rem;
     opacity: .7;
 }
 

@@ -6,7 +6,8 @@
     line-height: 35px;
     cursor: pointer;
 
-    margin-left: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .boardCard_cont:hover {
@@ -15,9 +16,21 @@
 }
 
 .boardCard_title {
-    font-size: 1rem;
-    margin-bottom: 10px;
+    font-size: .85rem;
     opacity: .7;
-    
+}
 
+.boardIcon_cont {
+    height: 18px;
+    width: 18px;
+    border-radius: 2px;
+
+    margin: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.boardIcon_cont:hover {
+    background-color: rgb(190, 194, 197);
 }

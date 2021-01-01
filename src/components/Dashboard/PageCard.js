@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import './PageCard.css'
 
-import BoardInput from './BoardInput.js'
-import PageInput from './PageInput.js'
+import BoardInput from './Input/BoardInput.js'
+import PageInput from './Input/PageInput.js'
 
 import BoardCard from './BoardCard.js'
 
@@ -21,7 +21,7 @@ function PageCard({page, nestSeq, selectBoard}) {
     }
 
     const indentation = {
-        marginLeft: `${nestSeq.length * 7}px`
+        paddingLeft: `${(nestSeq.length-1) * 10}px`
     }
 
     const arrowStyle = {
@@ -35,19 +35,19 @@ function PageCard({page, nestSeq, selectBoard}) {
         transform: collapse ? 'rotateZ(90deg)' : 'rotateZ(180deg)',
         opacity: '1',
 
-        marginLeft: '5px',
-        marginRight: '5px'
+        marginRight: '5px',
+        marginLeft: `5px`
     }
 
 return (
 <>
     <div 
     className='pageCard_cont'
-    style={indentation}
     >
         <div 
         className='pageCard_header'
-        onClick={handleCollapse}>
+        onClick={handleCollapse}
+        style={indentation}>
             <div className='arrowSvg_cont'>
                 <svg 
                 viewBox="0 0 100 100" 

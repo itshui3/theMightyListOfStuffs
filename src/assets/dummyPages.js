@@ -1,4 +1,5 @@
 const dummyPages = {
+    title: 'Root',
     pages: [],
     boards: []
 }
@@ -11,6 +12,12 @@ const healthPages = {
         { idx: 1, title: 'Diet' }
     ]
 }
+const healthPages_resources = {
+    title: 'Health Resources',
+    pages: [],
+    boards: [ { idx: 3, title: 'Health Resources'} ]
+}
+healthPages.pages.push(healthPages_resources)
 dummyPages.pages.push(healthPages)
 
 const projectPages = {

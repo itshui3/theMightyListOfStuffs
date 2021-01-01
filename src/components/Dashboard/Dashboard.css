@@ -14,13 +14,11 @@
 .userInfo_userName {
     margin-top: 20px;
     margin-left: 15px;
-    text-align: left;
     font-size: 1.5rem;
     cursor: alias;
 }
 
 .dashboard_cardsCont {
-    margin-left: 10px;
     width: 80%;
     
 }

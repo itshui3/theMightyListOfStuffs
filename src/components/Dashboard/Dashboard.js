@@ -10,7 +10,6 @@ import './Dashboard.css'
 
 function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
 
-
 return (
 <>
     <div className='dashboard_cont'>
@@ -29,7 +28,7 @@ return (
                     key={idx}
                     pageIdx={idx}
                     page={page}
-                    nestingSeq={[]}
+                    nestSeq={[idx]}
                     selectBoard={selectBoard}
                     />))
                 :

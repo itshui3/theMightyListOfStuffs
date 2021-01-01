@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 
 import './BoardCard.css'
 
-function BoardCard({boardTitle, selectBoard}) {
+function BoardCard({boardTitle, selectBoard, nestSeq}) {
     
 return (
 <>
-    <div className='dashboard_card'
+    <div className='boardCard_cont'
     onClick={selectBoard}
     >
-        <h2 className='dashboard_boardTitle'>{boardTitle}</h2>
+        <h2 className='boardCard_title'>[Board] {boardTitle}</h2>
     </div>
 </>
 )

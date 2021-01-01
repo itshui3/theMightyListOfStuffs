@@ -14,7 +14,7 @@ function App() {
     const [boardList, setBoardList] = useState(dummyBoards)
 
     const [pageList, setPageList] = useState(dummyPages)
-    const [user, setUser] = useState({name: 'itsYaBoiHui'})
+    const [user, setUser] = useState({name: 'Hui Z.'})
 
     useEffect(() => { console.log('selectedBoard in App.js', selectedBoard) }, [selectedBoard])
 
@@ -24,14 +24,10 @@ function App() {
 
     const selectBoard = (boardIdx) => {
 
+        // this will be an http req
+        const selectThisBoard = boardList.find((board) =>  board.idx === boardIdx)
 
-        const selectThisBoard = boardList.find((board) => {
-            return board.idx === boardIdx
-        })
-        console.log('selectThisBoard in selectBoard fn', selectThisBoard)
-        if (selectThisBoard === undefined) {
-            selectThisBoard = {}
-        }
+        if (selectThisBoard === undefined) { selectThisBoard = {} }
         setSelectedBoard((selected) => {})
         setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
         // but why do I need to do this? 

@@ -3,25 +3,83 @@ import React, { useState, useEffect } from 'react'
 import './PageCard.css'
 
 import BoardInput from './BoardInput.js'
+import PageInput from './PageInput.js'
+
 import BoardCard from './BoardCard.js'
 
-function PageCard({pageIdx, page, nestingSeq, selectBoard}) {
+function PageCard({page, nestSeq, selectBoard}) {
 
     const [collapse, setCollapse] = useState(true)
 
+    useEffect(() => {
+        console.log('nest seq', nestSeq)
+        console.log('page title', page.title)
+    })
+
     const handleCollapse = () => {
         setCollapse(!collapse)
+    }
+
+    const indentation = {
+        marginLeft: `${nestSeq.length * 7}px`
+    }
+
+    const arrowRightStyle = {
+        width: '0.6875em',
+        height: '0.6875em',
+        display: 'block',
+        fill: 'rgba(55, 53, 47, 0.4)',
+        flexShrink: '0',
+        backfaceVisibility: 'hidden',
+        transition: 'transform 200ms ease-out 0s',
+        transform: 'rotateZ(90deg)',
+        opacity: '1'
+    }
+
+    const arrowDownStyle = {
+        width: '0.6875em',
+        height: '0.6875em',
+        display: 'block',
+        fill: 'rgba(55, 53, 47, 0.4)',
+        flexShrink: '0',
+        backfaceVisibility: 'hidden',
+        transition: 'transform 200ms ease-out 0s',
+        transform: 'rotateZ(180deg)',
+        opacity: '1'
     }
 
 return (
 <>
     <div 
     className='pageCard_cont'
+    style={indentation}
     >
         <div 
         className='pageCard_header'
         onClick={handleCollapse}>
-            <h2>{page.title}</h2>
+
+            {   
+            collapse
+            ?         
+            <svg 
+            viewBox="0 0 100 100" 
+            class="triangle" 
+            style={arrowRightStyle}>
+                <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
+            </svg>
+            :
+            <svg 
+            viewBox="0 0 100 100" 
+            class="triangle" 
+            style={arrowDownStyle}>
+                <polygon points="5.9,88.2 50,11.8 94.1,88.2 "></polygon>
+            </svg>
+            }
+
+            <h2 className='pageCard_title'>
+            {page.title}
+            </h2>
+
         </div>
         
         <div
@@ -34,9 +92,9 @@ return (
             page.pages.map((page, idx) => (
                 <PageCard 
                 key={idx}
-                pageIdx={idx}
                 page={page}
-                nestingSeq={[]}
+                nestSeq={nestSeq.concat(idx)}
+                selectBoard={selectBoard}
                 />))
             :
             null
@@ -50,6 +108,7 @@ return (
                 key={idx} 
                 boardTitle={board.title}
                 selectBoard={() => selectBoard(board.idx)}
+                nestSeq={nestSeq}
                 />))
             :
             null

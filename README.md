@@ -1,4 +1,5 @@
-A trello clone that can organize tasks into columns with listed todos under each task
+Task management system taking inspiration from notion & trello
+Really wish I didn't name it the might list of stuffs
 
 npm start
 npm run build

@@ -13,11 +13,6 @@ function Board({ board, deselectBoard }) {
         return board && board.tasks && board.tasks.length > 0 ? board.tasks : []
     })
 
-    useEffect(() => {
-        console.log('selected board in Board.js', board)
-    }, [])
-
-    // new task input handling
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)
 
@@ -77,11 +72,10 @@ function Board({ board, deselectBoard }) {
     }
 
     const removeTodo = (taskID) => (todoID) => {
-        // find task
         setTaskList(taskList.map((task, idx) => {
 
             if (idx === taskID) {
-                // construct a new array with everything that doesn't meet the condition of having the id of the one I want removed
+
                 const newTodos = task.todos.filter((todo, idx) => idx !== todoID)
 
                 return {
@@ -149,6 +143,7 @@ return (
         </h1>
 
         <div
+        className='board_header__deselectBtn'
         onClick={deselectBoard}
         >Deselect Board</div>
 

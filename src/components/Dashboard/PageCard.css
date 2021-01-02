@@ -8,15 +8,31 @@
     flex-direction: row;
     align-items: center;
 
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .pageCard_header:hover {
-
     opacity: .8;
     background-color: lightgrey;
 }
 
 .pageCard_title {
-    font-size: 1rem;
+    font-size: .85rem;
     opacity: .7;
+}
+
+.arrowSvg_cont {
+    height: 18px;
+    width: 18px;
+    border-radius: 2px;
+
+    margin: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.arrowSvg_cont:hover {
+    background-color: rgb(190, 194, 197);
 }

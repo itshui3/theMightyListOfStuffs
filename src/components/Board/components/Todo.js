@@ -1,5 +1,6 @@
 import React from 'react'
 
+import './Todo.css'
 
 function Todo({ 
     todoID, 
@@ -7,7 +8,8 @@ function Todo({
     removeTodo, 
     setTodoDragID,
     todoDragID,
-    evaluateDragTodo }) {
+    evaluateDragTodo,
+    taskBorderEmphasis }) {
 
 return (
 <>
@@ -15,12 +17,16 @@ return (
 <div 
 className='todo_card' 
 key={todoID} 
+
 draggable='true'
 onDragStart={() => setTodoDragID(todoID)}
 onDragOver={(ev) => ev.preventDefault()}
 onDrop={() => {
     if (todoDragID>-1) evaluateDragTodo(todoID)
 }}
+
+onMouseEnter={taskBorderEmphasis}
+onMouseLeave={taskBorderEmphasis}
 >
     <p className='todo_txt'>{ todo }</p>
     <div className='panel_mutateTodo'>

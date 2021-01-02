@@ -147,7 +147,7 @@ return (
         <div
         className='board_header__deselectBtn'
         onClick={deselectBoard}
-        >Deselect Board</div>
+        >x</div>
 
     </div>
 

@@ -12,9 +12,14 @@
 
     font-size: .82rem;
     font-style: italic;
+
+    cursor: grab;
 }
 .todo_card:hover {
     border: 1px solid grey;
+}
+.todo_card:active {
+    cursor: grabbing;
 }
 .panel_mutateTodo {
     display: flex;

@@ -5,7 +5,6 @@ import './Task.css'
 import TodoInput from './TodoInputTimeout.js'
 import Todo from './Todo.js'
 
-
 function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setDragTaskID, dragTaskID, evaluateDragTask }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
@@ -111,9 +110,7 @@ style={useLightBorder ? lightBorder : null}
             todoDragID={todoDragID}
             setTodoDragID={setTodoDragID}
             evaluateDragTodo={evaluateDragTodo(taskID)} 
-            taskBorderEmphasis={taskBorderEmphasis}/>
-
-            ))
+            taskBorderEmphasis={taskBorderEmphasis}/>))
             :
             null
     }

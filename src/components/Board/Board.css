@@ -38,3 +38,24 @@
     display: flex;
     overflow-x: scroll;
 }
+
+.addingTaskBtn {
+    width: 270px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 15px;
+    margin: 10px;
+
+    background-color: black;
+    color: white;
+    opacity: .5;
+
+    cursor: pointer;
+}
+
+.addingTaskBtn:hover {
+    opacity: .8;
+}

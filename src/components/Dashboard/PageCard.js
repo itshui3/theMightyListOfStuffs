@@ -20,9 +20,7 @@ function PageCard({page, nestSeq, selectBoard}) {
         setCollapse(!collapse)
     }
 
-    const indentation = {
-        paddingLeft: `${(nestSeq.length-1) * 10}px`
-    }
+    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
 
     const arrowStyle = {
         width: '0.6875em',
@@ -42,8 +40,7 @@ function PageCard({page, nestSeq, selectBoard}) {
 return (
 <>
     <div 
-    className='pageCard_cont'
-    >
+    className='pageCard_cont'>
         <div 
         className='pageCard_header'
         style={indentation}>

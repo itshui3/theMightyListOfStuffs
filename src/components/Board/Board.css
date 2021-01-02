@@ -1,6 +1,5 @@
 .board_wrapper {
     width: 80%;
-    /* height: 100%; */
     border: 1px solid ghostwhite;
 }
 
@@ -13,8 +12,11 @@
     align-items: center;
 
     border-radius: 20px;
-    margin: 15px 0;
+    margin: 15px 5px;
     padding: 0px 35px;
+
+        
+    box-shadow: 3px 4px 2px rgba(0, 0, 0, 0.3);
 }
 
 .board_title {
@@ -54,6 +56,9 @@
     opacity: .5;
 
     cursor: pointer;
+
+        
+    box-shadow: 3px 4px 2px rgba(0, 0, 0, 0.7);
 }
 
 .addingTaskBtn:hover {

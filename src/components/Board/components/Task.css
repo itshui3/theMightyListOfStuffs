@@ -8,6 +8,12 @@
 
     display: flex;
     flex-direction: column;
+
+    border: 1px solid white;
+}
+
+.task_card:hover {
+    border: 1px solid grey;
 }
 
 .addingTaskBtn {
@@ -35,28 +41,6 @@
 
 .task_headerObj {
     margin: 15px;
-}
-
-.todo_card {
-    background-color: white;
-    margin: 5px 10px;
-    padding: 12px;
-    width: calc(100% - 20px);
-
-    display: flex;
-    justify-content: space-between;
-
-}
-
-.panel_mutateTodo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.todoMutator {
-    margin: 3px;
 }
 
 .toggleAdding_btn {

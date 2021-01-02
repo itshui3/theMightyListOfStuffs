@@ -77,11 +77,10 @@ function Board({ board, deselectBoard }) {
     }
 
     const removeTodo = (taskID) => (todoID) => {
-        // find task
         setTaskList(taskList.map((task, idx) => {
 
             if (idx === taskID) {
-                // construct a new array with everything that doesn't meet the condition of having the id of the one I want removed
+
                 const newTodos = task.todos.filter((todo, idx) => idx !== todoID)
 
                 return {

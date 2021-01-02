@@ -12,6 +12,8 @@ function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setD
     const [todo, setTodo] = useState('')
     const [todoDragID, setTodoDragID] = useState(-1)
 
+    const [useLightBorder, setUseLightBorder] = useState(false)
+
     const todoInputRef = useRef()
 
     const toggleAddingTodo = () => {
@@ -66,6 +68,12 @@ function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setD
 
     }
 
+    const taskBorderEmphasis = () => { setUseLightBorder(!useLightBorder) }
+
+    const lightBorder = {
+        border: '1px solid lightgrey'
+    }
+
 return (
 <>
 
@@ -79,6 +87,8 @@ onDragOver={(ev) => ev.preventDefault()}
 onDrop={() => {
     if (dragTaskID>-1) evaluateDragTask(taskID)
 }}
+
+style={useLightBorder ? lightBorder : null}
 >
     <div className='task_header'>
         <h3 className='task_headerObj'>{ task.name }</h3>
@@ -100,7 +110,8 @@ onDrop={() => {
             removeTodo={removeTodo} 
             todoDragID={todoDragID}
             setTodoDragID={setTodoDragID}
-            evaluateDragTodo={evaluateDragTodo(taskID)} />
+            evaluateDragTodo={evaluateDragTodo(taskID)} 
+            taskBorderEmphasis={taskBorderEmphasis}/>
 
             ))
             :

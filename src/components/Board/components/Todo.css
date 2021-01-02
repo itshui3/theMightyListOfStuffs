@@ -1,0 +1,24 @@
+.todo_card {
+    background-color: white;
+    margin: 5px 10px;
+    padding: 12px;
+    width: calc(100% - 20px);
+
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 3px;
+    border: 1px solid white;
+}
+.todo_card:hover {
+    border: 1px solid grey;
+}
+.panel_mutateTodo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.todoMutator {
+    margin: 3px;
+}

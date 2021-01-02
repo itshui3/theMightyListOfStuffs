@@ -36,7 +36,7 @@ function PageCard({page, nestSeq, selectBoard}) {
         opacity: '1',
 
         marginRight: '5px',
-        marginLeft: `5px`
+        marginLeft: '5px'
     }
 
 return (

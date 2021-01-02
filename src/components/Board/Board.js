@@ -20,6 +20,7 @@ function Board({ board, deselectBoard }) {
     
     const taskInputRef = useRef()
 
+// task handling
     const toggleAddingTask = () => {
         setAddingTask(addingTask => !addingTask)
         setTask('')
@@ -50,6 +51,7 @@ function Board({ board, deselectBoard }) {
             })
         })
     }
+    
 // todo handling
     const addTodo = (taskID) => (todo) => {
         if (!todo.length) { return }

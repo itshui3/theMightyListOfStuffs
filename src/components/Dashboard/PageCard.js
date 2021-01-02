@@ -46,9 +46,10 @@ return (
     >
         <div 
         className='pageCard_header'
-        onClick={handleCollapse}
         style={indentation}>
-            <div className='arrowSvg_cont'>
+            <div 
+            className='arrowSvg_cont'
+            onClick={handleCollapse}>
                 <svg 
                 viewBox="0 0 100 100" 
                 class="triangle" 

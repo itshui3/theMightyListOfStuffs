@@ -1,12 +1,7 @@
 .board_wrapper {
     width: 80%;
-    height: 100%;
-    border: 1px solid black;
-
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
+    /* height: 100%; */
+    border: 1px solid ghostwhite;
 }
 
 .board_header {
@@ -16,10 +11,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    border-radius: 20px;
+    margin: 15px 0;
+    padding: 0px 35px;
 }
 
-.header_items {
-    margin-left: 5px;
+.board_title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: crosshair;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.board_header__deselectBtn {
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .board_body {

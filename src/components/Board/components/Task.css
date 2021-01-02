@@ -2,7 +2,7 @@
     min-width: 270px;
     margin: 10px;
 
-    background-color: lightcyan;
+    background-color: azure;
     border-radius: 4px;
     height: min-content;
 
@@ -37,6 +37,8 @@
 .task_header {
     display: flex;
     justify-content: space-between;
+
+    font-size: 1.08rem;
 }
 
 .task_headerObj {

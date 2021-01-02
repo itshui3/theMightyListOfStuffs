@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
     width: 20%;
+    min-width: 200px;
 }
 
 .dashboard_userInfo {
@@ -12,13 +12,12 @@
 }
 
 .userInfo_userName {
-    margin-top: 20px;
-    margin-left: 15px;
-    font-size: 1.5rem;
-    cursor: alias;
+    margin-top: 45px;
+    margin-left: 30px;
+    font-size: 1.7rem;
+    cursor: none;
 }
 
 .dashboard_cardsCont {
     width: 95%;
-    
 }

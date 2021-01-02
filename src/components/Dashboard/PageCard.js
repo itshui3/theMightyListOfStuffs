@@ -20,9 +20,7 @@ function PageCard({page, nestSeq, selectBoard}) {
         setCollapse(!collapse)
     }
 
-    const indentation = {
-        paddingLeft: `${(nestSeq.length-1) * 10}px`
-    }
+    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
 
     const arrowStyle = {
         width: '0.6875em',
@@ -42,13 +40,13 @@ function PageCard({page, nestSeq, selectBoard}) {
 return (
 <>
     <div 
-    className='pageCard_cont'
-    >
+    className='pageCard_cont'>
         <div 
         className='pageCard_header'
-        onClick={handleCollapse}
         style={indentation}>
-            <div className='arrowSvg_cont'>
+            <div 
+            className='arrowSvg_cont'
+            onClick={handleCollapse}>
                 <svg 
                 viewBox="0 0 100 100" 
                 class="triangle" 

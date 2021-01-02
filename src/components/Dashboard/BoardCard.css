@@ -21,6 +21,11 @@
 .boardCard_title {
     font-size: .85rem;
     opacity: .7;
+
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .boardIcon_cont {

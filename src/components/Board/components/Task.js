@@ -5,14 +5,13 @@ import './Task.css'
 import TodoInput from './TodoInputTimeout.js'
 import Todo from './Todo.js'
 
-
 function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setDragTaskID, dragTaskID, evaluateDragTask }) {
 
     const [addingTodo, setAddingTodo] = useState(false)
     const [todo, setTodo] = useState('')
     const [todoDragID, setTodoDragID] = useState(-1)
 
-    const [useLightBorder, setUseLightBorder] = useState(false)
+    const [lighterShadow, setLighterShadow] = useState(false)
 
     const todoInputRef = useRef()
 
@@ -68,10 +67,14 @@ function Task({ task, taskID, removeTask, addTodo, removeTodo, setTaskList, setD
 
     }
 
-    const taskBorderEmphasis = () => { setUseLightBorder(!useLightBorder) }
+    const taskShadowSwitch = () => { setLighterShadow(!lighterShadow) }
 
-    const lightBorder = {
-        border: '1px solid lightgrey'
+    const lightShadow = {
+        boxShadow: 
+        `
+        0px 0px 0px 1px rgba(0, 0, 0, .3), 
+        3px 4px 2px 1px rgba(0, 0, 0, 0.3)
+        `
     }
 
 return (
@@ -88,7 +91,9 @@ onDrop={() => {
     if (dragTaskID>-1) evaluateDragTask(taskID)
 }}
 
-style={useLightBorder ? lightBorder : null}
+onMouseEnter={() => setLighterShadow(true)}
+onMouseLeave={() => setLighterShadow(false)}
+style={lighterShadow ? lightShadow : null}
 >
     <div className='task_header'>
         <h3 className='task_headerObj'>{ task.name }</h3>
@@ -111,9 +116,7 @@ style={useLightBorder ? lightBorder : null}
             todoDragID={todoDragID}
             setTodoDragID={setTodoDragID}
             evaluateDragTodo={evaluateDragTodo(taskID)} 
-            taskBorderEmphasis={taskBorderEmphasis}/>
-
-            ))
+            taskShadowSwitch={taskShadowSwitch}/>))
             :
             null
     }

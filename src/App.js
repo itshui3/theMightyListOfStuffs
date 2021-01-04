@@ -20,9 +20,8 @@ function App() {
         // if user is set, fetch pages
         console.log('user set as: ', user)
     }, [user])
+    const userSetter = (name) => setUser({ name: name })
     const deselectBoard = () => { setSelectedBoard({}) }
-
-    const setUserName = (name) => { setUser({ name: name })}
 
     const selectBoard = (nestSeq, boardIdx) => {
         // nestSeq = [pgId1, pgId2, pgId3, adnauseum...]
@@ -89,7 +88,7 @@ return (
     user={user.name}
     />
     :
-    <Login setUserName={setUserName} />
+    <Login setUser={userSetter} />
 }
     {
     selectedBoard && user && Object.keys(selectedBoard).length > 0

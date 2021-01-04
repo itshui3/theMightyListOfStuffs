@@ -1,5 +1,4 @@
 .login_cont {
-    height: 500px;
     width: 250px;
     border-radius: 2px;
     background: lightgrey;
@@ -11,13 +10,17 @@
 }
 
 .login_input {
-    width: 100%;
-    height: 70px;
-    margin-top: 20px;
+    width: 95%;
+    height: 50px;
+    margin-top: 5px;
 }
 
 .login_btn {
     width: 100%;
     margin-top: 20px;
     height: 30px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import './Login.css'
 
@@ -24,7 +24,7 @@ return (
         <div 
         className='login_btn'
         onClick={() => {
-            if (username.length) setUser(username)
+            if (username.length > 0) setUser(username)
         }}>Select User</div>
     </div>
 </>

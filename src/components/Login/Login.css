@@ -1,0 +1,23 @@
+.login_cont {
+    height: 500px;
+    width: 250px;
+    border-radius: 2px;
+    background: lightgrey;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.login_input {
+    width: 100%;
+    height: 70px;
+    margin-top: 20px;
+}
+
+.login_btn {
+    width: 100%;
+    margin-top: 20px;
+    height: 30px;
+}

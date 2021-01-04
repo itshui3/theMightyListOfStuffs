@@ -1,3 +1,5 @@
+import { exerciseBoard, dietBoard, taskBoard, dietLinksBoard } from './dummyBoards.js'
+
 const dummyPages = {
     title: 'Root',
     pages: [],
@@ -8,14 +10,14 @@ const healthPages = {
     title: 'Health',
     pages: [],
     boards: [
-        { idx: 0, title: 'Exercises'},
-        { idx: 1, title: 'Diet' }
+        exerciseBoard,
+        dietBoard
     ]
 }
 const healthPages_resources = {
-    title: 'Health Resources',
+    title: 'Healthy Resources',
     pages: [],
-    boards: [ { idx: 3, title: 'Health Resources'} ]
+    boards: [ dietLinksBoard ]
 }
 healthPages.pages.push(healthPages_resources)
 dummyPages.pages.push(healthPages)
@@ -34,7 +36,7 @@ const learningPages = {
 }
 dummyPages.pages.push(learningPages)
 
-const todayTodoBoard = { idx: 2, title: 'Today\'s Tasks' }
-dummyPages.boards.push(todayTodoBoard)
+// root level pages
+dummyPages.boards.push(taskBoard)
 
 export { dummyPages }

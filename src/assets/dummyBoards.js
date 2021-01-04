@@ -16,8 +16,8 @@ const dummyBoards = []
 // }
 
 // [0] exercises
-dummyBoards.push({
-    idx: 0,
+const exerciseBoard = {
+
     title: 'Exercises',
     tasks: [
         {
@@ -25,10 +25,10 @@ dummyBoards.push({
             todos: ['child\'s pose', 'infinity hover']
         }
     ]
-})
+}
 // [1] diet
-dummyBoards.push({
-    idx: 1,
+const dietBoard = {
+
     title: 'Dietary Habits',
     tasks: [
         {
@@ -36,11 +36,11 @@ dummyBoards.push({
             todos: ['Once after morning shower', 'once every 2 hours refill']
         }
     ]
-})
+}
 
 // [2]
-dummyBoards.push({
-    idx: 2,
+const taskBoard = {
+
     title: 'Today\'s Tasks',
     tasks: [
         {
@@ -48,13 +48,13 @@ dummyBoards.push({
             todos: ['Plan', 'Think about where I\'m at', 'Pick out a piece I can build!']
         }
     ]
-})
+}
 
 // [3] nested in health_resources
-dummyBoards.push({
-    idx: 3,
+const dietLinksBoard = {
+
     title: 'Diet Links',
     tasks: []
-})
+}
 
-export { dummyBoards }
+export { exerciseBoard, dietBoard, taskBoard, dietLinksBoard }

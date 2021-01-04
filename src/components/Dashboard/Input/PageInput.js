@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-import './PageInput.css'
-
 function PageInput({ pushPage, pushBoard, nestSeq }) {
 
     const [page, setPage] = useState('')

@@ -30,12 +30,11 @@ function App() {
 
         const selectThisBoard = curPage.boards[boardIdx]
 
-        setSelectedBoard(() => {})
-        if (selectThisBoard !== undefined) {
-            setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
+        if (selectThisBoard !== undefined) { 
+            setSelectedBoard(() => {})
+            setTimeout(() => setSelectedBoard(selectThisBoard), .0001) 
         }
-        
-        // but why do I need to do this? 
+        // but why do I need to do it this way? 
     }
 
     const pushBoard = (board, nestSeq) => {}

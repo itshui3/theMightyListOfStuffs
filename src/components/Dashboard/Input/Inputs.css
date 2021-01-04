@@ -1,0 +1,16 @@
+.PageBoard_inputcontainer {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(211, 211, 211, .7);
+    border-radius: 10px;
+}
+
+/* page input */
+.notAddingPage_btn {
+    cursor: pointer;
+}
+
+.addingPage_saveBtn {
+    cursor: pointer;
+}

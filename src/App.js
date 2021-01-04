@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
 
+import { gql, useQuery } from '@apollo/client'
+
 import { Board } from './components'
 import { Dashboard } from './components'
 
-import { dummyBoards } from './assets/dummyBoards.js'
 import { dummyPages } from './assets/dummyPages.js'
 
 function App() {
 
-    const [selectedBoard, setSelectedBoard] = useState({})
-
-    const [boardList, setBoardList] = useState(dummyBoards)
-
-    const [pageList, setPageList] = useState(dummyPages)
     const [user, setUser] = useState({name: 'Hui Z.'})
+    const [pageList, setPageList] = useState(dummyPages)
 
-    useEffect(() => { console.log('selectedBoard in App.js', selectedBoard) }, [selectedBoard])
+    const [selectedBoard, setSelectedBoard] = useState({})
+    const deselectBoard = () => { setSelectedBoard({}) }
 
-    const deselectBoard = () => {
-        setSelectedBoard({})
-    }
+    const selectBoard = (nestSeq, boardIdx) => {
+        // nestSeq = [pgId1, pgId2, pgId3, adnauseum...]
+        // pageList.pages[nestSeq[0]].pages[nestSeq[1]].boards[boardIdx]
+        console.log('in [fn]selectBoard nestSeq', nestSeq)
+        console.log('in [fn]selectBoard boardIdx', boardIdx)
 
-    const selectBoard = (boardIdx) => {
+        let bookmark = 0
+        let curPage = pageList
 
-        // this will be an http req
-        const selectThisBoard = boardList.find((board) =>  board.idx === boardIdx)
+        while (bookmark < nestSeq.length) {
+            curPage = curPage.pages[nestSeq[bookmark]]
+            bookmark += 1
+        }
 
-        if (selectThisBoard === undefined) { selectThisBoard = {} }
-        setSelectedBoard((selected) => {})
-        setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
+        const selectThisBoard = curPage.boards[boardIdx]
+
+        setSelectedBoard(() => {})
+        if (selectThisBoard !== undefined) {
+            setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
+        }
+        
         // but why do I need to do this? 
     }
 
-    const pushBoard = (board, nestSeq) => {
-        // setBoardList(boards => {
-        //     return [...boards, board]
-        // })
-    }
+    const pushBoard = (board, nestSeq) => {}
 
     // [0] how do I determine nesting level at which to add the page? 
     const pushPage = (page, nestSeq) => {

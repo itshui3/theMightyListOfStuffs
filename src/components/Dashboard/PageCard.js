@@ -71,7 +71,7 @@ return (
                 <BoardCard 
                 key={idx} 
                 boardTitle={board.title}
-                selectBoard={() => selectBoard(board.idx)}
+                selectBoard={() => selectBoard(nestSeq, idx)}
                 nestSeq={nestSeq}
                 />))
             :

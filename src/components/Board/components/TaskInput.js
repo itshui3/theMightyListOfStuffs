@@ -17,7 +17,6 @@ function TaskInput({
     }, [])
 
     const handleBlurSet = (ev) => {
-        console.log('in handleBlurSet')
         if(!lock) {
             toggleAddingTask()
         }

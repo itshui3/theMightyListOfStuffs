@@ -19,8 +19,6 @@ function App() {
     const selectBoard = (nestSeq, boardIdx) => {
         // nestSeq = [pgId1, pgId2, pgId3, adnauseum...]
         // pageList.pages[nestSeq[0]].pages[nestSeq[1]].boards[boardIdx]
-        console.log('in [fn]selectBoard nestSeq', nestSeq)
-        console.log('in [fn]selectBoard boardIdx', boardIdx)
 
         let bookmark = 0
         let curPage = pageList
@@ -44,7 +42,6 @@ function App() {
 
     // [0] how do I determine nesting level at which to add the page? 
     const pushPage = (page, nestSeq) => {
-        console.log('in pushPage')
 
         const newPage = {
 

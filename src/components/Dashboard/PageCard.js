@@ -14,11 +14,6 @@ function PageCard({page, nestSeq, selectBoard}) {
 
     const [collapse, setCollapse] = useState(true)
 
-    useEffect(() => {
-        console.log('nest seq', nestSeq)
-        console.log('page title', page.title)
-    })
-
     const handleCollapse = () => {
         setCollapse(!collapse)
     }

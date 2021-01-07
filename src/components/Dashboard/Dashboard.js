@@ -8,13 +8,13 @@ import PageInput from './Input/PageInput.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
+function Dashboard({ pages, selectBoard, pushBoard, pushPage, username }) {
 
 return (
 <>
     <div className='dashboard_cont'>
         <div className='dashboard_userInfo'>
-            <p className='userInfo_userName'>{user}</p>
+            <p className='userInfo_userName'>{username}</p>
         </div>
 
 

@@ -1,4 +1,9 @@
-import { exerciseBoard, dietBoard, taskBoard, dietLinksBoard } from './dummyBoards.js'
+import { 
+    exerciseBoard, 
+    dietBoard, 
+    taskBoard, 
+    dietLinksBoard 
+} from './dummyBoards.js'
 
 const dummyPages = {
     title: 'Root',

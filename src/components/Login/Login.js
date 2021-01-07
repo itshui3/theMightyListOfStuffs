@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 
 import './Login.css'
-
-function Login({ setUser }) {
+function Login({ getUser }) {
 
     const [username, setUsername] = useState('')
 
@@ -11,6 +10,10 @@ function Login({ setUser }) {
         top: '40%',
         left: '50%',
         transform: 'translate(-50%, -50%)'
+    }
+
+    const handleLogin = () => {
+        if (username.length > 0) getUser()
     }
 
 return (
@@ -23,9 +26,7 @@ return (
         />
         <div 
         className='login_btn'
-        onClick={() => {
-            if (username.length > 0) setUser(username)
-        }}>Select User</div>
+        onClick={handleLogin}>Select User</div>
     </div>
 </>
 )

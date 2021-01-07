@@ -1,25 +1,53 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
 
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useLazyQuery } from '@apollo/client'
 
 import { Board } from './components'
 import { Dashboard } from './components'
 import { Login } from './components'
+import { Loading } from './components'
 
 import { dummyPages } from './assets/dummyPages.js'
 
+// const loginQuery = gql`
+// query User($name: String!) {
+//     user(name: $name) {
+//         id,
+//         name,
+//             pages {
+//         id,
+//         title
+//         }
+//     }
+// }
+// `
+const loginQuery = gql`
+query {
+    user(name: "Hui") {
+      id,
+      name,
+          pages {
+        id,
+        title
+      }
+    }
+  }
+`
+
 function App() {
 
+    const [getUser, { loading, data, error }] = useLazyQuery(loginQuery);
     const [user, setUser] = useState(null)
     const [pageList, setPageList] = useState(dummyPages)
 
     const [selectedBoard, setSelectedBoard] = useState({})
 
     useEffect(() => {
-        // if user is set, fetch pages
-        console.log('user set as: ', user)
-    }, [user])
+        console.log('[data, loading, error]')
+        console.log(`[${data}, ${loading}, ${error}]`)
+    }, [data, loading, error])
+
     const userSetter = (name) => setUser({ name: name })
     const deselectBoard = () => { setSelectedBoard({}) }
 
@@ -69,14 +97,20 @@ function App() {
         })
     }
 
-
-
 return (
 <>
 
 <div className="App">
 {    
-    user
+    loading
+    ?
+    <Loading />
+    :
+    error
+    ?
+    <h1>Error: {error}</h1>
+    :
+    data
     ?
     <Dashboard 
     selectBoard={selectBoard}
@@ -85,10 +119,10 @@ return (
     pushBoard={pushBoard}
 
     pages={pageList}
-    user={user.name}
+    username={data ? data.user.name : 'Couldn\'t Retrieve'}
     />
     :
-    <Login setUser={userSetter} />
+    <Login getUser={getUser} />
 }
     {
     selectedBoard && user && Object.keys(selectedBoard).length > 0

@@ -17,6 +17,8 @@ function Board({ board, deselectBoard }) {
     const [addingTask, setAddingTask] = useState(false)
 
     const [dragTaskID, setDragTaskID] = useState(-1)
+
+    const [deselecting, setDeselecting] = useState(false)
     
     const taskInputRef = useRef()
 
@@ -146,8 +148,26 @@ return (
 
         <div
         className='board_header__deselectBtn'
+        onMouseDown={() => setDeselecting(true)}
+        onMouseUp={() => setDeselecting(false)}
         onClick={deselectBoard}
-        >x</div>
+        >
+            <svg width="30" height="30">
+                <circle 
+                r="15" 
+                cx="15" 
+                cy="15" 
+                fill={deselecting ? 'white' : 'black'} />
+
+                <circle 
+                r="10" 
+                cx="15" 
+                cy="15" 
+                fill="none"
+                stroke={deselecting ? 'black' : 'white'}
+                stroke-width="3.5" />
+            </svg>
+        </div>
 
     </div>
 

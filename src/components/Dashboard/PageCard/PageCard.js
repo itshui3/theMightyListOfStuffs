@@ -27,7 +27,7 @@ import './pageLoading.css'
 // }
 
 const pageQueryFactory = (username) => (gql`query Page($id: [Int]) {
-    user(name: ${username}) {
+    user(name: "${username}") {
         id,
         name,
         page(id: $id) {
@@ -47,20 +47,7 @@ const pageQueryFactory = (username) => (gql`query Page($id: [Int]) {
 }`)
 
 function PageCard({username, page, nestSeq, selectBoard}) {
-    const PageQuery = gql`query Page($id: [Int]) {
-        user(name: "Hui") {
-            id,
-            name,
-            page(id: $id) {
-    
-                pages {
-                    id,
-                    title
-                },
-    
-            }
-        }
-    }`
+    const PageQuery = pageQueryFactory(username)
 
     const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
     const [collapse, setCollapse] = useState(true)
@@ -111,6 +98,7 @@ return (
         ?
         data.user.page.pages.map((page, idx) => (
             <PageCard 
+            username={username}
             key={idx}
             page={page}
             nestSeq={nestSeq.concat(page.id)}
@@ -120,18 +108,19 @@ return (
         null
         }
 
-        {/* {
-            page && page.boards.length > 0 && !collapse
+        {
+            !collapse && data
             ?
-            page.boards.map((board, idx) => (
+            data.user.page.boards.map((board, idx) => (
                 <BoardCard 
                 key={idx} 
-                boardTitle={board.title}
-                selectBoard={selectBoard(nestSeq)}
+                board={board}
+                nestSeq={[]}
+                selectBoard={selectBoard}
                 />))
             :
             null
-        } */}
+        }
 
         </div>
     </div>

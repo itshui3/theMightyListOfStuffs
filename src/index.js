@@ -13,11 +13,9 @@ import {
 require('dotenv').config()
 
 const client = new ApolloClient({
-  uri: process.env.GQL_URI,
+  uri: process.env.REACT_APP_GQL_URI,
   cache: new InMemoryCache()
 });
-
-console.log('env TEST', process.env.TEST)
 
 ReactDOM.render(
 

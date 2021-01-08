@@ -22,31 +22,40 @@ import { dummyPages } from './assets/dummyPages.js'
 //     }
 // }
 // `
-const loginQuery = gql`
+const helloWorldQuery = gql`
 query {
+    hello
+}
+`
+
+const loginQuery = gql`query {
     user(name: "Hui") {
-      id,
-      name,
-          pages {
         id,
-        title
-      }
+        name,
+        pages {
+            id,
+            title
+        }
     }
-  }
+}
 `
 
 function App() {
 
-    const [getUser, { loading, data, error }] = useLazyQuery(loginQuery);
+    const { data, loading, error } = useQuery(loginQuery)
     const [user, setUser] = useState(null)
-    const [pageList, setPageList] = useState(dummyPages)
+    const [pageList, setPageList] = useState([])
 
     const [selectedBoard, setSelectedBoard] = useState({})
 
     useEffect(() => {
-        console.log('[data, loading, error]')
-        console.log(`[${data}, ${loading}, ${error}]`)
-    }, [data, loading, error])
+
+        if (data !== undefined) {
+            console.log('data in app', data)
+            setUser(data.user)
+            setPageList(data.user.pages)
+        }
+    }, [data])
 
     const userSetter = (name) => setUser({ name: name })
     const deselectBoard = () => { setSelectedBoard({}) }
@@ -67,7 +76,7 @@ function App() {
 
         if (selectThisBoard !== undefined) { 
             setSelectedBoard(() => {})
-            setTimeout(() => setSelectedBoard(selectThisBoard), .0001) 
+            setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
             // but why do I need to do it this way? ^
 
             // setSelectedBoard(selectThisBoard)
@@ -102,15 +111,7 @@ return (
 
 <div className="App">
 {    
-    loading
-    ?
-    <Loading />
-    :
-    error
-    ?
-    <h1>Error: {error}</h1>
-    :
-    data
+    user
     ?
     <Dashboard 
     selectBoard={selectBoard}
@@ -122,7 +123,16 @@ return (
     username={data ? data.user.name : 'Couldn\'t Retrieve'}
     />
     :
-    <Login getUser={getUser} />
+    loading
+    ?
+    <Loading />
+    :
+    error
+    ?
+    <h1>Error: {error}</h1>
+    :
+    <Login />
+
 }
     {
     selectedBoard && user && Object.keys(selectedBoard).length > 0

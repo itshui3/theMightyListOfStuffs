@@ -8,11 +8,7 @@ import PageInput from './Input/PageInput.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pages, selectBoard, pushBoard, pushPage, username }) {
-
-    useEffect(() => {
-        console.log('pages in dashboard', pages)
-    }, [])
+function Dashboard({ pages, boards, selectBoard, pushBoard, pushPage, username }) {
 
 return (
 <>
@@ -29,8 +25,8 @@ return (
                 ?
                 pages.map((page, idx) => (
                     <PageCard 
+                    username={username}
                     key={idx}
-                    pageIdx={idx}
                     page={page}
                     nestSeq={[page.id]}
                     selectBoard={selectBoard}
@@ -39,19 +35,19 @@ return (
                 null
             }
 
-            {/* {
-                pages && pages.boards.length > 0
+            {
+                boards && boards.length > 0
                 ?
-                pages.boards.map((board, idx) => (
+                boards.map((board, idx) => (
                     <BoardCard 
                     key={idx} 
-                    boardTitle={board.title}
-                    selectBoard={() => selectBoard([], idx)}
-                    nestSeq={[idx]}
+                    board={board}
+                    nestSeq={[]}
+                    selectBoard={selectBoard}
                     />))
                 :
                 null
-            } */}
+            }
 
         </div>
                 

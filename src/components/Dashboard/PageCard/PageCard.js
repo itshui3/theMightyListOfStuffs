@@ -14,22 +14,6 @@ import { useLazyQuery, gql } from '@apollo/client'
 import './PageCard.css'
 import './pageLoading.css'
 
-const HealthPagesQuery = gql`query {
-    user(name: "Hui") {
-        id,
-        name,
-        page(id: 1) {
-
-            pages {
-                id,
-                title
-            }
-
-        }
-    }
-}
-`
-
 // whenever there's pages { id, title }
 // I could use the below fragment instead to expand a specific page
 
@@ -42,19 +26,51 @@ const HealthPagesQuery = gql`query {
 
 // }
 
-function PageCard({page, nestSeq, selectBoard}) {
+const pageQueryFactory = (username) => (gql`query Page($id: [Int]) {
+    user(name: ${username}) {
+        id,
+        name,
+        page(id: $id) {
 
-    const [getHealthPages, { data, loading, error }] = useLazyQuery(HealthPagesQuery)
+            pages {
+                id,
+                title
+            },
 
-    useEffect(() => {
-        console.log('PageCard', data, loading, error)
-    }, [data, loading, error])
+            boards {
+                title,
+                tasks
+            }
 
+        }
+    }
+}`)
+
+function PageCard({username, page, nestSeq, selectBoard}) {
+    const PageQuery = gql`query Page($id: [Int]) {
+        user(name: "Hui") {
+            id,
+            name,
+            page(id: $id) {
+    
+                pages {
+                    id,
+                    title
+                },
+    
+            }
+        }
+    }`
+
+    const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
     const [collapse, setCollapse] = useState(true)
 
     const handleCollapse = () => {
         setCollapse(!collapse)
-        getHealthPages()
+        if (!data) {
+            getPages({ variables: { id: nestSeq }})
+        }
+        
     }
 
     const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
@@ -91,17 +107,17 @@ return (
         >
 
         {
-            !collapse && !loading && data && data.user.page.pages.length > 0
-            ?
-            data.user.page.pages.map((page, idx) => (
-                <PageCard 
-                key={idx}
-                page={page}
-                nestSeq={nestSeq.concat(page.id)}
-                selectBoard={selectBoard}
-                />))
-            :
-            null
+        !collapse && data
+        ?
+        data.user.page.pages.map((page, idx) => (
+            <PageCard 
+            key={idx}
+            page={page}
+            nestSeq={nestSeq.concat(page.id)}
+            selectBoard={selectBoard}
+            />))
+        :
+        null
         }
 
         {/* {
@@ -111,8 +127,7 @@ return (
                 <BoardCard 
                 key={idx} 
                 boardTitle={board.title}
-                selectBoard={() => selectBoard(nestSeq, idx)}
-                nestSeq={nestSeq}
+                selectBoard={selectBoard(nestSeq)}
                 />))
             :
             null

@@ -13,7 +13,9 @@ function Login({ getUser }) {
     }
 
     const handleLogin = () => {
-        if (username.length > 0) getUser()
+        if (username.length > 0) {
+            getUser({ variables: { username: username } })
+        }
     }
 
 return (

@@ -1,41 +1,45 @@
 import React, { useState, useEffect } from 'react'
 
 import BoardCard from './BoardCard.js'
-import PageCard from './PageCard.js'
+import PageCard from './PageCard/PageCard.js'
 
 import BoardInput from './Input/BoardInput.js'
 import PageInput from './Input/PageInput.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pages, selectBoard, pushBoard, pushPage, user }) {
+function Dashboard({ pages, selectBoard, pushBoard, pushPage, username }) {
+
+    useEffect(() => {
+        console.log('pages in dashboard', pages)
+    }, [])
 
 return (
 <>
     <div className='dashboard_cont'>
         <div className='dashboard_userInfo'>
-            <p className='userInfo_userName'>{user}</p>
+            <p className='userInfo_userName'>{username}</p>
         </div>
 
 
         <div className='dashboard_cardsCont'>
 
             {        
-                pages && pages.pages.length > 0
+                pages && pages.length > 0
                 ?
-                pages.pages.map((page, idx) => (
+                pages.map((page, idx) => (
                     <PageCard 
                     key={idx}
                     pageIdx={idx}
                     page={page}
-                    nestSeq={[idx]}
+                    nestSeq={[page.id]}
                     selectBoard={selectBoard}
                     />))
                 :
                 null
             }
 
-            {
+            {/* {
                 pages && pages.boards.length > 0
                 ?
                 pages.boards.map((board, idx) => (
@@ -47,7 +51,7 @@ return (
                     />))
                 :
                 null
-            }
+            } */}
 
         </div>
                 

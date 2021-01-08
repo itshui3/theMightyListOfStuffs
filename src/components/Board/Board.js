@@ -10,7 +10,7 @@ function Board({ board, deselectBoard }) {
         return board && board.title ? board.title : 'placeholder'
     })
     const [taskList, setTaskList] = useState(() => {
-        return board && board.tasks && board.tasks.length > 0 ? board.tasks : []
+        return board && board.tasks && board.tasks.length > 0 ? JSON.parse(board.tasks) : []
     })
 
     const [task, setTask] = useState('')

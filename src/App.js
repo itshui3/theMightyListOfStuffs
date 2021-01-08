@@ -22,66 +22,64 @@ import { dummyPages } from './assets/dummyPages.js'
 //     }
 // }
 // `
-const helloWorldQuery = gql`
-query {
-    hello
-}
-`
 
-const loginQuery = gql`query {
-    user(name: "Hui") {
+const loginQuery = gql`query Login($username: String){
+    user(name: $username) {
         id,
         name,
         pages {
             id,
             title
+        },
+
+        boards {
+            id,
+            title,
+            tasks
         }
+
     }
 }
 `
 
 function App() {
 
-    const { data, loading, error } = useQuery(loginQuery)
-    const [user, setUser] = useState(null)
-    const [pageList, setPageList] = useState([])
+    const [getUser, { data, loading, error }] = useLazyQuery(loginQuery)
 
     const [selectedBoard, setSelectedBoard] = useState({})
 
-    useEffect(() => {
+    if (loading) return <Loading />
+    if (error) return <h1>Error: {error}</h1>
+    if (!data) return <Login getUser={getUser} />
 
-        if (data !== undefined) {
-            console.log('data in app', data)
-            setUser(data.user)
-            setPageList(data.user.pages)
-        }
-    }, [data])
+    const { user } = data
+    const { pages, boards } = user
 
-    const userSetter = (name) => setUser({ name: name })
     const deselectBoard = () => { setSelectedBoard({}) }
 
-    const selectBoard = (nestSeq, boardIdx) => {
+    const selectBoard = (board) => {
         // nestSeq = [pgId1, pgId2, pgId3, adnauseum...]
         // pageList.pages[nestSeq[0]].pages[nestSeq[1]].boards[boardIdx]
 
-        let bookmark = 0
-        let curPage = pageList
+        // let bookmark = 0
+        // let curPage = pageList
 
-        while (bookmark < nestSeq.length) {
-            curPage = curPage.pages[nestSeq[bookmark]]
-            bookmark += 1
-        }
+        // while (bookmark < nestSeq.length) {
+        //     curPage = curPage.pages[nestSeq[bookmark]]
+        //     bookmark += 1
+        // }
 
-        const selectThisBoard = curPage.boards[boardIdx]
+        // const selectThisBoard = curPage.boards[boardIdx]
 
-        if (selectThisBoard !== undefined) { 
-            setSelectedBoard(() => {})
-            setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
-            // but why do I need to do it this way? ^
+        // if (selectThisBoard !== undefined) { 
+        //     setSelectedBoard(() => {})
+        //     setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
+        //     // but why do I need to do it this way? ^
 
-            // setSelectedBoard(selectThisBoard)
-            // why can't I just do this? ^
-        }
+        //     // setSelectedBoard(selectThisBoard)
+        //     // why can't I just do this? ^
+        // }
+        setSelectedBoard(board)
     }
 
     const pushBoard = (board, nestSeq) => {}
@@ -89,53 +87,41 @@ function App() {
     // [0] how do I determine nesting level at which to add the page? 
     const pushPage = (page, nestSeq) => {
 
-        const newPage = {
+        // const newPage = {
 
-            type: 'page', 
-            title: page,
-            // render pages first
-            pages: [],
-            // then boards under
-            boards: []
-            // boards[n]: { type: 'board', name: String, idx: Number }
+        //     type: 'page', 
+        //     title: page,
+        //     // render pages first
+        //     pages: [],
+        //     // then boards under
+        //     boards: []
+        //     // boards[n]: { type: 'board', name: String, idx: Number }
 
-        }
-        setPageList(pages => {
-            const copiedPages = JSON.parse(JSON.stringify(pages))
-            return copiedPages
-        })
+        // }
+        // setPageList(pages => {
+        //     const copiedPages = JSON.parse(JSON.stringify(pages))
+        //     return copiedPages
+        // })
     }
 
 return (
 <>
 
 <div className="App">
-{    
-    user
-    ?
+
     <Dashboard 
     selectBoard={selectBoard}
     // Create
     pushPage={pushPage}
     pushBoard={pushBoard}
 
-    pages={pageList}
-    username={data ? data.user.name : 'Couldn\'t Retrieve'}
+    pages={pages}
+    boards={boards}
+    username={user.name}
     />
-    :
-    loading
-    ?
-    <Loading />
-    :
-    error
-    ?
-    <h1>Error: {error}</h1>
-    :
-    <Login />
 
-}
     {
-    selectedBoard && user && Object.keys(selectedBoard).length > 0
+    selectedBoard && Object.keys(selectedBoard).length > 0
     ?
     <Board 
     // selection will proc http req, feeding a board

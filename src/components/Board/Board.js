@@ -4,6 +4,8 @@ import './Board.css'
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
 
+import DeselectSVG from './DeselectSVG.js'
+
 function Board({ board, deselectBoard }) {
 
     const [boardTitle, setBoardTitle] = useState(() => {
@@ -152,21 +154,7 @@ return (
         onMouseUp={() => setDeselecting(false)}
         onClick={deselectBoard}
         >
-            <svg width="30" height="30">
-                <circle 
-                r="15" 
-                cx="15" 
-                cy="15" 
-                fill={deselecting ? 'white' : 'black'} />
-
-                <circle 
-                r="10" 
-                cx="15" 
-                cy="15" 
-                fill="none"
-                stroke={deselecting ? 'black' : 'white'}
-                stroke-width="3.5" />
-            </svg>
+        <DeselectSVG deselecting={deselecting} />
         </div>
 
     </div>

@@ -7,7 +7,7 @@ import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
 import PageInput from '../Input/PageInput.js'
 
-import BoardCard from '../BoardCard.js'
+import BoardCard from '../BoardCard/BoardCard.js'
 // remote data
 import { useLazyQuery } from '@apollo/client'
 

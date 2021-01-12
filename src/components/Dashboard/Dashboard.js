@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import BoardCard from './BoardCard.js'
+import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
 
 import BoardInput from './Input/BoardInput.js'

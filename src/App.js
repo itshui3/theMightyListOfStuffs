@@ -1,58 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
 
-import { gql, useQuery, useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 
 import { Board } from './components'
 import { Dashboard } from './components'
-import { Login } from './components'
+import { Auth } from './components'
 import { Loading } from './components'
 
-import { dummyPages } from './assets/dummyPages.js'
-
-// const loginQuery = gql`
-// query User($name: String!) {
-//     user(name: $name) {
-//         id,
-//         name,
-//             pages {
-//         id,
-//         title
-//         }
-//     }
-// }
-// `
-
-const loginQuery = gql`query Login($username: String){
-    user(name: $username) {
-        id,
-        name,
-        pages {
-            id,
-            title
-        },
-
-        boards {
-            id,
-            title,
-            tasks
-        }
-
-    }
-}
-`
+import { loginQuery, regMutation } from './components/Auth/_authQueries.js'
 
 function App() {
 
-    const [getUser, { data, loading, error }] = useLazyQuery(loginQuery)
-
     const [selectedBoard, setSelectedBoard] = useState({})
 
-    if (loading) return <Loading />
-    if (error) return <h1>Error: {error}</h1>
-    if (!data) return <Login getUser={getUser} />
+    const lazyLoginResponse = useLazyQuery(loginQuery)
+    const lazyRegResponse = useMutation(regMutation)
 
-    const { user } = data
+    const [getUser, loginResp] = lazyLoginResponse
+    const [addUser, regResp] = lazyRegResponse
+
+    useEffect(() => {
+        console.log(loginResp, regResp)
+
+    }, [loginResp, regResp])
+
+    const authAPI = {
+        'getUser': getUser,
+        'addUser': addUser
+    }
+
+    if (
+        loginResp.loading || 
+        regResp.loading
+    ) return <Loading />
+
+    if (
+        loginResp.error || 
+        regResp.error
+    ) return <h1>Error: {loginResp.error ? loginResp.error : regResp.error}</h1>
+
+    if (
+        !loginResp.data && 
+        !regResp.data
+    ) return (<Auth authAPI={authAPI} />)
+
+    let user;
+
+    if (loginResp.data) {
+        user = loginResp.data.user
+    } else if (regResp.data) {
+        user = regResp.data.addUser
+    }
+
     const { pages, boards } = user
 
     const deselectBoard = () => { setSelectedBoard({}) }

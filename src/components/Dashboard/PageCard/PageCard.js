@@ -1,7 +1,7 @@
 // assets
 import React, { useState, useEffect } from 'react'
 // components
-import ExpandArrowSVG from './ExpandArrowSVG.js
+import ExpandArrowSVG from './ExpandArrowSVG.js'
 
 import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
@@ -11,8 +11,8 @@ import BoardCard from '../BoardCard.js'
 // remote data
 import { useLazyQuery } from '@apollo/client'
 
-import './PageCard.css'
-import './pageLoading.css'
+import './PageCard.sass'
+import './pageLoading.sass'
 
 import { pageQueryFactory } from './_pageQueryFactory.js'
 

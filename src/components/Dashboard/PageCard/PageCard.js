@@ -1,51 +1,24 @@
 // assets
 import React, { useState, useEffect } from 'react'
 // components
-import ExpandArrowSVG from '../ExpandArrowSVG.js'
+import ExpandArrowSVG from './ExpandArrowSVG.js'
 
 import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
 import PageInput from '../Input/PageInput.js'
 
-import BoardCard from '../BoardCard.js'
+import BoardCard from '../BoardCard/BoardCard.js'
 // remote data
-import { useLazyQuery, gql } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 
-import './PageCard.css'
-import './pageLoading.css'
+import './PageCard.sass'
+import './pageLoading.sass'
 
-// whenever there's pages { id, title }
-// I could use the below fragment instead to expand a specific page
+import { pageQueryFactory } from './_pageQueryFactory.js'
 
-// page(id: 1) {
-
-//     pages {
-//         id,
-//         title
-//     }
-
-// }
-
-const pageQueryFactory = (username) => (gql`query Page($id: [Int]) {
-    user(name: "${username}") {
-        id,
-        name,
-        page(id: $id) {
-
-            pages {
-                id,
-                title
-            },
-
-            boards {
-                title,
-                tasks
-            }
-
-        }
-    }
-}`)
-
+// nestSeq: [firstSelectPg, ..., thisPgId]
+// first id in nestSeq is the first page selectable from rootPages. It does not refer to rootPages itself
+// last id in nestSeq is the id of the page rendered
 function PageCard({username, page, nestSeq, selectBoard}) {
     const PageQuery = pageQueryFactory(username)
 

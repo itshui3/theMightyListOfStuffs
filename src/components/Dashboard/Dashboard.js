@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import BoardCard from './BoardCard.js'
+import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
 
 import BoardInput from './Input/BoardInput.js'
@@ -16,7 +16,6 @@ return (
         <div className='dashboard_userInfo'>
             <p className='userInfo_userName'>{username}</p>
         </div>
-
 
         <div className='dashboard_cardsCont'>
 
@@ -52,12 +51,12 @@ return (
         </div>
                 
         
-        {/* <BoardInput pushBoard={pushBoard} />
+        {/* <BoardInput pushBoard={pushBoard} /> */}
 
         <PageInput 
         pushPage={pushPage}
         pushBoard={pushBoard}
-        /> */}
+        />
     </div>
 </>
 )

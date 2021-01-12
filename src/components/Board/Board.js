@@ -4,6 +4,8 @@ import './Board.css'
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
 
+import DeselectSVG from './DeselectSVG.js'
+
 function Board({ board, deselectBoard }) {
 
     const [boardTitle, setBoardTitle] = useState(() => {
@@ -17,6 +19,8 @@ function Board({ board, deselectBoard }) {
     const [addingTask, setAddingTask] = useState(false)
 
     const [dragTaskID, setDragTaskID] = useState(-1)
+
+    const [deselecting, setDeselecting] = useState(false)
     
     const taskInputRef = useRef()
 
@@ -146,8 +150,12 @@ return (
 
         <div
         className='board_header__deselectBtn'
+        onMouseDown={() => setDeselecting(true)}
+        onMouseUp={() => setDeselecting(false)}
         onClick={deselectBoard}
-        >x</div>
+        >
+        <DeselectSVG deselecting={deselecting} />
+        </div>
 
     </div>
 

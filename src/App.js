@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './App.css';
+import './App.css'
 
 import { useLazyQuery, useMutation } from '@apollo/client'
 
@@ -14,44 +14,22 @@ function App() {
 
     const [selectedBoard, setSelectedBoard] = useState({})
 
+    // login/reg queries
     const lazyLoginResponse = useLazyQuery(loginQuery)
     const lazyRegResponse = useMutation(regMutation)
 
     const [getUser, loginResp] = lazyLoginResponse
     const [addUser, regResp] = lazyRegResponse
+    const authAPI = { 'getUser': getUser, 'addUser': addUser }
 
-    useEffect(() => {
-        console.log(loginResp, regResp)
-
-    }, [loginResp, regResp])
-
-    const authAPI = {
-        'getUser': getUser,
-        'addUser': addUser
-    }
-
-    if (
-        loginResp.loading || 
-        regResp.loading
-    ) return <Loading />
-
-    if (
-        loginResp.error || 
-        regResp.error
-    ) return <h1>Error: {loginResp.error ? loginResp.error : regResp.error}</h1>
-
-    if (
-        !loginResp.data && 
-        !regResp.data
-    ) return (<Auth authAPI={authAPI} />)
+    if (loginResp.loading || regResp.loading) return <Loading />
+    if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? loginResp.error : regResp.error}</h1>
+    if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)
 
     let user;
 
-    if (loginResp.data) {
-        user = loginResp.data.user
-    } else if (regResp.data) {
-        user = regResp.data.addUser
-    }
+    if (loginResp.data) { user = loginResp.data.user} 
+    else if (regResp.data) { user = regResp.data.addUser }
 
     const { pages, boards } = user
 

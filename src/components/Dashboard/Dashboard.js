@@ -17,7 +17,6 @@ return (
             <p className='userInfo_userName'>{username}</p>
         </div>
 
-
         <div className='dashboard_cardsCont'>
 
             {        
@@ -52,12 +51,12 @@ return (
         </div>
                 
         
-        {/* <BoardInput pushBoard={pushBoard} />
+        {/* <BoardInput pushBoard={pushBoard} /> */}
 
         <PageInput 
         pushPage={pushPage}
         pushBoard={pushBoard}
-        /> */}
+        />
     </div>
 </>
 )

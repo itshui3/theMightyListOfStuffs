@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { gql, useLazyQuery } from '@apollo/client'
+// import { gql, useLazyQuery } from '@apollo/client'
 
 function Login({ switchAuth, getUser }) {
 

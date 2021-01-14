@@ -7,13 +7,18 @@ import reportWebVitals from './reportWebVitals';
 import { 
   ApolloClient, 
   InMemoryCache,
-  ApolloProvider
+  ApolloProvider,
+  createHttpLink
 } from '@apollo/client';
 
 require('dotenv').config()
 
+const link = createHttpLink({
+  uri: process.env.REACT_APP_GQL_URI
+})
+
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GQL_URI,
+  link,
   cache: new InMemoryCache()
 });
 

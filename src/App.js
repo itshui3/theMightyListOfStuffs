@@ -22,41 +22,31 @@ function App() {
     const [addUser, regResp] = lazyRegResponse
     const authAPI = { 'getUser': getUser, 'addUser': addUser }
 
+    useEffect(() => {
+        
+        console.log('loginResp: ', loginResp)
+        console.log('regResp', regResp)
+
+    }, [loginResp, regResp])
+
     if (loginResp.loading || regResp.loading) return <Loading />
-    if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? loginResp.error : regResp.error}</h1>
+    if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? JSON.stringify(loginResp.error) : JSON.stringify(regResp.error)}</h1>
     if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)
 
     let user;
 
-    if (loginResp.data) { user = loginResp.data.user} 
+    if (loginResp.data) { 
+        console.log('loginResp.data', loginResp.data)
+        user = loginResp.data.user
+    } 
     else if (regResp.data) { user = regResp.data.addUser }
+    else return <h1>Error, couldn't load data</h1>
 
     const { pages, boards } = user
 
     const deselectBoard = () => { setSelectedBoard({}) }
 
     const selectBoard = (board) => {
-        // nestSeq = [pgId1, pgId2, pgId3, adnauseum...]
-        // pageList.pages[nestSeq[0]].pages[nestSeq[1]].boards[boardIdx]
-
-        // let bookmark = 0
-        // let curPage = pageList
-
-        // while (bookmark < nestSeq.length) {
-        //     curPage = curPage.pages[nestSeq[bookmark]]
-        //     bookmark += 1
-        // }
-
-        // const selectThisBoard = curPage.boards[boardIdx]
-
-        // if (selectThisBoard !== undefined) { 
-        //     setSelectedBoard(() => {})
-        //     setTimeout(() => setSelectedBoard(selectThisBoard), .0001)
-        //     // but why do I need to do it this way? ^
-
-        //     // setSelectedBoard(selectThisBoard)
-        //     // why can't I just do this? ^
-        // }
         setSelectedBoard(board)
     }
 

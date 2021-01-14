@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import './Board.css'
 
 import Task from './components/Task.js'
@@ -8,9 +8,6 @@ import DeselectSVG from './DeselectSVG.js'
 
 function Board({ board, deselectBoard }) {
 
-    const [boardTitle, setBoardTitle] = useState(() => {
-        return board && board.title ? board.title : 'placeholder'
-    })
     const [taskList, setTaskList] = useState(() => {
         return board && board.tasks && board.tasks.length > 0 ? JSON.parse(board.tasks) : []
     })
@@ -141,11 +138,7 @@ return (
 
     <div className='board_header'>
         <h1 className='board_title header_items'>
-        {
-        boardTitle 
-            ? boardTitle 
-            : 'Placeholder'
-        }
+        { board.title }
         </h1>
 
         <div

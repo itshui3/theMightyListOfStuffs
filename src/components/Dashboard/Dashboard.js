@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useMutation } from '@apollo/client'
 
-import { addPageMutation } from './_pageQueries.js'
+import { addPageMutationQuery } from './_pageQueries.js'
 
 import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
@@ -17,28 +17,19 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
     // conditionally use data fetched instead of pages prop
     const [pages, setPages] = useState(pgs)
 
-    const addPageMutation = useMutation(addPageMutation)
-    const [addPage, addPageResp] = addPageMutation
+    const addPageMutationResp = useMutation(addPageMutationQuery)
+    const [addPage, addPageResp] = addPageMutationResp
+
+    useEffect(() => {
+        console.log('in dashboard useEffect')
+        console.log('response after page push')
+
+        console.log(addPageResp)
+    }, [addPageResp])
 
     const pushPage = (rootID, title) => {
         // username <- from props
         // rootID <- from within page
-
-        // const newPage = {
-
-        //     type: 'page', 
-        //     title: page,
-        //     // render pages first
-        //     pages: [],
-        //     // then boards under
-        //     boards: []
-        //     // boards[n]: { type: 'board', name: String, idx: Number }
-
-        // }
-        // setPageList(pages => {
-        //     const copiedPages = JSON.parse(JSON.stringify(pages))
-        //     return copiedPages
-        // })
         addPage({ 
 
             variables: { 

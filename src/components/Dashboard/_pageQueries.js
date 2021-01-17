@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-const addPageMutation = gql`
+const addPageMutationQuery = gql`
 mutation AddPage(
     $username: String!, 
     $title: String!, 
@@ -23,4 +23,4 @@ mutation AddPage(
     }
 }`
 
-export { addPageMutation }
+export { addPageMutationQuery }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import InputCont from './InputCont.js'
+import InputSelector from './InputSelector.js'
 import './AddItemSVG.css'
 
 function AddItemSVG() {
@@ -39,7 +39,7 @@ onClick={() => setActive(!active)}>
     {
         active
         ?
-        <InputCont deactivate={deactivate} />
+        <InputSelector deactivate={deactivate} />
         :
         null
     }

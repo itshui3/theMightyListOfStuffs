@@ -1,11 +1,10 @@
+import './_InputSelector.css'
 import React, { useState } from 'react'
 
 import BoardInput from './BoardInput.js'
 import PageInput from './PageInput.js'
 
-import './Inputs.css'
-
-function InputCont({ deactivate }) {
+function InputSelector({ deactivate }) {
 
     const [lock, setLock] = useState(false)
 
@@ -25,7 +24,7 @@ function InputCont({ deactivate }) {
 return (
 <>
     <div 
-    className='PageBoard_inputcontainer'
+    className='inputSelector_cont'
     
     onMouseDown={(ev) => ev.preventDefault()}
     onBlur={handleBlur}
@@ -37,4 +36,4 @@ return (
 )
 }
 
-export default InputCont
+export default InputSelector

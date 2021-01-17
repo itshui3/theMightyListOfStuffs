@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
+import { useMutation } from '@apollo/client'
+
+import { addPageMutationQuery } from './_pageQueries.js'
+
 import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
 
@@ -8,7 +12,39 @@ import PageInput from './Input/PageInput.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pages, boards, selectBoard, pushBoard, pushPage, username }) {
+function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
+    // subsequent fetches made with lazyQuery
+    // conditionally use data fetched instead of pages prop
+    const [pages, setPages] = useState(pgs)
+
+    const addPageMutationResp = useMutation(addPageMutationQuery)
+    const [addPage, addPageResp] = addPageMutationResp
+
+    // useEffect(() => {
+
+    //     if (
+    //         addPageResp && 
+    //         addPageResp.data &&
+    //         addPageResp.data.user) {
+    //         const { user } = addPageResp.data
+
+    //         setPages([...user.pages])
+    //     }
+    // }, [addPageResp])
+
+    const pushPage = (rootID, title) => {
+        // username <- from props
+        // rootID <- from within page
+        addPage({ 
+
+            variables: { 
+                username: username,
+                title: title,
+                rootID: rootID ? rootID : ''
+            } 
+        
+        })
+    }
 
 return (
 <>

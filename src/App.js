@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import './App.css'
+import React, { useEffect, useState } from 'react'
 
 import { useLazyQuery, useMutation } from '@apollo/client'
 
@@ -8,7 +8,7 @@ import { Dashboard } from './components'
 import { Auth } from './components'
 import { Loading } from './components'
 
-import { loginQuery, regMutation } from './components/Auth/_authQueries.js'
+import { loginQuery, regMutation } from './reqs/_authQueries.js'
 
 function App() {
 
@@ -22,13 +22,6 @@ function App() {
     const [addUser, regResp] = lazyRegResponse
     const authAPI = { 'getUser': getUser, 'addUser': addUser }
 
-    useEffect(() => {
-        
-        console.log('loginResp: ', loginResp)
-        console.log('regResp', regResp)
-
-    }, [loginResp, regResp])
-
     if (loginResp.loading || regResp.loading) return <Loading />
     if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? JSON.stringify(loginResp.error) : JSON.stringify(regResp.error)}</h1>
     if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)
@@ -39,6 +32,7 @@ function App() {
         console.log('loginResp.data', loginResp.data)
         user = loginResp.data.user
     } 
+    
     else if (regResp.data) { user = regResp.data.addUser }
     else return <h1>Error, couldn't load data</h1>
 
@@ -52,26 +46,6 @@ function App() {
 
     const pushBoard = (board, nestSeq) => {}
 
-    // [0] how do I determine nesting level at which to add the page? 
-    const pushPage = (page, nestSeq) => {
-
-        // const newPage = {
-
-        //     type: 'page', 
-        //     title: page,
-        //     // render pages first
-        //     pages: [],
-        //     // then boards under
-        //     boards: []
-        //     // boards[n]: { type: 'board', name: String, idx: Number }
-
-        // }
-        // setPageList(pages => {
-        //     const copiedPages = JSON.parse(JSON.stringify(pages))
-        //     return copiedPages
-        // })
-    }
-
 return (
 <>
 
@@ -80,10 +54,9 @@ return (
     <Dashboard 
     selectBoard={selectBoard}
     // Create
-    pushPage={pushPage}
     pushBoard={pushBoard}
 
-    pages={pages}
+    pgs={pages}
     boards={boards}
     username={user.name}
     />
@@ -99,6 +72,7 @@ return (
     :
     null
     }
+    
 </div>
 
 </>

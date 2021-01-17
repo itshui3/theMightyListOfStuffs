@@ -1,12 +1,8 @@
 import { gql } from '@apollo/client'
 
 const addPageMutationQuery = gql`
-mutation AddPage(
-    $username: String!, 
-    $title: String!, 
-    $rootID: String
-    ){
-    user(name: $username) {
+mutation AddPage($username: String!, $title: String!, $rootID: String){
+    addPage(username: $username, title: $title, rootID: $rootID) {
         id,
         name,
         pages {

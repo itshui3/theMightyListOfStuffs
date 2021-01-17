@@ -22,13 +22,6 @@ function App() {
     const [addUser, regResp] = lazyRegResponse
     const authAPI = { 'getUser': getUser, 'addUser': addUser }
 
-    useEffect(() => {
-        
-        console.log('loginResp: ', loginResp)
-        console.log('regResp', regResp)
-
-    }, [loginResp, regResp])
-
     if (loginResp.loading || regResp.loading) return <Loading />
     if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? JSON.stringify(loginResp.error) : JSON.stringify(regResp.error)}</h1>
     if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)

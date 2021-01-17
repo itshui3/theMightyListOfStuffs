@@ -20,12 +20,17 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
     const addPageMutationResp = useMutation(addPageMutationQuery)
     const [addPage, addPageResp] = addPageMutationResp
 
-    useEffect(() => {
-        console.log('in dashboard useEffect')
-        console.log('response after page push')
+    // useEffect(() => {
 
-        console.log(addPageResp)
-    }, [addPageResp])
+    //     if (
+    //         addPageResp && 
+    //         addPageResp.data &&
+    //         addPageResp.data.user) {
+    //         const { user } = addPageResp.data
+
+    //         setPages([...user.pages])
+    //     }
+    // }, [addPageResp])
 
     const pushPage = (rootID, title) => {
         // username <- from props
@@ -35,7 +40,7 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
             variables: { 
                 username: username,
                 title: title,
-                rootID: rootID
+                rootID: rootID ? rootID : ''
             } 
         
         })

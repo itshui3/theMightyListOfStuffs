@@ -35,9 +35,9 @@ function PageInput({ pushPage, pushBoard, nestSeq }) {
     }
 
     const handleSave = () => {
-        
+
         if (page.length > 0) {
-            pushPage(nestSeq[nestSeq.length-1], page)
+            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
             setAddingPage(false)
         }
 

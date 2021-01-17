@@ -17,6 +17,10 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
     // conditionally use data fetched instead of pages prop
     const [pages, setPages] = useState(pgs)
 
+    useEffect(() => {
+        setPages(pgs)
+    }, [pgs])
+
     const addPageMutationResp = useMutation(addPageMutationQuery)
     const [addPage, addPageResp] = addPageMutationResp
 

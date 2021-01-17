@@ -22,21 +22,28 @@ function App() {
     const [addUser, regResp] = lazyRegResponse
     const authAPI = { 'getUser': getUser, 'addUser': addUser }
 
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+
+        if (loginResp.data) { 
+            console.log('loginResp.data', loginResp.data)
+            console.log('loginResp.data.user', loginResp.data.user)
+            setUser(loginResp.data.user)
+        }
+        
+        else if (regResp.data) setUser(regResp.data.addUser)
+
+    }, [loginResp, regResp])
+
     if (loginResp.loading || regResp.loading) return <Loading />
     if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? JSON.stringify(loginResp.error) : JSON.stringify(regResp.error)}</h1>
     if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)
 
-    let user;
-
-    if (loginResp.data) { 
-        console.log('loginResp.data', loginResp.data)
-        user = loginResp.data.user
-    } 
-    
-    else if (regResp.data) { user = regResp.data.addUser }
-    else return <h1>Error, couldn't load data</h1>
-
-    const { pages, boards } = user
+// rewrite this so that it doesn't just render same data once 1.16.21
+// [0] - next todo
+// [1] - user comes from data.user if login
+// [2] - user comes from data.addUser if reg
 
     const deselectBoard = () => { setSelectedBoard({}) }
 
@@ -56,8 +63,8 @@ return (
     // Create
     pushBoard={pushBoard}
 
-    pgs={pages}
-    boards={boards}
+    pgs={user.pages}
+    boards={user.boards}
     username={user.name}
     />
 

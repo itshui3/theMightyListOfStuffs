@@ -28,8 +28,9 @@ function App() {
 
         if (loginResp.data) { 
             console.log('loginResp.data', loginResp.data)
+            console.log('loginResp.data.user', loginResp.data.user)
             setUser(loginResp.data.user)
-        } 
+        }
         
         else if (regResp.data) setUser(regResp.data.addUser)
 
@@ -43,13 +44,6 @@ function App() {
 // [0] - next todo
 // [1] - user comes from data.user if login
 // [2] - user comes from data.addUser if reg
-
-    // const [pgs, setPgs] = useState(pages)
-    // const [brds, setBrds] = useState(boards)
-
-    // useEffect(() => {
-
-    // }, [])
 
     const deselectBoard = () => { setSelectedBoard({}) }
 

@@ -30,6 +30,8 @@ return (
     onBlur={handleBlur}
     onClick={lockRelock}
     >
+        <h4>Add Page</h4>
+        <h4>Add Board</h4>
 
     </div>
 </>

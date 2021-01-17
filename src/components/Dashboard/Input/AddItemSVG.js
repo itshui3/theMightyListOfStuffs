@@ -1,7 +1,7 @@
+import './_AddItemSVG.css'
 import React, { useState } from 'react'
 
 import InputSelector from './InputSelector.js'
-import './AddItemSVG.css'
 
 function AddItemSVG() {
 

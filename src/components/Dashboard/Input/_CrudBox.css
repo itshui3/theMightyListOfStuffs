@@ -1,0 +1,29 @@
+.crudBox_cont {
+    position: relative;
+
+    /* how do I accomplish this based on where my mouse clicked? */
+    margin-right: -165px;
+
+    /* adding height seems to fuck my pop-up div's positioning since it normalizes vertical centering in relative position*/
+    /* height: 200px; */
+    width: 130px;
+    background-color: rgb(211, 211, 211, 1);
+    border-radius: 2px;
+
+    z-index: 9;
+
+    /* align child divs evenly */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input_option {
+    /* center svgs */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0;
+    padding: 5px 0;
+
+    width: 50%;
+}

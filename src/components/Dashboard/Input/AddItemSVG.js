@@ -1,7 +1,7 @@
+import './_AddItemSVG.css'
 import React, { useState } from 'react'
 
-import InputCont from './InputCont.js'
-import './AddItemSVG.css'
+import CrudBox from './CrudBox.js'
 
 function AddItemSVG() {
 
@@ -39,7 +39,7 @@ onClick={() => setActive(!active)}>
     {
         active
         ?
-        <InputCont deactivate={deactivate} />
+        <CrudBox deactivate={deactivate} />
         :
         null
     }

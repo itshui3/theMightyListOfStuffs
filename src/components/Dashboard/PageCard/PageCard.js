@@ -1,5 +1,12 @@
-// assets
+// styles
+import './PageCard.sass'
+import './pageLoading.sass'
+
+// react deps
 import React, { useState, useEffect } from 'react'
+// remote
+import { useLazyQuery } from '@apollo/client'
+import { pageQueryFactory } from './_pageQueryFactory.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
 
@@ -8,22 +15,21 @@ import BoardInput from '../Input/BoardInput.js'
 import PageInput from '../Input/PageInput.js'
 
 import BoardCard from '../BoardCard/BoardCard.js'
-// remote data
-import { useLazyQuery } from '@apollo/client'
-
-import './PageCard.sass'
-import './pageLoading.sass'
-
-import { pageQueryFactory } from './_pageQueryFactory.js'
+// assets
+import { hover } from './_inline'
 
 // nestSeq: [firstSelectPg, ..., thisPgId]
 // first id in nestSeq is the first page selectable from rootPages. It does not refer to rootPages itself
 // last id in nestSeq is the id of the page rendered
 function PageCard({username, page, nestSeq, selectBoard}) {
+    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
+
     const PageQuery = pageQueryFactory(username)
 
     const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
     const [collapse, setCollapse] = useState(true)
+
+    const [hoverStyle, setHoverStyle] = useState(indentation)
 
     const handleCollapse = () => {
         setCollapse(!collapse)
@@ -33,7 +39,20 @@ function PageCard({username, page, nestSeq, selectBoard}) {
         
     }
 
-    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
+// .pageCard_header:hover
+//     opacity: .8
+//     background-color: lightgrey
+    const handleMouseOver = () => {
+        setHoverStyle({
+            ...indentation, ...hover
+        })
+    }
+
+    const handleMouseOut = () => {
+        setHoverStyle({
+            ...indentation
+        })
+    }
 
 return (
 <>
@@ -41,18 +60,17 @@ return (
     className='pageCard_cont'>
         <div 
         className='pageCard_header'
-        style={indentation}>
+        style={hoverStyle}
+        
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}>
 
-            {
-            loading
-            ?
-            <div className="lds-ripple"><div></div><div></div></div>
-            :
+
             <ExpandArrowSVG
             collapse={collapse}
             handleCollapse={handleCollapse}
             />
-            }
+            
 
             <h2 className='pageCard_title'>
             {page.title}

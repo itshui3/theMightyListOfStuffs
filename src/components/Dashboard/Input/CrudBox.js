@@ -37,11 +37,7 @@ function CrudBox({ deactivate }) {
         if (!lock) { deactivate() }
     }
 
-    const handleMouseOver = (actionType) => {
-        hoverDispatch({ type: actionType })
-    }
-
-    const handleMouseOut = (actionType) => {
+    const handleHoverEvent = (actionType) => {
         hoverDispatch({ type: actionType })
     }
 
@@ -55,19 +51,23 @@ onBlur={handleComponentBlur}
 
 onMouseOver={(ev) => {
     ev.stopPropagation()
-    handleMouseOver(HOVERACTION.OVER_CONT)
+    handleHoverEvent(HOVERACTION.OVER_CONT)
 }}
 onMouseOut={(ev) => {
     ev.stopPropagation()
-    handleMouseOver(HOVERACTION.OUT_CONT)
+    handleHoverEvent(HOVERACTION.OUT_CONT)
 }}
 >
 
-    <div className='input_option' style={rightBorder}>
+    <div className='input_option' style={{...rightBorder, ...hoverStyle.page}}
+    onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_PAGE) }}
+    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}>
     <h4 className='inputOption_icon'>Pg</h4>
     </div>
     
-    <div className='input_option'>
+    <div className='input_option' style={hoverStyle.board}
+    onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_BOARD) }}
+    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_BOARD) }}>
     <h4 className='inputOption_icon'>Brd</h4>
     </div>
 

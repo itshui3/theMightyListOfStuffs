@@ -4,6 +4,13 @@ const hoverCont = { backgroundColor: 'rgba(0, 0, 0, .3)' }
 const hoverPg = { backgroundColor: 'pink'}
 const hoverBrd = { backgroundColor: 'pink'}
 
+// initial state
+const initialHover = {
+    cont: {},
+    page: {},
+    board: {}
+}
+
 // constants
 const HOVERACTION = {
 
@@ -60,12 +67,6 @@ const useHoverStyle = (state, { type, payload }) => {
         default:
             return state
     }
-}
-
-const initialHover = {
-    cont: {},
-    page: {},
-    board: {}
 }
 
 export { HOVERACTION, useHoverStyle, initialHover }

@@ -18,33 +18,42 @@ import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // OUT_PAGE: 'out_page',
 // OUT_BOARD: 'out_board'
 
-function CrudBox({ deactivate }) {
-
+function CrudBox({ deactivate, collapse, handleCollapse }) {
+    // mount state handling
     const [lock, setLock] = useState(false)
-    // const [hoverStyle, setHoverStyle] = useState(null)
 
-    // do this next lol 1.18.21
-    const [hoverStyle, hoverDispatch] = useReducer(useHoverStyle, initialHover)
+    const crudBoxRef = useRef()
+    useEffect(() => { crudBoxRef.current.focus() }, [])
 
     const lockRelock = () => {
         setLock(true)
+        // cannot perform state update on unmounted component
+        // this setTimeout is the culprit
         setTimeout(() => {
             setLock(false)
         }, .0001)
     }
 
-    const handleComponentBlur = () => {
-        if (!lock) { deactivate() }
-    }
+    const handleComponentBlur = () => { deactivate() }
 
-    const handleHoverEvent = (actionType) => {
-        hoverDispatch({ type: actionType })
+    // hover state handling
+    const [hoverStyle, hoverDispatch] = useReducer(useHoverStyle, initialHover)
+
+    const handleHoverEvent = (actionType) => { hoverDispatch({ type: actionType }) }
+
+    const handleRenderPgInput = () => {
+        // expand parent PageCard
+        if (collapse) {
+            handleCollapse()
+        }
+        // render PageInput
+        console.log('in handleRenderPgInput')
     }
 
 return (
 <>
 
-<div className='crudBox_cont' style={hoverStyle.cont}
+<div className='crudBox_cont' style={hoverStyle.cont} tabIndex='0' ref={crudBoxRef}
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lockRelock}
 onBlur={handleComponentBlur}
@@ -61,7 +70,9 @@ onMouseOut={(ev) => {
 
     <div className='input_option' style={{...rightBorder, ...hoverStyle.page}}
     onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_PAGE) }}
-    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}>
+    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}
+    
+    onClick={handleRenderPgInput}>
     <h4 className='inputOption_icon'>Pg</h4>
     </div>
     

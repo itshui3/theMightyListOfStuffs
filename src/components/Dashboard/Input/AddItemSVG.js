@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import CrudBox from './CrudBox.js'
 
-function AddItemSVG() {
+function AddItemSVG({ collapse, handleCollapse }) {
 
     const [hover, setHover] = useState(false)
     const [active, setActive] = useState(false)
@@ -30,19 +30,19 @@ function AddItemSVG() {
 return (
 <>
 
+{
+    active
+    ?
+    <CrudBox deactivate={deactivate} collapse={collapse} handleCollapse={handleCollapse} />
+    :
+    null
+}
+
 <div
 className='addItemSVG_cont'
 onMouseEnter={() => setHover(true)}
 onMouseLeave={() => setHover(false)}
 onClick={() => setActive(!active)}>
-
-    {
-        active
-        ?
-        <CrudBox deactivate={deactivate} />
-        :
-        null
-    }
 
     <svg 
     className="octicon octicon-plus" 

@@ -27,8 +27,6 @@ function App() {
     useEffect(() => {
 
         if (loginResp.data) { 
-            console.log('loginResp.data', loginResp.data)
-            console.log('loginResp.data.user', loginResp.data.user)
             setUser(loginResp.data.user)
         }
         

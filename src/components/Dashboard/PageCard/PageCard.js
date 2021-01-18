@@ -76,7 +76,10 @@ return (
             {page.title}
             </h2>
 
-            <AddItemSVG />
+            <AddItemSVG 
+            collapse={collapse}
+            handleCollapse={handleCollapse}
+            />
 
         </div>
         

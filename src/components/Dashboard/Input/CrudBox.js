@@ -34,7 +34,9 @@ function CrudBox({ deactivate, collapse, handleCollapse }) {
         }, .0001)
     }
 
-    const handleComponentBlur = () => { deactivate() }
+    const handleComponentBlur = () => { 
+        if (!lock) { deactivate() }
+    }
 
     // hover state handling
     const [hoverStyle, hoverDispatch] = useReducer(useHoverStyle, initialHover)
@@ -72,7 +74,10 @@ onMouseOut={(ev) => {
     onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_PAGE) }}
     onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}
     
-    onClick={handleRenderPgInput}>
+    onClick={() => {
+        lockRelock()
+        handleRenderPgInput()
+    }}>
     <h4 className='inputOption_icon'>Pg</h4>
     </div>
     

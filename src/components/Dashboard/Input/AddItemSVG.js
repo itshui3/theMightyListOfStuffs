@@ -1,5 +1,8 @@
+// stylesheet
 import './_AddItemSVG.css'
-import React, { useState } from 'react'
+// inline
+import { arrowStyleFactory } from './_inline_AddItemSVG'
+import React, { useState, useEffect } from 'react'
 
 import CrudBox from './CrudBox.js'
 
@@ -12,37 +15,22 @@ function AddItemSVG({ collapse, handleCollapse }) {
         setActive(false)
     }
 
-    const arrowStyle = {
+    const activate = () => {
+        // I need my blur handling to inform this activate function to not run
+        setActive(true)
 
-        width: '0.4875em',
-        height: '0.4875em',
-        display: 'block',
-
-        flexShrink: '0',
-        backfaceVisibility: 'hidden',
-        transition: 'transform 200ms ease-out 0s',
-        transform: active ? 'rotateZ(270deg)' : 'rotateZ(180deg)',
-        opacity: '1',
-
-        marginRight: '5px',
-        marginLeft: '5px'
     }
+
+    const arrowStyle = arrowStyleFactory(active)
+    
 return (
 <>
-
-{
-    active
-    ?
-    <CrudBox deactivate={deactivate} collapse={collapse} handleCollapse={handleCollapse} />
-    :
-    null
-}
 
 <div
 className='addItemSVG_cont'
 onMouseEnter={() => setHover(true)}
 onMouseLeave={() => setHover(false)}
-onClick={() => setActive(!active)}>
+onClick={active ? deactivate : activate}>
 
     <svg 
     className="octicon octicon-plus" 
@@ -67,6 +55,14 @@ onClick={() => setActive(!active)}>
         <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
 
     </svg>
+
+    {
+    active
+    ?
+    <CrudBox deactivate={deactivate} collapse={collapse} handleCollapse={handleCollapse} />
+    :
+    null
+    }
 
 </div>
 

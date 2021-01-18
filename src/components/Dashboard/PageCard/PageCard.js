@@ -31,10 +31,6 @@ function PageCard({username, page, nestSeq, selectBoard}) {
 
     const [hoverStyle, setHoverStyle] = useState(indentation)
 
-    useEffect(() => {
-        console.log('useEffect: hoverstyle:', hoverStyle)
-    }, [hoverStyle])
-
     const handleCollapse = () => {
         setCollapse(!collapse)
         if (!data) {

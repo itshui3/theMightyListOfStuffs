@@ -1,3 +1,6 @@
+import './PageCard.sass'
+import './pageLoading.sass'
+
 // assets
 import React, { useState, useEffect } from 'react'
 // components
@@ -10,9 +13,6 @@ import PageInput from '../Input/PageInput.js'
 import BoardCard from '../BoardCard/BoardCard.js'
 // remote data
 import { useLazyQuery } from '@apollo/client'
-
-import './PageCard.sass'
-import './pageLoading.sass'
 
 import { pageQueryFactory } from './_pageQueryFactory.js'
 
@@ -41,18 +41,14 @@ return (
     className='pageCard_cont'>
         <div 
         className='pageCard_header'
-        style={indentation}>
+        style={{...indentation}}>
 
-            {
-            loading
-            ?
-            <div className="lds-ripple"><div></div><div></div></div>
-            :
+
             <ExpandArrowSVG
             collapse={collapse}
             handleCollapse={handleCollapse}
             />
-            }
+            
 
             <h2 className='pageCard_title'>
             {page.title}

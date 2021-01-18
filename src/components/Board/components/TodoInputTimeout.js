@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-
 import './TodoInput.css'
+import React, { useState, useEffect, useRef } from 'react'
 
 function TodoInput({
     todo,
@@ -16,19 +15,15 @@ function TodoInput({
         todoInputRef.current.focus()
     }, [])
 
-    const handleBlurSet = (ev) => {
-
-        if(!lock) {
-            toggleAddingTodo()
-        }
-
-    }
-
-    const lock_relock = () => {
+    const lockRelock = () => {
         setLock(true)
         setTimeout(() => {
             setLock(false)
         }, .0001)
+    }
+
+    const handleComponentBlur = (ev) => {
+        if(!lock) { toggleAddingTodo() }
     }
 
     const handleAddTodo = () => {
@@ -39,8 +34,6 @@ function TodoInput({
         } else {
             todoInputRef.current.focus()
         }
-
-
     }
 
 return (
@@ -50,8 +43,8 @@ return (
 className='todoInput_cont' 
 
 onMouseDown={(ev) => ev.preventDefault()}
-onClick={lock_relock}
-onBlur={handleBlurSet}
+onClick={lockRelock}
+onBlur={handleComponentBlur}
 >
 
     <input

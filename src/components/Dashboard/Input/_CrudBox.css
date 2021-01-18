@@ -1,4 +1,4 @@
-.inputSelector_cont {
+.crudBox_cont {
     position: relative;
 
     /* how do I accomplish this based on where my mouse clicked? */
@@ -11,4 +11,15 @@
     border-radius: 2px;
 
     z-index: 9;
+
+    /* align child divs evenly */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input_option {
+    /* center svgs */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

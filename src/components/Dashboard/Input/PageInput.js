@@ -1,4 +1,4 @@
-
+import './_PageInput.css'
 import React, { useState, useEffect, useRef } from 'react'
 
 function PageInput({ handleSave, unMountOnBlur }) {
@@ -15,7 +15,6 @@ function PageInput({ handleSave, unMountOnBlur }) {
 // do I need this as a setTimeout? 
 
         pageInputRef.current.focus()
-
 
     }, [])
 

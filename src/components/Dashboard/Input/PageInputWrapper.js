@@ -1,4 +1,4 @@
-import './_PageInput.css'
+import './_PageInputWrapper.css'
 import React, { useState, useEffect, useRef } from 'react'
 import PageInput from './PageInput'
 // compos

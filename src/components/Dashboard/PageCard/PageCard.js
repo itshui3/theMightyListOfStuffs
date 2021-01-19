@@ -41,10 +41,6 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
     // isAdding.brd: Boolean
     const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
 
-    useEffect(() => {
-        console.log('in PageCard.js: pushPage', pushPage)
-    }, [])
-
     const handleCollapse = () => {
         setCollapse(!collapse)
         if (!data) {
@@ -67,7 +63,8 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
 
     const handleSavePg = (nestSeq) => (page) => {
 
-        if (page.length > 0) {
+        if (page && page.length > 0) {
+            console.log('in PageCard.js, in handleSavePg[fn], nestSeq', nestSeq)
             pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }

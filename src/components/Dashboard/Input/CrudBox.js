@@ -58,7 +58,6 @@ function CrudBox({
             handleCollapse()
         }
         // render PageInput
-        console.log('in handleRenderPgInput')
         dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_PG })
     }
 

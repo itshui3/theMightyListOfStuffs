@@ -6,7 +6,6 @@ import { hover, rightBorder, hoverPg, hoverBrd } from './_inline'
 import React, { useState, useEffect, useRef, useReducer } from 'react'
 // compos
 import BoardInput from './BoardInput.js'
-import PageInput from './PageInput.js'
 // reducer
 import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // HOVERACTION api: 

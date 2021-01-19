@@ -12,7 +12,7 @@ import ExpandArrowSVG from './ExpandArrowSVG.js'
 
 import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
-import PageInput from '../Input/PageInput.js'
+import PageInputWrapper from '../Input/PageInputWrapper.js'
 
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets
@@ -103,7 +103,7 @@ return (
             // something ? render(pgInput) : null
             isAdding.pg
             ?
-            <PageInput 
+            <PageInputWrapper 
             pushPage={pushPage}
             nestSeq={nestSeq}
             />

@@ -1,73 +1,67 @@
-// import './_PageInput.css'
-// import React, { useState, useEffect, useRef } from 'react'
 
-// function PageInput({ pushPage, nestSeq, pageInputRef }) {
+import React, { useState, useEffect, useRef } from 'react'
 
-//     const [page, setPage] = useState('')
-//     // const [addingPage, setAddingPage] = useState(false)
-//     // i need a state action that sets addingPageFalse
+function PageInput({ handleSave, unMountOnBlur }) {
 
-//     const [lock, setLock] = useState(false)
+    const [page, setPage] = useState('')
+    // const [addingPage, setAddingPage] = useState(false)
+    // i need a state action that sets addingPageFalse
 
-//     useEffect(() => {
-//         if(addingPage) {
-//             setLock(false)
-//             setTimeout(() => {
-//                 pageInputRef.current.focus()
-//             }, .0001)
-//         }
-//     }, [addingPage])
+    const [lock, setLock] = useState(false)
 
-//     const handleWrite = (ev) => {
-//         setPage(ev.target.value)
-//     }
+    const pageInputRef = useRef()
 
-//     const handleBlur = () => {
-//         if(!lock) {
-//             // setAddingPage(false)
-//             // use state action here
-//         }
-//     }
+    useEffect(() => {
+// do I need this as a setTimeout? 
 
-//     const lockUnlock = () => {
-//         setLock(true)
-//         setTimeout(() => {
-//             setLock(false)
-//         }, .0001)
-//     }
-
-//     const handleSave = () => {
-
-//         if (page.length > 0) {
-//             pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
-//             setAddingPage(false)
-//         }
-
-//     }
-
-// return (
-// <>
-
-//     <div 
-//     className='pageInput_addingPage'
-//     onMouseDown={(ev) => ev.preventDefault()}
-//     onBlur={handleBlur}
-//     onClick={lockUnlock}
-//     >
-//         <input 
-//         className='addingPage_input'
-//         onChange={handleWrite}
-//         value={page}
-//         ref={pageInputRef}
-//         />
-//         <div 
-//         className='addingPage_saveBtn'
-//         onClick={handleSave}>+ Save Page</div>
-//     </div>
+        pageInputRef.current.focus()
 
 
-// </>
-// )
-// }
+    }, [])
 
-// export default PageInput
+    const handleWrite = (ev) => {
+        setPage(ev.target.value)
+    }
+
+    const handleBlur = () => {
+        if(!lock) {
+            // setAddingPage(false)
+            // use state action here
+            unMountOnBlur()
+        }
+    }
+
+    const lockUnlock = () => {
+        setLock(true)
+        setTimeout(() => {
+            setLock(false)
+        }, .0001)
+    }
+
+
+return (
+<>
+
+    <div 
+    className='pageInput_addingPage'
+    onMouseDown={(ev) => ev.preventDefault()}
+    onBlur={handleBlur}
+    onClick={lockUnlock}
+    >
+        <input 
+        className='addingPage_input'
+        onChange={handleWrite}
+        value={page}
+        ref={pageInputRef}
+        />
+        <div 
+        className='addingPage_saveBtn'
+        onClick={() => handleSave(page)}>+ Save Page</div>
+    </div>
+
+
+</>
+)
+}
+
+export default PageInput

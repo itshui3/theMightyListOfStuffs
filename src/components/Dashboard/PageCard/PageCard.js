@@ -39,6 +39,11 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
+    const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
+
+    useEffect(() => {
+        console.log('in PageCard.js: pushPage', pushPage)
+    }, [])
 
     const handleCollapse = () => {
         setCollapse(!collapse)
@@ -85,6 +90,7 @@ return (
             <AddItemSVG 
             collapse={collapse}
             handleCollapse={handleCollapse}
+            isAddingReducerAPI={isAddingReducerAPI}
             />
 
         </div>

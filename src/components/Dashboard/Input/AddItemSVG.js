@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 
 import CrudBox from './CrudBox.js'
 
-function AddItemSVG({ collapse, handleCollapse }) {
+function AddItemSVG({ collapse, handleCollapse, isAddingReducerAPI }) {
 
     const [hover, setHover] = useState(false)
     const [active, setActive] = useState(false)
@@ -34,7 +34,12 @@ return (
 {
 active
 ?
-<CrudBox deactivate={deactivate} lockRemount={lockRemount} collapse={collapse} handleCollapse={handleCollapse} />
+<CrudBox 
+deactivate={deactivate} 
+lockRemount={lockRemount} 
+collapse={collapse} 
+handleCollapse={handleCollapse} 
+isAddingReducerAPI={isAddingReducerAPI} />
 :
 null
 }

@@ -18,7 +18,15 @@ import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // OUT_PAGE: 'out_page',
 // OUT_BOARD: 'out_board'
 
-function CrudBox({ deactivate, lockRemount, collapse, handleCollapse }) {
+function CrudBox({ 
+    deactivate, 
+    lockRemount, 
+    collapse, 
+    handleCollapse, 
+    isAddingReducerAPI 
+}) {
+    // api destructure
+    const { dispatchIsAdding, IS_ADDING_ACTION } = isAddingReducerAPI
     // mount state handling
     const [lock, setLock] = useState(false)
 
@@ -52,6 +60,7 @@ function CrudBox({ deactivate, lockRemount, collapse, handleCollapse }) {
         }
         // render PageInput
         console.log('in handleRenderPgInput')
+        dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_PG })
     }
 
 return (

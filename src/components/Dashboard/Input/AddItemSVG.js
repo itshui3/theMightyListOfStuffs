@@ -10,6 +10,7 @@ function AddItemSVG({ collapse, handleCollapse }) {
 
     const [hover, setHover] = useState(false)
     const [active, setActive] = useState(false)
+    const [lock, setLock] = useState(false)
 
     const deactivate = () => {
         setActive(false)
@@ -17,14 +18,26 @@ function AddItemSVG({ collapse, handleCollapse }) {
 
     const activate = () => {
         // I need my blur handling to inform this activate function to not run
-        setActive(true)
+        if (!lock) setActive(true)
 
     }
 
+    const lockRemount = (foo) => {
+        setLock(foo)
+    }
+
     const arrowStyle = arrowStyleFactory(active)
-    
+
 return (
 <>
+
+{
+active
+?
+<CrudBox deactivate={deactivate} lockRemount={lockRemount} collapse={collapse} handleCollapse={handleCollapse} />
+:
+null
+}
 
 <div
 className='addItemSVG_cont'
@@ -55,14 +68,6 @@ onClick={active ? deactivate : activate}>
         <polygon points="5.9,88.2 50,11.8 94.1,88.2"></polygon>
 
     </svg>
-
-    {
-    active
-    ?
-    <CrudBox deactivate={deactivate} collapse={collapse} handleCollapse={handleCollapse} />
-    :
-    null
-    }
 
 </div>
 

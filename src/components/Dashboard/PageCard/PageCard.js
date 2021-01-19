@@ -86,7 +86,10 @@ return (
         <div
         className='pageCard_nest'
         >
-
+        {
+            // [0] - 1st poma
+            // something ? render(pgInput) : null
+        }
         {
         !collapse && data
         ?

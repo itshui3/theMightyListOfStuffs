@@ -18,24 +18,26 @@ import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // OUT_PAGE: 'out_page',
 // OUT_BOARD: 'out_board'
 
-function CrudBox({ deactivate, collapse, handleCollapse }) {
+function CrudBox({ deactivate, lockRemount, collapse, handleCollapse }) {
     // mount state handling
     const [lock, setLock] = useState(false)
 
     const crudBoxRef = useRef()
     useEffect(() => { crudBoxRef.current.focus() }, [])
 
+    const handleComponentBlur = () => { 
+        if (!lock) { 
+            deactivate()
+            lockRemount(true)
+            setTimeout(() => lockRemount(false), .0001)
+        }
+    }
+
     const lockRelock = () => {
         setLock(true)
-        // cannot perform state update on unmounted component
-        // this setTimeout is the culprit
         setTimeout(() => {
             setLock(false)
         }, .0001)
-    }
-
-    const handleComponentBlur = () => { 
-        if (!lock) { deactivate() }
     }
 
     // hover state handling
@@ -54,6 +56,8 @@ function CrudBox({ deactivate, collapse, handleCollapse }) {
 
 return (
 <>
+
+{/* try rendering pageInput here as an absolutely positioned modal */}
 
 <div className='crudBox_cont' style={hoverStyle.cont} tabIndex='0' ref={crudBoxRef}
 onMouseDown={(ev) => ev.preventDefault()}
@@ -75,7 +79,6 @@ onMouseOut={(ev) => {
     onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}
     
     onClick={() => {
-        lockRelock()
         handleRenderPgInput()
     }}>
     <h4 className='inputOption_icon'>Pg</h4>

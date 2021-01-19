@@ -5,4 +5,6 @@ const hoverBrd = { backgroundColor: 'rgba(0, 0, 0, .5)'}
 
 const rightBorder = { borderRight: '1px solid rgba(0, 0, 0, .2)' }
 
+
+
 export { hover, hoverPg, hoverBrd, rightBorder }

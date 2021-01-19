@@ -6,7 +6,6 @@ import { hover, rightBorder, hoverPg, hoverBrd } from './_inline'
 import React, { useState, useEffect, useRef, useReducer } from 'react'
 // compos
 import BoardInput from './BoardInput.js'
-import PageInput from './PageInput.js'
 // reducer
 import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // HOVERACTION api: 
@@ -18,13 +17,28 @@ import { HOVERACTION, useHoverStyle, initialHover } from './_useHoverStyle'
 // OUT_PAGE: 'out_page',
 // OUT_BOARD: 'out_board'
 
-function CrudBox({ deactivate }) {
-
+function CrudBox({ 
+    deactivate, 
+    lockRemount, 
+    collapse, 
+    handleCollapse, 
+    isAddingReducerAPI 
+}) {
+    // api destructure
+    const { dispatchIsAdding, IS_ADDING_ACTION } = isAddingReducerAPI
+    // mount state handling
     const [lock, setLock] = useState(false)
-    // const [hoverStyle, setHoverStyle] = useState(null)
 
-    // do this next lol 1.18.21
-    const [hoverStyle, hoverDispatch] = useReducer(useHoverStyle, initialHover)
+    const crudBoxRef = useRef()
+    useEffect(() => { crudBoxRef.current.focus() }, [])
+
+    const handleComponentBlur = () => { 
+        if (!lock) { 
+            deactivate()
+            lockRemount(true)
+            setTimeout(() => lockRemount(false), .0001)
+        }
+    }
 
     const lockRelock = () => {
         setLock(true)
@@ -33,18 +47,26 @@ function CrudBox({ deactivate }) {
         }, .0001)
     }
 
-    const handleComponentBlur = () => {
-        if (!lock) { deactivate() }
-    }
+    // hover state handling
+    const [hoverStyle, hoverDispatch] = useReducer(useHoverStyle, initialHover)
 
-    const handleHoverEvent = (actionType) => {
-        hoverDispatch({ type: actionType })
+    const handleHoverEvent = (actionType) => { hoverDispatch({ type: actionType }) }
+
+    const handleRenderPgInput = () => {
+        // expand parent PageCard
+        if (collapse) {
+            handleCollapse()
+        }
+        // render PageInput
+        dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_PG })
     }
 
 return (
 <>
 
-<div className='crudBox_cont' style={hoverStyle.cont}
+{/* try rendering pageInput here as an absolutely positioned modal */}
+
+<div className='crudBox_cont' style={hoverStyle.cont} tabIndex='0' ref={crudBoxRef}
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lockRelock}
 onBlur={handleComponentBlur}
@@ -61,7 +83,11 @@ onMouseOut={(ev) => {
 
     <div className='input_option' style={{...rightBorder, ...hoverStyle.page}}
     onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_PAGE) }}
-    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}>
+    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}
+    
+    onClick={() => {
+        handleRenderPgInput()
+    }}>
     <h4 className='inputOption_icon'>Pg</h4>
     </div>
     

@@ -3,7 +3,7 @@ import './PageCard.sass'
 import './pageLoading.sass'
 
 // react deps
-import React, { useState, useEffect } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 // remote
 import { useLazyQuery } from '@apollo/client'
 import { pageQueryFactory } from './_pageQueryFactory.js'
@@ -17,11 +17,17 @@ import PageInput from '../Input/PageInput.js'
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets
 import { hover } from './_inline'
+import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
+
+// IS_ADDING_ACTION api: 
+// IS_ADDING_ACTION.ADDING_PG
+// IS_ADDING_ACTION.NOT_ADDING_PG
+
+// IS_ADDING_ACTION.ADDING_BRD
+// IS_ADDING_ACTION.NOT_ADDING_BRD
 
 // nestSeq: [firstSelectPg, ..., thisPgId]
-// first id in nestSeq is the first page selectable from rootPages. It does not refer to rootPages itself
-// last id in nestSeq is the id of the page rendered
-function PageCard({username, page, nestSeq, selectBoard}) {
+function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
     const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
 
     const PageQuery = pageQueryFactory(username)
@@ -30,6 +36,10 @@ function PageCard({username, page, nestSeq, selectBoard}) {
     const [collapse, setCollapse] = useState(true)
 
     const [hoverStyle, setHoverStyle] = useState(indentation)
+    const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
+    // isAdding.pg: Boolean
+    // isAdding.brd: Boolean
+    const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
 
     const handleCollapse = () => {
         setCollapse(!collapse)
@@ -39,9 +49,6 @@ function PageCard({username, page, nestSeq, selectBoard}) {
         
     }
 
-// .pageCard_header:hover
-//     opacity: .8
-//     background-color: lightgrey
     const handleMouseOver = () => {
         setHoverStyle({
             ...indentation, ...hover
@@ -52,6 +59,20 @@ function PageCard({username, page, nestSeq, selectBoard}) {
         setHoverStyle({
             ...indentation
         })
+    }
+
+    const handleSavePg = (nestSeq) => (page) => {
+
+        if (page && page.length > 0) {
+            console.log('in PageCard.js, in handleSavePg[fn], nestSeq', nestSeq)
+            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
+            dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
+        }
+
+    }
+
+    const unMountOnBlur = () => {
+        dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
     }
 
 return (
@@ -76,14 +97,29 @@ return (
             {page.title}
             </h2>
 
-            <AddItemSVG />
+            <AddItemSVG 
+            collapse={collapse}
+            handleCollapse={handleCollapse}
+            isAddingReducerAPI={isAddingReducerAPI}
+            />
 
         </div>
         
         <div
         className='pageCard_nest'
         >
-
+        {
+            // [0] - 1st poma
+            // something ? render(pgInput) : null
+            isAdding.pg
+            ?
+            <PageInput 
+            handleSave={handleSavePg(nestSeq)}
+            unMountOnBlur={unMountOnBlur}
+            />
+            :
+            null
+        }
         {
         !collapse && data
         ?

@@ -1,10 +1,11 @@
 
 
 /* page input */
-.notAddingPage_btn {
-    cursor: pointer;
-}
 
 .addingPage_saveBtn {
     cursor: pointer;
+}
+
+.addingPage_input:focus {
+    outline: none;
 }

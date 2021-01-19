@@ -1,22 +1,22 @@
 import './_PageInput.css'
 import React, { useState, useEffect, useRef } from 'react'
 
-function PageInput({ pushPage, pushBoard, nestSeq }) {
+function PageInput({ handleSave, unMountOnBlur }) {
 
     const [page, setPage] = useState('')
-    const [addingPage, setAddingPage] = useState(false)
+    // const [addingPage, setAddingPage] = useState(false)
+    // i need a state action that sets addingPageFalse
+
     const [lock, setLock] = useState(false)
 
     const pageInputRef = useRef()
 
     useEffect(() => {
-        if(addingPage) {
-            setLock(false)
-            setTimeout(() => {
-                pageInputRef.current.focus()
-            }, .0001)
-        }
-    }, [addingPage])
+// do I need this as a setTimeout? 
+
+        pageInputRef.current.focus()
+
+    }, [])
 
     const handleWrite = (ev) => {
         setPage(ev.target.value)
@@ -24,7 +24,9 @@ function PageInput({ pushPage, pushBoard, nestSeq }) {
 
     const handleBlur = () => {
         if(!lock) {
-            setAddingPage(false)
+            // setAddingPage(false)
+            // use state action here
+            unMountOnBlur()
         }
     }
 
@@ -35,47 +37,28 @@ function PageInput({ pushPage, pushBoard, nestSeq }) {
         }, .0001)
     }
 
-    const handleSave = () => {
-
-        if (page.length > 0) {
-            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
-            setAddingPage(false)
-        }
-
-    }
 
 return (
 <>
-{
-    !addingPage
-    ?
-    (
-        <div className='pageInput_notAddingPage'>
-            <p 
-            className='notAddingPage_btn'
-            onClick={() => {setAddingPage(true)}}>+ Add Page</p>
-        </div>
-    )
-    :
-    (
+
+    <div 
+    className='pageInput_addingPage'
+    onMouseDown={(ev) => ev.preventDefault()}
+    onBlur={handleBlur}
+    onClick={lockUnlock}
+    >
+        <input 
+        className='addingPage_input'
+        onChange={handleWrite}
+        value={page}
+        ref={pageInputRef}
+        />
         <div 
-        className='pageInput_addingPage'
-        onMouseDown={(ev) => ev.preventDefault()}
-        onBlur={handleBlur}
-        onClick={lockUnlock}
-        >
-            <input 
-            className='addingPage_input'
-            onChange={handleWrite}
-            value={page}
-            ref={pageInputRef}
-            />
-            <div 
-            className='addingPage_saveBtn'
-            onClick={handleSave}>+ Save Page</div>
-        </div>
-    )
-}
+        className='addingPage_saveBtn'
+        onClick={() => handleSave(page)}>+ Save Page</div>
+    </div>
+
+
 </>
 )
 }

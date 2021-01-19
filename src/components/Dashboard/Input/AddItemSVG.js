@@ -1,48 +1,54 @@
+// stylesheet
 import './_AddItemSVG.css'
-import React, { useState } from 'react'
+// inline
+import { arrowStyleFactory } from './_inline_AddItemSVG'
+import React, { useState, useEffect } from 'react'
 
 import CrudBox from './CrudBox.js'
 
-function AddItemSVG() {
+function AddItemSVG({ collapse, handleCollapse, isAddingReducerAPI }) {
 
     const [hover, setHover] = useState(false)
     const [active, setActive] = useState(false)
+    const [lock, setLock] = useState(false)
 
     const deactivate = () => {
         setActive(false)
     }
 
-    const arrowStyle = {
+    const activate = () => {
+        // I need my blur handling to inform this activate function to not run
+        if (!lock) setActive(true)
 
-        width: '0.4875em',
-        height: '0.4875em',
-        display: 'block',
-
-        flexShrink: '0',
-        backfaceVisibility: 'hidden',
-        transition: 'transform 200ms ease-out 0s',
-        transform: active ? 'rotateZ(270deg)' : 'rotateZ(180deg)',
-        opacity: '1',
-
-        marginRight: '5px',
-        marginLeft: '5px'
     }
+
+    const lockRemount = (foo) => {
+        setLock(foo)
+    }
+
+    const arrowStyle = arrowStyleFactory(active)
+
 return (
 <>
+
+{
+active
+?
+<CrudBox 
+deactivate={deactivate} 
+lockRemount={lockRemount} 
+collapse={collapse} 
+handleCollapse={handleCollapse} 
+isAddingReducerAPI={isAddingReducerAPI} />
+:
+null
+}
 
 <div
 className='addItemSVG_cont'
 onMouseEnter={() => setHover(true)}
 onMouseLeave={() => setHover(false)}
-onClick={() => setActive(!active)}>
-
-    {
-        active
-        ?
-        <CrudBox deactivate={deactivate} />
-        :
-        null
-    }
+onClick={active ? deactivate : activate}>
 
     <svg 
     className="octicon octicon-plus" 

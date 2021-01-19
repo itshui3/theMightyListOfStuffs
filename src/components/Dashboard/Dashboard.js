@@ -8,7 +8,7 @@ import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
 
 import BoardInput from './Input/BoardInput.js'
-import PageInput from './Input/PageInput.js'
+import PageInputWrapper from './Input/PageInputWrapper.js'
 
 import './Dashboard.css'
 
@@ -69,6 +69,7 @@ return (
                     page={page}
                     nestSeq={[page.id]}
                     selectBoard={selectBoard}
+                    pushPage={pushPage}
                     />))
                 :
                 null
@@ -93,9 +94,9 @@ return (
         
         {/* <BoardInput pushBoard={pushBoard} /> */}
 
-        <PageInput 
+        <PageInputWrapper 
         pushPage={pushPage}
-        pushBoard={pushBoard}
+        nestSeq={[]}
         />
     </div>
 </>

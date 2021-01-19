@@ -8,7 +8,7 @@ function PageInputWrapper({ pushPage, nestSeq }) {
 
     const [addingPage, setAddingPage] = useState(false)
 
-    const handleSave = (nestSeq) => (page) => {
+    const handleSavePg = (nestSeq) => (page) => {
 
         if (page.length > 0) {
             pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
@@ -38,7 +38,7 @@ return (
 
         <PageInput
         unMountOnBlur={unMountOnBlur}
-        handleSave={handleSave(nestSeq)}
+        handleSave={handleSavePg(nestSeq)}
         />
     )
 }

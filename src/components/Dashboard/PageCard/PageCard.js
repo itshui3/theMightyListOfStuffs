@@ -12,7 +12,7 @@ import ExpandArrowSVG from './ExpandArrowSVG.js'
 
 import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
-import PageInputWrapper from '../Input/PageInputWrapper.js'
+import PageInput from '../Input/PageInputWrapper.js'
 
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets
@@ -65,6 +65,19 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
         })
     }
 
+    const handleSavePg = (nestSeq) => (page) => {
+
+        if (page.length > 0) {
+            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
+            dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
+        }
+
+    }
+
+    const unMountOnBlur = () => {
+        dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
+    }
+
 return (
 <>
     <div 
@@ -103,9 +116,9 @@ return (
             // something ? render(pgInput) : null
             isAdding.pg
             ?
-            <PageInputWrapper 
-            pushPage={pushPage}
-            nestSeq={nestSeq}
+            <PageInput 
+            handleSave={handleSavePg(nestSeq)}
+            unMountOnBlur={unMountOnBlur}
             />
             :
             null

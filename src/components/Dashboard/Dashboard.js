@@ -69,6 +69,7 @@ return (
                     page={page}
                     nestSeq={[page.id]}
                     selectBoard={selectBoard}
+                    pushPage={pushPage}
                     />))
                 :
                 null
@@ -95,7 +96,7 @@ return (
 
         <PageInput 
         pushPage={pushPage}
-        pushBoard={pushBoard}
+        nestSeq={[]}
         />
     </div>
 </>

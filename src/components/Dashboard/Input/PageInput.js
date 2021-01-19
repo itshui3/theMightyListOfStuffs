@@ -1,7 +1,7 @@
 import './_PageInput.css'
 import React, { useState, useEffect, useRef } from 'react'
 
-function PageInput({ pushPage, pushBoard, nestSeq }) {
+function PageInput({ pushPage, nestSeq }) {
 
     const [page, setPage] = useState('')
     const [addingPage, setAddingPage] = useState(false)

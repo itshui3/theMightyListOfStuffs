@@ -17,6 +17,10 @@
     justify-content: space-evenly;
 }
 
+.crudBox_cont:focus {
+    outline: none;
+}
+
 .input_option {
     /* center svgs */
     display: flex;

@@ -12,7 +12,7 @@ import ExpandArrowSVG from './ExpandArrowSVG.js'
 
 import AddItemSVG from '../Input/AddItemSVG.js'
 import BoardInput from '../Input/BoardInput.js'
-import PageInput from '../Input/PageInputWrapper.js'
+import PageInput from '../Input/PageInput.js'
 
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets

@@ -18,14 +18,14 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
     const [addPage, addPageResp] = useMutation(addPageMutationQuery)
     // if I add pgs on dashboard level, they should populate from user query
 
-    const pushPage = (rootID, title) => {
+    const pushPage = (pgId, title) => {
 
         addPage({ 
 
             variables: { 
                 username: username,
                 title: title,
-                rootID: rootID ? rootID : ''
+                pgId: pgId.length > 0 ? pgId : ''
             } 
         
         })

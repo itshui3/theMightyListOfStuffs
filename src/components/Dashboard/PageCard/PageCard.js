@@ -17,6 +17,7 @@ import PageInput from '../Input/PageInput.js'
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets
 import { hover } from './_inline'
+import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
 
 // IS_ADDING_ACTION api: 
@@ -35,7 +36,7 @@ function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
     const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
     const [collapse, setCollapse] = useState(true)
 
-    const [hoverStyle, setHoverStyle] = useState(indentation)
+    const [hoverState, dispatchHover] = useReducer(hoverReducer, { style: indentation })
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
@@ -49,22 +50,10 @@ function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
         
     }
 
-    const handleMouseOver = () => {
-        setHoverStyle({
-            ...indentation, ...hover
-        })
-    }
-
-    const handleMouseOut = () => {
-        setHoverStyle({
-            ...indentation
-        })
-    }
-
     const handleSavePg = (pgId) => (page) => {
 
         if (page && page.length > 0) {
-            console.log('in PageCard.js, in handleSavePg[fn], nepgIdstSeq', pgId)
+            console.log('in PageCard.js, in handleSavePg[fn], pgId', pgId)
             pushPage(pgId.length > 0 ? pgId : '', page)
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
@@ -81,10 +70,10 @@ return (
     className='pageCard_cont'>
         <div 
         className='pageCard_header'
-        style={hoverStyle}
+        style={hoverState.style}
         
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
+        onMouseOver={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OVER, payload: { ...indentation, ...hover} })}
+        onMouseOut={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OUT, payload: { ...indentation } })}>
 
 
             <ExpandArrowSVG
@@ -109,18 +98,20 @@ return (
         className='pageCard_nest'
         >
         {
-            // [0] - 1st poma
-            // something ? render(pgInput) : null
-            isAdding.pg
-            ?
-            <PageInput 
-            handleSave={handleSavePg(nestSeq)}
-            unMountOnBlur={unMountOnBlur}
-            />
-            :
-            null
+
+        isAdding.pg
+        ?
+        <PageInput 
+        handleSave={handleSavePg(pgId)}
+        unMountOnBlur={unMountOnBlur}
+        />
+        :
+        null
+
         }
+
         {
+
         !collapse && data
         ?
         data.user.page.pages.map((page, idx) => (
@@ -134,6 +125,7 @@ return (
             />))
         :
         null
+
         }
 
         {

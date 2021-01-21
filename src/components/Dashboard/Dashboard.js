@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useMutation } from '@apollo/client'
 
-import { addPageMutationQuery } from './_pageQueries.js'
+import { addPageMutationFactory } from './_addPageMutation.js'
 
 import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
@@ -15,7 +15,8 @@ import './Dashboard.css'
 function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
 
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
-    const [addPage, addPageResp] = useMutation(addPageMutationQuery)
+    const addPageMutation = addPageMutationFactory(username)
+    const [addPage, addPageResp] = useMutation(addPageMutation)
     // if I add pgs on dashboard level, they should populate from user query
 
     const pushPage = (pgId, title) => {

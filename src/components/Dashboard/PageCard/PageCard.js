@@ -6,7 +6,7 @@ import './pageLoading.sass'
 import React, { useState, useReducer, useEffect } from 'react'
 // remote
 import { useLazyQuery } from '@apollo/client'
-import { pageQueryFactory } from './_pageQueryFactory.js'
+import { pageQuery } from './_pageQuery.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
 
@@ -20,20 +20,11 @@ import { hover } from './_inline'
 import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
 
-// IS_ADDING_ACTION api: 
-// IS_ADDING_ACTION.ADDING_PG
-// IS_ADDING_ACTION.NOT_ADDING_PG
-
-// IS_ADDING_ACTION.ADDING_BRD
-// IS_ADDING_ACTION.NOT_ADDING_BRD
-
 // pgId is this pg's id
 function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
     const indentation = { paddingLeft: `${(indent.length-1) * 10}px` }
 
-    const PageQuery = pageQueryFactory(username)
-
-    const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
+    const [getPages, { data, loading, error }] = useLazyQuery(pageQuery)
     const [collapse, setCollapse] = useState(true)
 
     const [hoverState, dispatchHover] = useReducer(hoverReducer, { style: indentation })
@@ -97,6 +88,7 @@ return (
         <div
         className='pageCard_nest'
         >
+
         {
 
         isAdding.pg
@@ -129,20 +121,22 @@ return (
         }
 
         {
-            !collapse && data
-            ?
-            data.user.page.boards.map((board, idx) => (
-                <BoardCard 
-                key={idx} 
-                board={board}
-                nestSeq={indent+1}
-                // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
-                pgId={pgId}
-                username={username}
-                selectBoard={selectBoard}
-                />))
-            :
-            null
+
+        !collapse && data
+        ?
+        data.user.page.boards.map((board, idx) => (
+            <BoardCard 
+            key={idx} 
+            board={board}
+            indent={indent+1}
+            // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+            pgId={pgId}
+            username={username}
+            selectBoard={selectBoard}
+            />))
+        :
+        null
+
         }
 
         </div>

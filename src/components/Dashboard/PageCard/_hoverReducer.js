@@ -3,6 +3,8 @@ const HOVER_ACTION = {
     MOUSE_OUT: 'mouse_out'
 }
 
+const { MOUSE_OVER, MOUSE_OUT } = HOVER_ACTION
+
 const hoverReducer = (state, { type, payload }) => {
 
     switch(type) {

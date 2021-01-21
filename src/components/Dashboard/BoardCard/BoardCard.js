@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 
 import './BoardCard.css'
 
-function BoardCard({board, selectBoard, nestSeq}) {
-    const indentation = { paddingLeft: `${nestSeq.length * 10}px` }
+// pgId prop is parent container
+function BoardCard({ board, selectBoard, indent, pgId, username }) {
+    const indentation = { paddingLeft: `${indent * 10}px` }
 return (
 <>
     <div 

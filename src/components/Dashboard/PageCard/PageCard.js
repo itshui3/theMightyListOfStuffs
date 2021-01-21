@@ -17,6 +17,7 @@ import PageInput from '../Input/PageInput.js'
 import BoardCard from '../BoardCard/BoardCard.js'
 // assets
 import { hover } from './_inline'
+import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
 
 // IS_ADDING_ACTION api: 
@@ -26,16 +27,16 @@ import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingR
 // IS_ADDING_ACTION.ADDING_BRD
 // IS_ADDING_ACTION.NOT_ADDING_BRD
 
-// nestSeq: [firstSelectPg, ..., thisPgId]
-function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
-    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
+// pgId is this pg's id
+function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
+    const indentation = { paddingLeft: `${(indent.length-1) * 10}px` }
 
     const PageQuery = pageQueryFactory(username)
 
     const [getPages, { data, loading, error }] = useLazyQuery(PageQuery)
     const [collapse, setCollapse] = useState(true)
 
-    const [hoverStyle, setHoverStyle] = useState(indentation)
+    const [hoverState, dispatchHover] = useReducer(hoverReducer, { style: indentation })
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
@@ -44,28 +45,16 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
     const handleCollapse = () => {
         setCollapse(!collapse)
         if (!data) {
-            getPages({ variables: { id: nestSeq }})
+            getPages({ variables: { id: pgId }})
         }
         
     }
 
-    const handleMouseOver = () => {
-        setHoverStyle({
-            ...indentation, ...hover
-        })
-    }
-
-    const handleMouseOut = () => {
-        setHoverStyle({
-            ...indentation
-        })
-    }
-
-    const handleSavePg = (nestSeq) => (page) => {
+    const handleSavePg = (pgId) => (page) => {
 
         if (page && page.length > 0) {
-            console.log('in PageCard.js, in handleSavePg[fn], nestSeq', nestSeq)
-            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
+            console.log('in PageCard.js, in handleSavePg[fn], pgId', pgId)
+            pushPage(pgId.length > 0 ? pgId : '', page)
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
 
@@ -81,10 +70,10 @@ return (
     className='pageCard_cont'>
         <div 
         className='pageCard_header'
-        style={hoverStyle}
+        style={hoverState.style}
         
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>
+        onMouseOver={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OVER, payload: { ...indentation, ...hover} })}
+        onMouseOut={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OUT, payload: { ...indentation } })}>
 
 
             <ExpandArrowSVG
@@ -109,18 +98,20 @@ return (
         className='pageCard_nest'
         >
         {
-            // [0] - 1st poma
-            // something ? render(pgInput) : null
-            isAdding.pg
-            ?
-            <PageInput 
-            handleSave={handleSavePg(nestSeq)}
-            unMountOnBlur={unMountOnBlur}
-            />
-            :
-            null
+
+        isAdding.pg
+        ?
+        <PageInput 
+        handleSave={handleSavePg(pgId)}
+        unMountOnBlur={unMountOnBlur}
+        />
+        :
+        null
+
         }
+
         {
+
         !collapse && data
         ?
         data.user.page.pages.map((page, idx) => (
@@ -128,11 +119,13 @@ return (
             username={username}
             key={idx}
             page={page}
-            nestSeq={nestSeq.concat(page.id)}
+            pgId={page.id}
+            indent={indent+1}
             selectBoard={selectBoard}
             />))
         :
         null
+
         }
 
         {
@@ -142,7 +135,10 @@ return (
                 <BoardCard 
                 key={idx} 
                 board={board}
-                nestSeq={[]}
+                nestSeq={indent+1}
+                // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+                pgId={pgId}
+                username={username}
                 selectBoard={selectBoard}
                 />))
             :

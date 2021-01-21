@@ -13,38 +13,19 @@ import PageInputWrapper from './Input/PageInputWrapper.js'
 import './Dashboard.css'
 
 function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
-    // subsequent fetches made with lazyQuery
-    // conditionally use data fetched instead of pages prop
-    const [pages, setPages] = useState(pgs)
 
-    useEffect(() => {
-        setPages(pgs)
-    }, [pgs])
+    // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
+    const [addPage, addPageResp] = useMutation(addPageMutationQuery)
+    // if I add pgs on dashboard level, they should populate from user query
 
-    const addPageMutationResp = useMutation(addPageMutationQuery)
-    const [addPage, addPageResp] = addPageMutationResp
+    const pushPage = (pgId, title) => {
 
-    // useEffect(() => {
-
-    //     if (
-    //         addPageResp && 
-    //         addPageResp.data &&
-    //         addPageResp.data.user) {
-    //         const { user } = addPageResp.data
-
-    //         setPages([...user.pages])
-    //     }
-    // }, [addPageResp])
-
-    const pushPage = (rootID, title) => {
-        // username <- from props
-        // rootID <- from within page
         addPage({ 
 
             variables: { 
                 username: username,
                 title: title,
-                rootID: rootID ? rootID : ''
+                pgId: pgId.length > 0 ? pgId : ''
             } 
         
         })
@@ -59,17 +40,18 @@ return (
 
         <div className='dashboard_cardsCont'>
 
-            {        
-                pages && pages.length > 0
+            {
+                pgs && pgs.length > 0
                 ?
-                pages.map((page, idx) => (
+                pgs.map((page, idx) => (
                     <PageCard 
                     username={username}
                     key={idx}
                     page={page}
-                    nestSeq={[page.id]}
+                    pgId={page.id}
                     selectBoard={selectBoard}
                     pushPage={pushPage}
+                    indent={0}
                     />))
                 :
                 null
@@ -82,7 +64,10 @@ return (
                     <BoardCard 
                     key={idx} 
                     board={board}
-                    nestSeq={[]}
+                    // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+                    pgId={''}
+                    username={username}
+                    indent={0}
                     selectBoard={selectBoard}
                     />))
                 :
@@ -96,7 +81,7 @@ return (
 
         <PageInputWrapper 
         pushPage={pushPage}
-        nestSeq={[]}
+        pgId={''}
         />
     </div>
 </>

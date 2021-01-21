@@ -59,6 +59,7 @@ function CrudBox({
         }
         // render PageInput
         dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_PG })
+        deactivate()
     }
 
 return (

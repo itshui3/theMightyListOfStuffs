@@ -88,6 +88,7 @@ return (
         <div
         className='pageCard_nest'
         >
+
         {
 
         isAdding.pg
@@ -120,20 +121,22 @@ return (
         }
 
         {
-            !collapse && data
-            ?
-            data.user.page.boards.map((board, idx) => (
-                <BoardCard 
-                key={idx} 
-                board={board}
-                nestSeq={indent+1}
-                // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
-                pgId={pgId}
-                username={username}
-                selectBoard={selectBoard}
-                />))
-            :
-            null
+
+        !collapse && data
+        ?
+        data.user.page.boards.map((board, idx) => (
+            <BoardCard 
+            key={idx} 
+            board={board}
+            indent={indent+1}
+            // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+            pgId={pgId}
+            username={username}
+            selectBoard={selectBoard}
+            />))
+        :
+        null
+
         }
 
         </div>

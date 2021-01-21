@@ -4,6 +4,7 @@ yarn install
 yarn start
 
 Note: requires API/mongodb connection to work. API: https://github.com/mighty-list-API/mighty-list-API
+Another Note: Deploy probably broken, changes being made daily
 
 Current Progression Towards MvP: 
 

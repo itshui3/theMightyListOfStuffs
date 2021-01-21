@@ -26,9 +26,9 @@ import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingR
 // IS_ADDING_ACTION.ADDING_BRD
 // IS_ADDING_ACTION.NOT_ADDING_BRD
 
-// nestSeq: [firstSelectPg, ..., thisPgId]
-function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
-    const indentation = { paddingLeft: `${(nestSeq.length-1) * 10}px` }
+// pgId is this pg's id
+function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
+    const indentation = { paddingLeft: `${(indent.length-1) * 10}px` }
 
     const PageQuery = pageQueryFactory(username)
 
@@ -44,7 +44,7 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
     const handleCollapse = () => {
         setCollapse(!collapse)
         if (!data) {
-            getPages({ variables: { id: nestSeq }})
+            getPages({ variables: { id: pgId }})
         }
         
     }
@@ -61,11 +61,11 @@ function PageCard({username, page, nestSeq, pushPage, selectBoard}) {
         })
     }
 
-    const handleSavePg = (nestSeq) => (page) => {
+    const handleSavePg = (pgId) => (page) => {
 
         if (page && page.length > 0) {
-            console.log('in PageCard.js, in handleSavePg[fn], nestSeq', nestSeq)
-            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
+            console.log('in PageCard.js, in handleSavePg[fn], nepgIdstSeq', pgId)
+            pushPage(pgId.length > 0 ? pgId : '', page)
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
 
@@ -128,7 +128,8 @@ return (
             username={username}
             key={idx}
             page={page}
-            nestSeq={nestSeq.concat(page.id)}
+            pgId={page.id}
+            indent={indent+1}
             selectBoard={selectBoard}
             />))
         :
@@ -142,7 +143,10 @@ return (
                 <BoardCard 
                 key={idx} 
                 board={board}
-                nestSeq={[]}
+                nestSeq={indent+1}
+                // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+                pgId={pgId}
+                username={username}
                 selectBoard={selectBoard}
                 />))
             :

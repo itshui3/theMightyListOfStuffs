@@ -40,7 +40,7 @@ return (
 
         <div className='dashboard_cardsCont'>
 
-            {        
+            {
                 pgs && pgs.length > 0
                 ?
                 pgs.map((page, idx) => (
@@ -48,9 +48,10 @@ return (
                     username={username}
                     key={idx}
                     page={page}
-                    nestSeq={[page.id]}
+                    pgId={page.id}
                     selectBoard={selectBoard}
                     pushPage={pushPage}
+                    indent={0}
                     />))
                 :
                 null
@@ -63,7 +64,10 @@ return (
                     <BoardCard 
                     key={idx} 
                     board={board}
-                    nestSeq={[]}
+                    // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
+                    pgId={''}
+                    username={username}
+                    indent={0}
                     selectBoard={selectBoard}
                     />))
                 :

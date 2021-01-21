@@ -4,14 +4,14 @@ import PageInput from './PageInput'
 // compos
 // import PageInput from './PageInput'
 
-function PageInputWrapper({ pushPage, nestSeq }) {
+function PageInputWrapper({ pushPage, pgId }) {
 
     const [addingPage, setAddingPage] = useState(false)
 
-    const handleSavePg = (nestSeq) => (page) => {
+    const handleSavePg = (pgId) => (page) => {
 
         if (page.length > 0) {
-            pushPage(nestSeq ? nestSeq[nestSeq.length-1] : null, page)
+            pushPage(pgId.length > 0 ? pgId : null, page)
             setAddingPage(false)
         }
 
@@ -30,15 +30,15 @@ return (
         <div className='pageInput_notAddingPage'>
             <p 
             className='notAddingPage_btn'
-            onClick={() => {setAddingPage(true)}}>+ Add Page</p>
+            onClick={() => { setAddingPage(true) } }>+ Add Page</p>
         </div>
     )
     :
     (
 
         <PageInput
-        unMountOnBlur={unMountOnBlur}
-        handleSave={handleSavePg(nestSeq)}
+        unMountOnBlur={ unMountOnBlur }
+        handleSave={ handleSavePg(pgId) }
         />
     )
 }

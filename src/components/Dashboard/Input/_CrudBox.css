@@ -2,7 +2,7 @@
     position: absolute;
 
     /* how do I accomplish this based on where my mouse clicked? */
-    margin-left: 200px;
+    margin-left: 105%;
 
     /* adding height seems to fuck my pop-up div's positioning since it normalizes vertical centering in relative position*/
     /* height: 200px; */

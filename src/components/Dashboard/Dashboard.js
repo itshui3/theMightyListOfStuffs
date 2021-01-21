@@ -13,32 +13,13 @@ import PageInputWrapper from './Input/PageInputWrapper.js'
 import './Dashboard.css'
 
 function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
-    // subsequent fetches made with lazyQuery
-    // conditionally use data fetched instead of pages prop
-    const [pages, setPages] = useState(pgs)
 
-    useEffect(() => {
-        setPages(pgs)
-    }, [pgs])
-
-    const addPageMutationResp = useMutation(addPageMutationQuery)
-    const [addPage, addPageResp] = addPageMutationResp
-
-    // useEffect(() => {
-
-    //     if (
-    //         addPageResp && 
-    //         addPageResp.data &&
-    //         addPageResp.data.user) {
-    //         const { user } = addPageResp.data
-
-    //         setPages([...user.pages])
-    //     }
-    // }, [addPageResp])
+    // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
+    const [addPage, addPageResp] = useMutation(addPageMutationQuery)
+    // if I add pgs on dashboard level, they should populate from user query
 
     const pushPage = (rootID, title) => {
-        // username <- from props
-        // rootID <- from within page
+
         addPage({ 
 
             variables: { 
@@ -60,9 +41,9 @@ return (
         <div className='dashboard_cardsCont'>
 
             {        
-                pages && pages.length > 0
+                pgs && pgs.length > 0
                 ?
-                pages.map((page, idx) => (
+                pgs.map((page, idx) => (
                     <PageCard 
                     username={username}
                     key={idx}
@@ -96,7 +77,7 @@ return (
 
         <PageInputWrapper 
         pushPage={pushPage}
-        nestSeq={[]}
+        pgId={''}
         />
     </div>
 </>

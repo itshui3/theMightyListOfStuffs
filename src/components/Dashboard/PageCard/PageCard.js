@@ -5,7 +5,7 @@ import './pageLoading.sass'
 // react deps
 import React, { useState, useReducer, useEffect } from 'react'
 // remote
-import { useLazyQuery } from '@apollo/client'
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { pageQuery } from './_pageQuery.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
@@ -19,14 +19,31 @@ import BoardCard from '../BoardCard/BoardCard.js'
 import { hover } from './_inline'
 import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
+// queries
+import { addPageMutationFactory } from '../_addPageMutation'
 
 // pgId is this pg's id
-function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
-    const indentation = { paddingLeft: `${(indent.length-1) * 10}px` }
+function PageCard({ username, page, indent, pgId, selectBoard }) {
+    const indentation = { paddingLeft: `${indent * 10}px` }
 
-    const [getPages, { data, loading, error }] = useLazyQuery(pageQuery)
+    const { data, loading, error } = useQuery( pageQuery(pgId) )
+    const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
+
+    const [pageList, setPageList] = useState([])
+    const [boardList, setBoardList] = useState([])
+
+    useEffect(() => {
+        console.log('in useEffect', data)
+        if (data) { 
+            setPageList(data.page.pages)
+            setBoardList(data.page.boards)
+        }
+
+    }, [data, addPageResp])
+
+
+    // ui controllers
     const [collapse, setCollapse] = useState(true)
-
     const [hoverState, dispatchHover] = useReducer(hoverReducer, { style: indentation })
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
@@ -35,9 +52,9 @@ function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
 
     const handleCollapse = () => {
         setCollapse(!collapse)
-        if (!data) {
-            getPages({ variables: { id: pgId }})
-        }
+        // if (!data) {
+        //     getPages({ variables: { id: pgId }})
+        // }
         
     }
 
@@ -45,7 +62,16 @@ function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
 
         if (page && page.length > 0) {
             console.log('in PageCard.js, in handleSavePg[fn], pgId', pgId)
-            pushPage(pgId.length > 0 ? pgId : '', page)
+
+            addPage({ 
+
+                variables: { 
+                    username: username,
+                    title: page,
+                    rootID: pgId
+                } 
+            
+            })
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
 
@@ -63,8 +89,15 @@ return (
         className='pageCard_header'
         style={hoverState.style}
         
-        onMouseOver={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OVER, payload: { ...indentation, ...hover} })}
-        onMouseOut={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OUT, payload: { ...indentation } })}>
+        onMouseOver={() => dispatchHover({ 
+            type: HOVER_ACTION.MOUSE_OVER, 
+            payload: { ...indentation, ...hover} 
+        })}
+
+        onMouseOut={() => dispatchHover({ 
+            type: HOVER_ACTION.MOUSE_OUT, 
+            payload: { ...indentation } 
+        })}>
 
 
             <ExpandArrowSVG
@@ -104,9 +137,9 @@ return (
 
         {
 
-        !collapse && data
+        !collapse && pageList
         ?
-        data.user.page.pages.map((page, idx) => (
+        pageList.map((page, idx) => (
             <PageCard 
             username={username}
             key={idx}
@@ -122,9 +155,9 @@ return (
 
         {
 
-        !collapse && data
+        !collapse && boardList
         ?
-        data.user.page.boards.map((board, idx) => (
+        boardList.map((board, idx) => (
             <BoardCard 
             key={idx} 
             board={board}

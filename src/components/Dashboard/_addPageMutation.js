@@ -6,11 +6,39 @@ const addPageMutationFactory = (username) => (gql`
 mutation AddPage($title: String!, $rootID: String){
     addPage(username: "${username}", title: $title, rootID: $rootID) {
         id,
-        title
+        title,
+
+        pages {
+            id,
+            title
+        },
+
+        boards {
+            id,
+            title
+        }
     }
 }`)
 
-export { addPageMutationFactory }
+const addPageMutationRoot = (username) => (gql`
+mutation AddPage($title: String!, $rootID: String){
+    addPageRoot(username: "${username}", title: $title, rootID: $rootID) {
+        id,
+        name,
+
+        pages {
+            id,
+            title
+        },
+
+        boards {
+            id,
+            title
+        }
+    }
+}`)
+
+export { addPageMutationFactory, addPageMutationRoot }
 
 // const addPageMutationFactory = (username) => (gql`
 // mutation AddPage($title: String!, $rootID: String){

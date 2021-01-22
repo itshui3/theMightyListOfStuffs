@@ -11,7 +11,7 @@ function PageInputWrapper({ pushPage, pgId }) {
     const handleSavePg = (pgId) => (page) => {
 
         if (page.length > 0) {
-            pushPage(pgId.length > 0 ? pgId : null, page)
+            pushPage(pgId, page)
             setAddingPage(false)
         }
 

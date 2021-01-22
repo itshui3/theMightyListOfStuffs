@@ -5,7 +5,7 @@ import './pageLoading.sass'
 // react deps
 import React, { useState, useReducer, useEffect } from 'react'
 // remote
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { pageQuery } from './_pageQuery.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
@@ -19,14 +19,19 @@ import BoardCard from '../BoardCard/BoardCard.js'
 import { hover } from './_inline'
 import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
+// queries
+import { addPageMutationFactory } from '../_addPageMutation'
 
 // pgId is this pg's id
-function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
-    const indentation = { paddingLeft: `${(indent.length-1) * 10}px` }
+function PageCard({ username, page, indent, pgId, selectBoard }) {
+    const indentation = { paddingLeft: `${indent * 10}px` }
 
     const [getPages, { data, loading, error }] = useLazyQuery(pageQuery)
-    const [collapse, setCollapse] = useState(true)
 
+    const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
+
+    // ui controllers
+    const [collapse, setCollapse] = useState(true)
     const [hoverState, dispatchHover] = useReducer(hoverReducer, { style: indentation })
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
@@ -45,7 +50,16 @@ function PageCard({ username, page, indent, pgId, pushPage, selectBoard }) {
 
         if (page && page.length > 0) {
             console.log('in PageCard.js, in handleSavePg[fn], pgId', pgId)
-            pushPage(pgId.length > 0 ? pgId : '', page)
+
+            addPage({ 
+
+                variables: { 
+                    username: username,
+                    title: page,
+                    rootID: pgId
+                } 
+            
+            })
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
 
@@ -113,7 +127,7 @@ return (
 
         !collapse && data
         ?
-        data.user.page.pages.map((page, idx) => (
+        data.page.pages.map((page, idx) => (
             <PageCard 
             username={username}
             key={idx}
@@ -131,7 +145,7 @@ return (
 
         !collapse && data
         ?
-        data.user.page.boards.map((board, idx) => (
+        data.page.boards.map((board, idx) => (
             <BoardCard 
             key={idx} 
             board={board}

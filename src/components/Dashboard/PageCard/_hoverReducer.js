@@ -10,12 +10,12 @@ const hoverReducer = (state, { type, payload }) => {
     switch(type) {
 
         case MOUSE_OVER:
-            console.log('mouseover', payload)
+
             return {style: payload}
             
 
         case MOUSE_OUT:
-            console.log('mouseout', payload)
+
             return {style: payload}
             
 

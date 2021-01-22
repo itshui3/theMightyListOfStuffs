@@ -5,7 +5,7 @@ import './pageLoading.sass'
 // react deps
 import React, { useState, useReducer, useEffect } from 'react'
 // remote
-import { useLazyQuery, useMutation } from '@apollo/client'
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { pageQuery } from './_pageQuery.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
@@ -26,9 +26,21 @@ import { addPageMutationFactory } from '../_addPageMutation'
 function PageCard({ username, page, indent, pgId, selectBoard }) {
     const indentation = { paddingLeft: `${indent * 10}px` }
 
-    const [getPages, { data, loading, error }] = useLazyQuery(pageQuery)
-
+    const { data, loading, error } = useQuery( pageQuery(pgId) )
     const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
+
+    const [pageList, setPageList] = useState([])
+    const [boardList, setBoardList] = useState([])
+
+    useEffect(() => {
+        console.log('in useEffect', data)
+        if (data) { 
+            setPageList(data.page.pages)
+            setBoardList(data.page.boards)
+        }
+
+    }, [data, addPageResp])
+
 
     // ui controllers
     const [collapse, setCollapse] = useState(true)
@@ -40,9 +52,9 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
 
     const handleCollapse = () => {
         setCollapse(!collapse)
-        if (!data) {
-            getPages({ variables: { id: pgId }})
-        }
+        // if (!data) {
+        //     getPages({ variables: { id: pgId }})
+        // }
         
     }
 
@@ -125,9 +137,9 @@ return (
 
         {
 
-        !collapse && data
+        !collapse && pageList
         ?
-        data.page.pages.map((page, idx) => (
+        pageList.map((page, idx) => (
             <PageCard 
             username={username}
             key={idx}
@@ -143,9 +155,9 @@ return (
 
         {
 
-        !collapse && data
+        !collapse && boardList
         ?
-        data.page.boards.map((board, idx) => (
+        boardList.map((board, idx) => (
             <BoardCard 
             key={idx} 
             board={board}

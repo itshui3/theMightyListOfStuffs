@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const pageQuery = gql`query Page($id: String) {
+const pageQuery = (id) => gql`query Page {
 
-    page(id: $id) {
+    page(id: "${id}") {
 
         pages {
             id,

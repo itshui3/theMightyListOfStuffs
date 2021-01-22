@@ -29,14 +29,23 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
     const { data, loading, error } = useQuery( pageQuery(pgId) )
     const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
 
+
     const [pageList, setPageList] = useState([])
     const [boardList, setBoardList] = useState([])
 
     useEffect(() => {
+        // boot up pages/boards on mount
         console.log('in useEffect', data)
-        if (data) { 
+        if (data && !addPageResp.called) { 
             setPageList(data.page.pages)
             setBoardList(data.page.boards)
+        } 
+
+        // update pages/boards on mutate
+        console.log('in useEffect', addPageResp)
+        if (addPageResp.called && addPageResp.data) {
+            setPageList(addPageResp.data.addPage.pages)
+            setBoardList(addPageResp.data.addPage.boards)
         }
 
     }, [data, addPageResp])

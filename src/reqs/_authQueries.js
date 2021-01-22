@@ -18,20 +18,10 @@ const loginQuery = gql`query Login($username: String){
     }
 }`
 
-const regMutation = gql`mutation Register($username: String){
+const regMutation = gql`mutation Register($username: String!){
     addUser(name: $username) {
         id,
-        name,
-        pages {
-            id,
-            title
-        },
-
-        boards {
-            id,
-            title,
-            tasks
-        }
+        name
     }
 }`
 
@@ -39,3 +29,4 @@ export {
     loginQuery,
     regMutation
 }
+

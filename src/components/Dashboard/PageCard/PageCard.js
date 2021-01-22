@@ -63,8 +63,15 @@ return (
         className='pageCard_header'
         style={hoverState.style}
         
-        onMouseOver={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OVER, payload: { ...indentation, ...hover} })}
-        onMouseOut={() => dispatchHover({ type: HOVER_ACTION.MOUSE_OUT, payload: { ...indentation } })}>
+        onMouseOver={() => dispatchHover({ 
+            type: HOVER_ACTION.MOUSE_OVER, 
+            payload: { ...indentation, ...hover} 
+        })}
+
+        onMouseOut={() => dispatchHover({ 
+            type: HOVER_ACTION.MOUSE_OUT, 
+            payload: { ...indentation } 
+        })}>
 
 
             <ExpandArrowSVG

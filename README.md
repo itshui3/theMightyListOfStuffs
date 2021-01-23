@@ -20,7 +20,7 @@ Users can add embedded pages
 Users can add boards/embedded boards
 
 - [x]  Input Board compo at root level(and associated UI flow)
-- [ ]  Input Board compo in nested pages(and associated UI flow)
+- [x]  Input Board compo in nested pages(and associated UI flow)
 
 Logic:
 
@@ -34,13 +34,15 @@ Users can add embedded pages
 Users can add boards/embedded boards
 
 - [x]  Root level Input Board compo can send queries/mutations
-- [ ]  Nested Input Board compo can send queries/mutations
+- [x]  Nested Input Board compo can send queries/mutations
 
-User can make modify boards
+User can make/modify boards
+
 - [ ]  Root Board can update
 - [ ]  Nested Board can update
 
 Major Features in Next Release(To be continued after portfolio): 
+
 - [ ]  additional CRUD for pages(edit title/delete)
 - [ ]  additional CRUD for boards(edit title/delete)
 - [ ]  drag & drop todos between tasks

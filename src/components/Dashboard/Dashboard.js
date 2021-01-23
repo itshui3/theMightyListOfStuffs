@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { addPageMutationRoot } from './_addPageMutation.js'
+import { addBoardMutationRoot } from './_addBoardMutation.js'
 
 import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
@@ -12,13 +13,38 @@ import PageInputWrapper from './Input/PageInputWrapper.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
+function Dashboard({ pgs, brds, selectBoard, username }) {
 
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
     const [addPage, addPageResp] = useMutation( addPageMutationRoot(username) )
-    const dummyAddBoard = (boardVars) => {
-        // a dummy fn so I can compose addBoard
-    }
+    const [addBoard, addBoardResp] = useMutation( addBoardMutationRoot(username) )
+
+    const [pages, setPages] = useState([])
+    const [boards, setBoards] = useState([])
+
+    useEffect(() => {
+        // initial render page pop
+        if (!addPageResp.called) { setPages(pgs) }
+
+        // update pages on mutate
+        if (addPageResp.data) {
+            console.log('addPageResp', addPageResp)
+            setPages(addPageResp.data.addPageRoot.pages)
+        }
+    }, [addPageResp])
+
+    useEffect(() => {
+        // initial render board pop
+        console.log('boards init render', brds)
+        if (!addBoardResp.called) { setBoards(brds) }
+
+        // update boards on mutate
+        if (addBoardResp.data) {
+            console.log('addBoardResp', addBoardResp)
+            setBoards(addBoardResp.data.addBoardRoot.boards)
+        }
+        
+    }, [addBoardResp])
 
     const pushPageFactory = (username) =>  (pgId, title) => {
 
@@ -27,16 +53,24 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
             variables: { 
                 username: username,
                 title: title,
-                pgId: pgId.length > 0 ? pgId : ''
+                pgId: pgId
             } 
         
         })
     }
 
-    const pushBoardFactory = (username) => (pgId, boardAssets) => {
+    const pushBoardFactory = (username) => (pgId, title) => {
 
         // logic to push board, with useMutation deps
-
+        addBoard({ 
+            
+            variables: {
+                username: username,
+                title: title,
+                pgId: pgId
+            }
+    
+        })
 
     }
 
@@ -50,9 +84,9 @@ return (
         <div className='dashboard_cardsCont'>
 
             {
-                pgs && pgs.length > 0
+                pages && pages.length > 0
                 ?
-                pgs.map((page, idx) => (
+                pages.map((page, idx) => (
                     <PageCard 
                     username={username}
                     key={idx}
@@ -87,7 +121,6 @@ return (
 
         <BoardInputWrapper
         pushBoard={ pushBoardFactory(username) }
-        pgId={''}
         />
         <PageInputWrapper 
         pushPage={ pushPageFactory(username) }

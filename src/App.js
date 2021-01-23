@@ -27,6 +27,7 @@ function App() {
     useEffect(() => {
 
         if (loginResp.data) { 
+            console.log('init render app.js loginResp:', loginResp)
             setUser(loginResp.data.user)
         }
         
@@ -49,8 +50,6 @@ function App() {
         setSelectedBoard(board)
     }
 
-    const pushBoard = (board, nestSeq) => {}
-
 return (
 <>
 
@@ -59,10 +58,9 @@ return (
     <Dashboard 
     selectBoard={selectBoard}
     // Create
-    pushBoard={pushBoard}
 
     pgs={user.pages}
-    boards={user.boards}
+    brds={user.boards}
     username={user.name}
     />
 

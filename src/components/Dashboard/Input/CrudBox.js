@@ -68,7 +68,7 @@ function CrudBox({
             handleCollapse()
         }
         // render PageInput
-        dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_ADDING_BRD })
+        dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_BRD })
         deactivate()
     }
 

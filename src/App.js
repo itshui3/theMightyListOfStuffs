@@ -26,11 +26,7 @@ function App() {
 
     useEffect(() => {
 
-        if (loginResp.data) { 
-            console.log('init render app.js loginResp:', loginResp)
-            setUser(loginResp.data.user)
-        }
-        
+        if (loginResp.data) { setUser(loginResp.data.user) }
         else if (regResp.data) setUser(regResp.data.addUser)
 
     }, [loginResp, regResp])
@@ -38,11 +34,6 @@ function App() {
     if (loginResp.loading || regResp.loading) return <Loading />
     if (loginResp.error || regResp.error) return <h1>Error: {loginResp.error ? JSON.stringify(loginResp.error) : JSON.stringify(regResp.error)}</h1>
     if (!loginResp.data && !regResp.data) return (<Auth authAPI={authAPI} />)
-
-// rewrite this so that it doesn't just render same data once 1.16.21
-// [0] - next todo
-// [1] - user comes from data.user if login
-// [2] - user comes from data.addUser if reg
 
     const deselectBoard = () => { setSelectedBoard({}) }
 

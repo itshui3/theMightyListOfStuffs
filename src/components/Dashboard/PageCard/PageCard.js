@@ -55,6 +55,9 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
+    useEffect(() => {
+        console.log('isAdding.brd', isAdding.brd)
+    }, [isAdding.brd])
     const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
 
     const handleCollapse = () => { setCollapse(!collapse) }
@@ -81,7 +84,7 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
     const handleSaveBrd = (pdId) => (board) => {
         if (board && board.length > 0) {
 
-            
+
 
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_BRD })
         }
@@ -143,10 +146,10 @@ return (
         null}
 
         {/* board input render */}
-        {isAdding.board
+        {isAdding.brd
         ?
         <BoardInput
-        handleSave={}
+        handleSave={handleSaveBrd(pgId)}
         unMountOnBlur={unMountBrdInputOnBlur}
         />
         :

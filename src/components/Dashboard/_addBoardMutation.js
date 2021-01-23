@@ -13,13 +13,14 @@ mutation AddBoard($title: String!, $rootID: String){
 
         boards {
             id,
-            title
+            title,
+            tasks
         }
     }
 }`
 
 const addBoardMutationRoot = (username) => (gql`
-mutation AddBoardRoot($title: String!, $rootID: String){
+mutation AddBoardRoot($title: String!){
     addBoardRoot(username: "${username}", title: $title) {
         id,
         name,
@@ -31,7 +32,8 @@ mutation AddBoardRoot($title: String!, $rootID: String){
 
         boards {
             id,
-            title
+            title,
+            tasks
         }
     }
 }`)

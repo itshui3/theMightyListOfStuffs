@@ -10,12 +10,7 @@ function BoardInputWrapper({ pushBoard }) {
 
         if (boardName.length > 0) {
 
-            const newBoard = {
-                title: boardName,
-                tasks: []
-            }
-
-            pushBoard('', JSON.stringify(newBoard))
+            pushBoard('', boardName)
             setAddingBoard(false)
         }
 

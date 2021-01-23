@@ -13,11 +13,38 @@ import PageInputWrapper from './Input/PageInputWrapper.js'
 
 import './Dashboard.css'
 
-function Dashboard({ pgs, boards, selectBoard, username }) {
+function Dashboard({ pgs, brds, selectBoard, username }) {
 
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
     const [addPage, addPageResp] = useMutation( addPageMutationRoot(username) )
     const [addBoard, addBoardResp] = useMutation( addBoardMutationRoot(username) )
+
+    const [pages, setPages] = useState([])
+    const [boards, setBoards] = useState([])
+
+    useEffect(() => {
+        // initial render page pop
+        if (!addPageResp.called) { setPages(pgs) }
+
+        // update pages on mutate
+        if (addPageResp.data) {
+            console.log('addPageResp', addPageResp)
+            setPages(addPageResp.data.addPageRoot.pages)
+        }
+    }, [addPageResp])
+
+    useEffect(() => {
+        // initial render board pop
+        console.log('boards init render', brds)
+        if (!addBoardResp.called) { setBoards(brds) }
+
+        // update boards on mutate
+        if (addBoardResp.data) {
+            console.log('addBoardResp', addBoardResp)
+            setBoards(addBoardResp.data.addBoardRoot.boards)
+        }
+        
+    }, [addBoardResp])
 
     const pushPageFactory = (username) =>  (pgId, title) => {
 
@@ -57,9 +84,9 @@ return (
         <div className='dashboard_cardsCont'>
 
             {
-                pgs && pgs.length > 0
+                pages && pages.length > 0
                 ?
-                pgs.map((page, idx) => (
+                pages.map((page, idx) => (
                     <PageCard 
                     username={username}
                     key={idx}

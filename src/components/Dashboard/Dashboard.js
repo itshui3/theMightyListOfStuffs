@@ -16,6 +16,9 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
 
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
     const [addPage, addPageResp] = useMutation( addPageMutationRoot(username) )
+    const dummyAddBoard = (boardVars) => {
+        // a dummy fn so I can compose addBoard
+    }
 
     const pushPageFactory = (username) =>  (pgId, title) => {
 
@@ -33,6 +36,8 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
     const pushBoardFactory = (username) => (pgId, boardAssets) => {
 
         // logic to push board, with useMutation deps
+
+
     }
 
 return (

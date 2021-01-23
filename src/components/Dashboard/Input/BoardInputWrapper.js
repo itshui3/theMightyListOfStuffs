@@ -1,8 +1,6 @@
 import './_BoardInputWrapper.css'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import BoardInput from './BoardInput'
-// compos
-// import PageInput from './PageInput'
 
 function BoardInputWrapper({ pushBoard, pgId }) {
 

@@ -2,11 +2,11 @@ import './_BoardInputWrapper.css'
 import React, { useState } from 'react'
 import BoardInput from './BoardInput'
 
-function BoardInputWrapper({ pushBoard, pgId }) {
+function BoardInputWrapper({ pushBoard }) {
 
     const [addingBoard, setAddingBoard] = useState(false)
 
-    const handleSaveBrd = (pgId) => (boardName) => {
+    const handleSaveBrd = (boardName) => {
 
         if (boardName.length > 0) {
 
@@ -15,7 +15,7 @@ function BoardInputWrapper({ pushBoard, pgId }) {
                 tasks: []
             }
 
-            pushBoard(pgId, JSON.stringify(newBoard))
+            pushBoard('', JSON.stringify(newBoard))
             setAddingBoard(false)
         }
 
@@ -42,7 +42,7 @@ return (
 
 (<BoardInput
 unMountOnBlur={ unMountOnBlur }
-handleSave={ handleSaveBrd(pgId) }
+handleSave={ handleSaveBrd }
 />)
 
 }

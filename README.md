@@ -11,28 +11,36 @@ Current Progression Towards MvP:
 UI:
 
 Users can add embedded pages
+
 - [x]  Crudbox hover propagates to parent(undesired behavior)
 - [x]  onComponentBlur not working
 - [x]  Crudbox onClick should pop-up an addPage modal
-- [ ]  Fix componentBlur contradicting mountCrudBox
+- [ ]  Fix componentBlur contradicting mountCrudBox(doesn't really affect user experience, neglect for the time being)
 
 Users can add boards/embedded boards
-- [ ]  Input Board compo at root level(and associated UI flow)
+
+- [x]  Input Board compo at root level(and associated UI flow)
 - [ ]  Input Board compo in nested pages(and associated UI flow)
 
 Logic:
 
 Users can add embedded pages
-- [ ]  User can persist nested pages
-- can't seem to fetch page root from _id args.rootID(looks like recursive embedding w/ mongodb was a bad idea, no wonder notion does separate fetches upon expand lel)
-- will require flattening pages schema on the API side
-- [ ]  Write separate queries within Pages to fetch by reference when user requires, rather than the entire embedded doc
+
+- [x]  User can persist nested pages
+- can't seem to fetch page root from _id args.rootID
+- will require flattening recursively embedded pages in API
+- [x]  Write separate queries within Pages to fetch by reference when user requires, rather than the entire embedded doc
 
 Users can add boards/embedded boards
-- [ ]  Root level Input Board compo can send queries/mutations
+
+- [x]  Root level Input Board compo can send queries/mutations
 - [ ]  Nested Input Board compo can send queries/mutations
 
-Research Needed: 
+User can make modify boards
+- [ ]  Root Board can update
+- [ ]  Nested Board can update
 
-- [x]  stopPropagation, bubbling
-- [x]  MongoDB fetching nested model data
+Major Features in Next Release(To be continued after portfolio): 
+- [ ]  additional CRUD for pages(edit title/delete)
+- [ ]  additional CRUD for boards(edit title/delete)
+- [ ]  drag & drop todos between tasks

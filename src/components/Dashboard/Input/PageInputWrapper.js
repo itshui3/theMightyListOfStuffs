@@ -1,8 +1,6 @@
 import './_PageInputWrapper.css'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import PageInput from './PageInput'
-// compos
-// import PageInput from './PageInput'
 
 function PageInputWrapper({ pushPage, pgId }) {
 

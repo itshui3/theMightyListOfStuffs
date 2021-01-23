@@ -4,30 +4,17 @@ import React, { useState, useEffect, useRef } from 'react'
 function PageInput({ handleSave, unMountOnBlur }) {
 
     const [page, setPage] = useState('')
-    // const [addingPage, setAddingPage] = useState(false)
-    // i need a state action that sets addingPageFalse
 
     const [lock, setLock] = useState(false)
 
     const pageInputRef = useRef()
 
-    useEffect(() => {
-// do I need this as a setTimeout? 
+    useEffect(() => { pageInputRef.current.focus() }, [])
 
-        pageInputRef.current.focus()
-
-    }, [])
-
-    const handleWrite = (ev) => {
-        setPage(ev.target.value)
-    }
+    const handleWrite = (ev) => { setPage(ev.target.value) }
 
     const handleBlur = () => {
-        if(!lock) {
-            // setAddingPage(false)
-            // use state action here
-            unMountOnBlur()
-        }
+        if(!lock) { unMountOnBlur() }
     }
 
     const lockUnlock = () => {

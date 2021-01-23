@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 
 import { useMutation } from '@apollo/client'
 
-import { addPageMutationFactory, addPageMutationRoot } from './_addPageMutation.js'
+import { addPageMutationRoot } from './_addPageMutation.js'
 
 import BoardCard from './BoardCard/BoardCard.js'
 import PageCard from './PageCard/PageCard.js'
 
-import BoardInput from './Input/BoardInput.js'
+import BoardInputWrapper from './Input/BoardInputWrapper'
 import PageInputWrapper from './Input/PageInputWrapper.js'
 
 import './Dashboard.css'
@@ -16,8 +16,11 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
 
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
     const [addPage, addPageResp] = useMutation( addPageMutationRoot(username) )
+    const dummyAddBoard = (boardVars) => {
+        // a dummy fn so I can compose addBoard
+    }
 
-    const pushPage = (pgId, title) => {
+    const pushPageFactory = (username) =>  (pgId, title) => {
 
         addPage({ 
 
@@ -28,6 +31,13 @@ function Dashboard({ pgs, boards, selectBoard, pushBoard, username }) {
             } 
         
         })
+    }
+
+    const pushBoardFactory = (username) => (pgId, boardAssets) => {
+
+        // logic to push board, with useMutation deps
+
+
     }
 
 return (
@@ -49,7 +59,7 @@ return (
                     page={page}
                     pgId={page.id}
                     selectBoard={selectBoard}
-                    pushPage={pushPage}
+                    pushPage={ pushPageFactory(username) }
                     indent={0}
                     />))
                 :
@@ -74,12 +84,13 @@ return (
             }
 
         </div>
-                
-        
-        {/* <BoardInput pushBoard={pushBoard} /> */}
 
+        <BoardInputWrapper
+        pushBoard={ pushBoardFactory(username) }
+        pgId={''}
+        />
         <PageInputWrapper 
-        pushPage={pushPage}
+        pushPage={ pushPageFactory(username) }
         pgId={''}
         />
     </div>

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const addBoardMutation = gql`
-mutation AddBoard($title: String!, $rootID: String){
+mutation AddBoard($title: String!, $rootID: String!){
     addBoardPage(rootID: $rootID, title: $title) {
         id,
         title,

@@ -5,7 +5,7 @@ import './pageLoading.sass'
 // react deps
 import React, { useState, useReducer, useEffect } from 'react'
 // remote
-import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { pageQuery } from './_pageQuery.js'
 // components
 import ExpandArrowSVG from './ExpandArrowSVG.js'
@@ -21,6 +21,7 @@ import { hoverReducer, HOVER_ACTION } from './_hoverReducer'
 import { initAddingState, IS_ADDING_ACTION, isAddingReducer } from './_isAddingReducer'
 // queries
 import { addPageMutationFactory } from '../_addPageMutation'
+import { addBoardMutation } from '../_addBoardMutation'
 
 // pgId is this pg's id
 function PageCard({ username, page, indent, pgId, selectBoard }) {
@@ -28,6 +29,7 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
 
     const { data } = useQuery( pageQuery(pgId) )
     const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
+    const [addBoard, addBoardResp] = useMutation( addBoardMutation )
 
 
     const [pageList, setPageList] = useState([])
@@ -40,13 +42,19 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
             setBoardList(data.page.boards)
         } 
 
-        // update pages/boards on mutate
+        // update pages/boards on mutate pg
         if (addPageResp.called && addPageResp.data) {
             setPageList(addPageResp.data.addPage.pages)
             setBoardList(addPageResp.data.addPage.boards)
         }
 
-    }, [data, addPageResp])
+        // update pages/boards on mutate brd
+        if (addBoardResp.called && addBoardResp.data) {
+            setPageList(addBoardResp.data.addBoardPage.pages)
+            setBoardList(addBoardResp.data.addBoardPage.boards)
+        }
+
+    }, [data, addPageResp, addBoardResp])
 
 
     // ui controllers
@@ -55,9 +63,6 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
-    useEffect(() => {
-        console.log('isAdding.brd', isAdding.brd)
-    }, [isAdding.brd])
     const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
 
     const handleCollapse = () => { setCollapse(!collapse) }
@@ -81,10 +86,17 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
 
     }
 
-    const handleSaveBrd = (pdId) => (board) => {
+    const handleSaveBrd = (pgId) => (board) => {
         if (board && board.length > 0) {
 
+            addBoard({
 
+                variables: {
+                    rootID: pgId,
+                    title: board
+                }
+
+            })
 
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_BRD })
         }

@@ -75,8 +75,6 @@ function CrudBox({
 return (
 <>
 
-{/* try rendering pageInput here as an absolutely positioned modal */}
-
 <div className='crudBox_cont' style={hoverStyle.cont} tabIndex='0' ref={crudBoxRef}
 onMouseDown={(ev) => ev.preventDefault()}
 onClick={lockRelock}

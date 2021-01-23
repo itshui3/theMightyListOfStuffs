@@ -14,7 +14,6 @@ import PageInputWrapper from './Input/PageInputWrapper.js'
 import './Dashboard.css'
 
 function Dashboard({ pgs, brds, selectBoard, username }) {
-
     // pages prop in dashboard implies my user fetch needs to grab first layer pgs & boards
     const [addPage, addPageResp] = useMutation( addPageMutationRoot(username) )
     const [addBoard, addBoardResp] = useMutation( addBoardMutationRoot(username) )
@@ -27,22 +26,16 @@ function Dashboard({ pgs, brds, selectBoard, username }) {
         if (!addPageResp.called) { setPages(pgs) }
 
         // update pages on mutate
-        if (addPageResp.data) {
-            console.log('addPageResp', addPageResp)
-            setPages(addPageResp.data.addPageRoot.pages)
-        }
+        if (addPageResp.data) { setPages(addPageResp.data.addPageRoot.pages) }
+
     }, [addPageResp])
 
     useEffect(() => {
         // initial render board pop
-        console.log('boards init render', brds)
         if (!addBoardResp.called) { setBoards(brds) }
 
         // update boards on mutate
-        if (addBoardResp.data) {
-            console.log('addBoardResp', addBoardResp)
-            setBoards(addBoardResp.data.addBoardRoot.boards)
-        }
+        if (addBoardResp.data) { setBoards(addBoardResp.data.addBoardRoot.boards) }
         
     }, [addBoardResp])
 
@@ -60,7 +53,6 @@ function Dashboard({ pgs, brds, selectBoard, username }) {
     }
 
     const pushBoardFactory = (username) => (pgId, title) => {
-
         // logic to push board, with useMutation deps
         addBoard({ 
             
@@ -105,7 +97,7 @@ return (
                 ?
                 boards.map((board, idx) => (
                     <BoardCard 
-                    key={idx} 
+                    key={idx}
                     board={board}
                     // instead of passing in pgId / username, just toss it in a thunk so fn has everything provided
                     pgId={''}
@@ -119,7 +111,7 @@ return (
 
         </div>
 
-        <BoardInputWrapper
+        <BoardInputWrapper 
         pushBoard={ pushBoardFactory(username) }
         />
         <PageInputWrapper 

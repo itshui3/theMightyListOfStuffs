@@ -62,6 +62,16 @@ function CrudBox({
         deactivate()
     }
 
+    const handleRenderBrdInput = () => {
+        // expand parent PageCard
+        if (collapse) {
+            handleCollapse()
+        }
+        // render PageInput
+        dispatchIsAdding({ type: IS_ADDING_ACTION.ADDING_BRD })
+        deactivate()
+    }
+
 return (
 <>
 
@@ -83,18 +93,21 @@ onMouseOut={(ev) => {
 >
 
     <div className='input_option' style={{...rightBorder, ...hoverStyle.page}}
+    // hover listeners
     onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_PAGE) }}
     onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_PAGE) }}
-    
-    onClick={() => {
-        handleRenderPgInput()
-    }}>
+    // switch ui to adding pg input
+    onClick={() => { handleRenderPgInput() }}>
     <h4 className='inputOption_icon'>Pg</h4>
     </div>
     
     <div className='input_option' style={hoverStyle.board}
+    // hover listeners
     onMouseOver={(ev) => { handleHoverEvent(HOVERACTION.OVER_BOARD) }}
-    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_BOARD) }}>
+    onMouseOut={(ev) => { handleHoverEvent(HOVERACTION.OUT_BOARD) }}
+    // switch ui to adding brd input
+    onClick={() => { handleRenderBrdInput() }}
+    >
     <h4 className='inputOption_icon'>Brd</h4>
     </div>
 

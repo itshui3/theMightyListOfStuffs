@@ -55,17 +55,16 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
     const [isAdding, dispatchIsAdding] = useReducer(isAddingReducer, initAddingState)
     // isAdding.pg: Boolean
     // isAdding.brd: Boolean
+    useEffect(() => {
+        console.log('isAdding.brd', isAdding.brd)
+    }, [isAdding.brd])
     const isAddingReducerAPI = { dispatchIsAdding, IS_ADDING_ACTION }
 
-    const handleCollapse = () => {
-        setCollapse(!collapse)
-        
-    }
+    const handleCollapse = () => { setCollapse(!collapse) }
 
     const handleSavePg = (pgId) => (page) => {
 
         if (page && page.length > 0) {
-            console.log('in PageCard.js, in handleSavePg[fn], pgId', pgId)
 
             addPage({ 
 
@@ -76,14 +75,24 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
                 } 
             
             })
+
             dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
         }
 
     }
 
-    const unMountOnBlur = () => {
-        dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG })
+    const handleSaveBrd = (pdId) => (board) => {
+        if (board && board.length > 0) {
+
+
+
+            dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_BRD })
+        }
     }
+
+    const unMountPgInputOnBlur = () => { dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_PG }) }
+
+    const unMountBrdInputOnBlur = () => { dispatchIsAdding({ type: IS_ADDING_ACTION.NOT_ADDING_BRD }) }
 
 return (
 <>
@@ -126,22 +135,28 @@ return (
         className='pageCard_nest'
         >
 
-        {
-
-        isAdding.pg
+        {/* page input render */}
+        {isAdding.pg
         ?
         <PageInput 
         handleSave={handleSavePg(pgId)}
-        unMountOnBlur={unMountOnBlur}
+        unMountOnBlur={unMountPgInputOnBlur}
         />
         :
-        null
+        null}
 
-        }
+        {/* board input render */}
+        {isAdding.brd
+        ?
+        <BoardInput
+        handleSave={handleSaveBrd(pgId)}
+        unMountOnBlur={unMountBrdInputOnBlur}
+        />
+        :
+        null}
 
-        {
-
-        !collapse && pageList
+        {/* page list render */}
+        {!collapse && pageList
         ?
         pageList.map((page, idx) => (
             <PageCard 
@@ -153,13 +168,10 @@ return (
             selectBoard={selectBoard}
             />))
         :
-        null
+        null}
 
-        }
-
-        {
-
-        !collapse && boardList
+        {/* board list render */}
+        {!collapse && boardList
         ?
         boardList.map((board, idx) => (
             <BoardCard 
@@ -172,9 +184,7 @@ return (
             selectBoard={selectBoard}
             />))
         :
-        null
-
-        }
+        null}
 
         </div>
     </div>

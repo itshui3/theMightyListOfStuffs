@@ -1,3 +1,4 @@
+import './_BoardInput.css'
 import React, { useState, useEffect, useRef } from 'react'
 
 function BoardInput({ pushBoard }) {
@@ -62,7 +63,7 @@ return (
     </div>)
     :
     (<div 
-    className='dashboard_addingBoard'
+    className='boardInput_addingBoard'
     onMouseDown={(ev) => ev.preventDefault()}
     onClick={lockUnlock}
     onBlur={handleBlur}

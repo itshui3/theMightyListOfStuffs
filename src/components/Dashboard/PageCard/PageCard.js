@@ -26,7 +26,7 @@ import { addPageMutationFactory } from '../_addPageMutation'
 function PageCard({ username, page, indent, pgId, selectBoard }) {
     const indentation = { paddingLeft: `${indent * 10}px` }
 
-    const { data, loading, error } = useQuery( pageQuery(pgId) )
+    const { data } = useQuery( pageQuery(pgId) )
     const [addPage, addPageResp] = useMutation( addPageMutationFactory(username) )
 
 
@@ -35,14 +35,12 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
 
     useEffect(() => {
         // boot up pages/boards on mount
-        console.log('in useEffect', data)
         if (data && !addPageResp.called) { 
             setPageList(data.page.pages)
             setBoardList(data.page.boards)
         } 
 
         // update pages/boards on mutate
-        console.log('in useEffect', addPageResp)
         if (addPageResp.called && addPageResp.data) {
             setPageList(addPageResp.data.addPage.pages)
             setBoardList(addPageResp.data.addPage.boards)
@@ -61,9 +59,6 @@ function PageCard({ username, page, indent, pgId, selectBoard }) {
 
     const handleCollapse = () => {
         setCollapse(!collapse)
-        // if (!data) {
-        //     getPages({ variables: { id: pgId }})
-        // }
         
     }
 

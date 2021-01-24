@@ -1,5 +1,7 @@
-import './_PageInput.css'
+import './_inputs.sass'
 import React, { useState, useEffect, useRef } from 'react'
+
+import AddItemRootSVG from './AddItemRootSVG'
 
 function PageInput({ handleSave, unMountOnBlur }) {
 
@@ -29,7 +31,7 @@ return (
 <>
 
     <div 
-    className='pageInput_addingPage'
+    className='rootInput_cont'
     onMouseDown={(ev) => ev.preventDefault()}
     onBlur={handleBlur}
     onClick={lockUnlock}
@@ -41,8 +43,11 @@ return (
         ref={pageInputRef}
         />
         <div 
-        className='addingPage_saveBtn'
-        onClick={() => handleSave(page)}>+ Save Page</div>
+        className='rootInput_cont'
+        onClick={() => handleSave(page)}>
+            <AddItemRootSVG /> 
+            <p className='rootInput_text'>Save Page</p>
+        </div>
     </div>
 
 

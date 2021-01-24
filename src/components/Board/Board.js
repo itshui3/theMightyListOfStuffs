@@ -21,7 +21,6 @@ function Board({ board, deselectBoard, username, pgId }) {
     // ie. an unnecessary req is going to be sent
     useEffect(() => {
         // if taskList is updated, update remote board
-        console.log('board', board)
         editBoard({
             variables: {
                 username: username,
@@ -34,15 +33,6 @@ function Board({ board, deselectBoard, username, pgId }) {
             }
         })
     }, [taskList])
-
-    useEffect(() => {
-
-        if (editBoardResp.called && editBoardResp.data) {
-            // now we update local state
-            console.log('update in board: editBoardResp:', editBoardResp)
-        }
-
-    }, [editBoardResp])
 
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)

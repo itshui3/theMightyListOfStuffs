@@ -1,3 +1,5 @@
 .notAddingBoard_btn {
     cursor: pointer;
+
+    display: flex;
 }

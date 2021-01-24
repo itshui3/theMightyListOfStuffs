@@ -1,6 +1,9 @@
+First Release MvP as of 1.24.21. More to come maybe. 
 
 Local Boot-Up: 
+
 yarn install
+
 yarn start
 
 Note: requires API/mongodb connection to work. API: https://github.com/mighty-list-API/mighty-list-API
@@ -38,8 +41,8 @@ Users can add boards/embedded boards
 
 User can make/modify boards
 
-- [ ]  Root Board can update
-- [ ]  Nested Board can update
+- [x]  Root Board can update
+- [x]  Nested Board can update
 
 Major Features in Next Release(To be continued after portfolio): 
 

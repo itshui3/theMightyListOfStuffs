@@ -9,7 +9,7 @@ return (
 <>
     <div 
     className='boardCard_cont'
-    onClick={() => selectBoard(board)}
+    onClick={() => selectBoard(board, pgId)}
     style={indentation}>
         <div className='boardIcon_cont'>
 

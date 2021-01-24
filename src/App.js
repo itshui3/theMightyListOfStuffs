@@ -13,6 +13,7 @@ import { loginQuery, regMutation } from './reqs/_authQueries.js'
 function App() {
 
     const [selectedBoard, setSelectedBoard] = useState({})
+    const [selectedBoardPgId, setSelectedBoardPgId] = useState('')
 
     // login/reg queries
     const lazyLoginResponse = useLazyQuery(loginQuery)
@@ -37,7 +38,8 @@ function App() {
 
     const deselectBoard = () => { setSelectedBoard({}) }
 
-    const selectBoard = (board) => {
+    const selectBoard = (board, pgId) => {
+        setSelectedBoardPgId(pgId)
         setSelectedBoard(board)
     }
 
@@ -62,6 +64,8 @@ return (
     // selection will proc http req, feeding a board
     board={selectedBoard}
     deselectBoard={deselectBoard}
+    username={user.name}
+    pgId={selectedBoardPgId}
     />
     :
     null

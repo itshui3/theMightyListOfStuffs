@@ -62,6 +62,8 @@ return (
     // selection will proc http req, feeding a board
     board={selectedBoard}
     deselectBoard={deselectBoard}
+    username={user.name}
+    pgId={''}
     />
     :
     null

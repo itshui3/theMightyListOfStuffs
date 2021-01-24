@@ -1,16 +1,31 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Board.css'
+
+import { useMutation } from '@apollo/client'
 
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
 
 import DeselectSVG from './DeselectSVG.js'
 
-function Board({ board, deselectBoard }) {
+function Board({ board, deselectBoard, username, pgId }) {
 
     const [taskList, setTaskList] = useState(() => {
         return board && board.tasks && board.tasks.length > 0 ? JSON.parse(board.tasks) : []
     })
+
+    // const [editBoard, editBoardResp] = useMutation()
+
+    useEffect(() => {
+        // if taskList is updated, update remote board
+        console.log('board', board)
+        // editBoard({
+        //     variables: {
+        //         title: board.title,
+        //         tasks: JSON.stringify(taskList)
+        //     }
+        // })
+    }, [taskList])
 
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)

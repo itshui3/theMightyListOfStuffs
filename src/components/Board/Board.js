@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './Board.css'
 
 import { useMutation } from '@apollo/client'
+import { updateBoardMutation } from './_updateBoardMutation'
 
 import Task from './components/Task.js'
 import TaskInput from './components/TaskInput.js'
@@ -14,18 +15,34 @@ function Board({ board, deselectBoard, username, pgId }) {
         return board && board.tasks && board.tasks.length > 0 ? JSON.parse(board.tasks) : []
     })
 
-    // const [editBoard, editBoardResp] = useMutation()
+    const [editBoard, editBoardResp] = useMutation(updateBoardMutation)
 
+    // possible issue: this useEffect runs on mount
+    // ie. an unnecessary req is going to be sent
     useEffect(() => {
         // if taskList is updated, update remote board
         console.log('board', board)
-        // editBoard({
-        //     variables: {
-        //         title: board.title,
-        //         tasks: JSON.stringify(taskList)
-        //     }
-        // })
+        editBoard({
+            variables: {
+                username: username,
+                pgId: pgId,
+                // on server-side simply validate if pgId is empty string
+                // to determine ? root : page
+                boardId: board.id,
+                title: board.title,
+                tasks: JSON.stringify(taskList)
+            }
+        })
     }, [taskList])
+
+    useEffect(() => {
+
+        if (editBoardResp.called && editBoardResp.data) {
+            // now we update local state
+            console.log('update in board: editBoardResp:', editBoardResp)
+        }
+
+    }, [editBoardResp])
 
     const [task, setTask] = useState('')
     const [addingTask, setAddingTask] = useState(false)

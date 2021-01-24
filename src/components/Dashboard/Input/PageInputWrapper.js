@@ -1,5 +1,4 @@
-import './_PageInputWrapper.css'
-import './_rootInputs.sass'
+import './_inputs.sass'
 import React, { useState } from 'react'
 
 // compos
@@ -37,7 +36,7 @@ return (
 
 ?
 
-(<div className='pageInput_notAddingPage rootInput_cont'
+(<div className='rootInput_cont'
 onClick={() => { setAddingPage(true) } }
 style={hover ? hoverCont : null}
 

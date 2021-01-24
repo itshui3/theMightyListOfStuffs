@@ -1,5 +1,7 @@
-import './_BoardInput.css'
+import './_inputs.sass'
 import React, { useState, useEffect, useRef } from 'react'
+
+import AddItemRootSVG from './AddItemRootSVG'
 
 function BoardInput({ handleSave, unMountOnBlur }) {
 
@@ -12,27 +14,6 @@ function BoardInput({ handleSave, unMountOnBlur }) {
     useEffect(() => { boardInputRef.current.focus() }, [])
 
     const handleWrite = (ev) => { setBoard(ev.target.value) }
-
-    // const handleAddingBoard = () => {
-    //     setAddingBoard(true)
-    //     setTimeout(() => {
-    //         boardInputRef.current.focus()
-    //     }, .0001)
-
-    // }
-
-    // const handleAddBoard = (ev) => {
-
-    //     const newBoard = {
-    //         type: 'board',
-    //         title: board,
-    //         tasks: []
-    //     }
-    //     pushBoard(newBoard)
-    //     setBoard('')
-    //     setAddingBoard(false)
-
-    // }
 
     const handleBlur = () => {
         if (!lock) { unMountOnBlur() }
@@ -48,7 +29,7 @@ function BoardInput({ handleSave, unMountOnBlur }) {
 return (
 <>
     <div 
-    className='boardInput_addingBoard'
+    className='rootInput_cont'
     onMouseDown={(ev) => ev.preventDefault()}
     onBlur={handleBlur}
     onClick={lockUnlock}
@@ -60,8 +41,11 @@ return (
         ref={boardInputRef}
         />
         <div
-        className='addingBoard_saveBtn'
-        onClick={() => handleSave(board)}>+ Save Board</div>
+        className='rootInput_cont'
+        onClick={() => handleSave(board)}>
+            <AddItemRootSVG />
+            <p className='rootInput_text'>Save Board</p>
+        </div>
     </div>
 
 </>

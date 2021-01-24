@@ -1,5 +1,4 @@
-import './_BoardInputWrapper.css'
-import './_rootInputs.sass'
+import './_inputs.sass'
 import React, { useState } from 'react'
 
 // compos
@@ -38,7 +37,7 @@ return (
 
 ?
 
-(<div className='boardInput_notAddingBoard rootInput_cont' onClick={() => { setAddingBoard(true) } }
+(<div className='rootInput_cont' onClick={() => { setAddingBoard(true) } }
 style={hover ? hoverCont : null}
 
 onMouseOver={() => handleHover(true)}

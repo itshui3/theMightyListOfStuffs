@@ -15,6 +15,8 @@ This project was the first time I played around with drag & drop. I don't use th
 
 There's a cool effect I came up with(probably reinventing the wheel in not the best practice, but I'm proud of it!) to unmount components that I'm referring to as ComponentBlur. The problem this solves is when blurring from one dom node to another within the same component, onBlur listener can't tell that user is clicking within the same component because blur occurs on node. There's nothing natively telling the listener that user's click is still within the same component so unmount occurs unexpectedly. I found two ways to solve this but ended up settling on the async method where clicking on a node within the same component 'locks' the ability to unmount and then asynchronously unlocks. It took less code than the other method(which I can't remember anymore tbh). 
 
+I also played around with provisioning databases in mongodb atlas in this project. 
+
 <h2>Technologies Used</h2>
 <ins>API:</ins> <br/>
     "express": "^4.17.1",<br/>

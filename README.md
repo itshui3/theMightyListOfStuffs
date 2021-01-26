@@ -1,10 +1,10 @@
-#Mighty List
+<h2>Mighty List</h2>
 <br /><ins>First Release MvP as of 1.24.21. More to come maybe.</ins>
 <br /><ins>API Repo: https://github.com/mighty-list-API/mighty-list-API</ins>
 
 Mighty list is an idea I had from finding Notion.so's nested page system really useful for organizing my own tasks. Instead of holding documents though, I thought it would be cool if Trello-esque Tasks were held instead. I like trello boards for organizing implementation details but I didn't like how you had to back out to open other boards. Mighty List is my solution to this. 
 
-#What I learned
+<h2>What I learned</h2>
 
 I taught myself mongodb(with the mongoose ODM) and graphql(implemented on the API with express-graphql, and on the react client with apollo-client) with this project. There's still so much to learn about these technologies and I'm by no means an expert but I'm grateful that I can pick these things up on my own now and build out cool ideas with tools I haven't used before. 
 
@@ -14,7 +14,7 @@ This project was the first time I played around with drag & drop. I don't use th
 
 There's a cool effect I came up with(probably reinventing the wheel in not the best practice, but I'm proud of it!) to unmount components that I'm referring to as ComponentBlur. The problem this solves is when blurring from one dom node to another within the same component, onBlur listener can't tell that user is clicking within the same component because blur occurs on node. There's nothing natively telling the listener that user's click is still within the same component so unmount occurs unexpectedly. I found two ways to solve this but ended up settling on the async method where clicking on a node within the same component 'locks' the ability to unmount and then asynchronously unlocks. It took less code than the other method(which I can't remember anymore tbh). 
 
-#Technologies Used
+<h2>Technologies Used</h2>
 API: <br/>
     "express": "^4.17.1",<br/>
     "express-graphql": "^0.12.0",<br/>
@@ -25,7 +25,7 @@ Client:<br/>
     "graphql": "^15.4.0",<br/>
     "react": "^17.0.1",<br/>
     
-##Docs
+<h2>Docs</h2>
 Local Boot-Up: 
 
 yarn install<br />

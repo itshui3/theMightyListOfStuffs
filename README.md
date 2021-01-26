@@ -1,4 +1,5 @@
-<h2>Mighty List</h2>
+<h2>Mighty List</h2> 
+<ins>Client Deploy:</ins> <b>https://the-mighty-list-of-stuffs.itshui3.vercel.app/</b>
 <br /><ins>First Release MvP as of 1.24.21. More to come maybe.</ins>
 <br /><ins>API Repo: https://github.com/mighty-list-API/mighty-list-API</ins>
 

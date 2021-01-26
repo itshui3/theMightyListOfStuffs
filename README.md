@@ -34,8 +34,6 @@ Local Boot-Up:
 yarn install<br />
 yarn start
 
-Current Progression Towards MvP: 
-
 UI:
 
 Users can add embedded pages

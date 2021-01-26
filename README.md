@@ -15,12 +15,12 @@ This project was the first time I played around with drag & drop. I don't use th
 There's a cool effect I came up with(probably reinventing the wheel in not the best practice, but I'm proud of it!) to unmount components that I'm referring to as ComponentBlur. The problem this solves is when blurring from one dom node to another within the same component, onBlur listener can't tell that user is clicking within the same component because blur occurs on node. There's nothing natively telling the listener that user's click is still within the same component so unmount occurs unexpectedly. I found two ways to solve this but ended up settling on the async method where clicking on a node within the same component 'locks' the ability to unmount and then asynchronously unlocks. It took less code than the other method(which I can't remember anymore tbh). 
 
 <h2>Technologies Used</h2>
-API: <br/>
+<ins>API:</ins> <br/>
     "express": "^4.17.1",<br/>
     "express-graphql": "^0.12.0",<br/>
     "graphql": "^15.4.0",<br/>
     "mongoose": "^5.11.11"<br/>
-Client:<br/>
+<ins>Client:</ins> <br/>
     "@apollo/client": "^3.3.6",<br/>
     "graphql": "^15.4.0",<br/>
     "react": "^17.0.1",<br/>
